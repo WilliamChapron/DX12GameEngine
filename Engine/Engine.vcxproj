@@ -147,12 +147,31 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="extern\d3dx12.h" />
     <ClInclude Include="framework.h" />
     <ClInclude Include="pch.h" />
+    <ClInclude Include="src\core\Defines.h" />
+    <ClInclude Include="src\core\Engine.h" />
+    <ClInclude Include="src\core\Window.h" />
+    <ClInclude Include="src\DDSTextureLoader.h" />
+    <ClInclude Include="src\ecs\components\Camera.h" />
+    <ClInclude Include="src\ecs\components\Component.h" />
+    <ClInclude Include="src\ecs\components\Texture.h" />
+    <ClInclude Include="src\ecs\components\Transform.h" />
+    <ClInclude Include="src\ecs\entities\CubeMesh.h" />
+    <ClInclude Include="src\ecs\entities\GameObject.h" />
+    <ClInclude Include="src\ecs\systems\ComponentManager.h" />
+    <ClInclude Include="src\ecs\systems\GameObjectManager.h" />
+    <ClInclude Include="src\ecs\systems\Input.h" />
+    <ClInclude Include="src\ecs\systems\State.h" />
+    <ClInclude Include="src\ecs\systems\StateMachine.h" />
+    <ClInclude Include="src\ecs\systems\Time.h" />
+    <ClInclude Include="src\include.h" />
+    <ClInclude Include="src\renderer\Graphics.h" />
+    <ClInclude Include="src\renderer\Resources.h" />
+    <ClInclude Include="src\Utils.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="Engine.cpp" />
-    <ClCompile Include="include.h" />
     <ClCompile Include="MathLibrary.cpp" />
     <ClCompile Include="MathLibrary.h" />
     <ClCompile Include="pch.cpp">
@@ -161,6 +180,38 @@
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
     </ClCompile>
+    <ClCompile Include="src\core\Engine.cpp" />
+    <ClCompile Include="src\core\Window.cpp" />
+    <ClCompile Include="src\DDSTextureLoader.cpp" />
+    <ClCompile Include="src\ecs\components\Camera.cpp" />
+    <ClCompile Include="src\ecs\components\Component.cpp" />
+    <ClCompile Include="src\ecs\components\Shader.cpp" />
+    <ClCompile Include="src\ecs\components\Shader.h.cpp" />
+    <ClCompile Include="src\ecs\components\Texture.cpp" />
+    <ClCompile Include="src\ecs\components\Transform.cpp" />
+    <ClCompile Include="src\ecs\entities\CubeMesh.cpp" />
+    <ClCompile Include="src\ecs\entities\GameObject.cpp" />
+    <ClCompile Include="src\ecs\systems\ComponentManager.cpp" />
+    <ClCompile Include="src\ecs\systems\GameObjectManager.cpp" />
+    <ClCompile Include="src\ecs\systems\Input.cpp" />
+    <ClCompile Include="src\ecs\systems\StateMachine.cpp" />
+    <ClCompile Include="src\ecs\systems\Time.cpp" />
+    <ClCompile Include="src\main.cpp" />
+    <ClCompile Include="src\renderer\Graphics.cpp" />
+    <ClCompile Include="src\renderer\Resources.cpp" />
+    <ClCompile Include="src\Utils.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="res\texture\texture.dds" />
+    <Image Include="res\texture\texture2.dds" />
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="res\shader\Shader.hlsl">
+      <FileType>Document</FileType>
+    </Text>
+    <Text Include="res\shader\ShaderTriangle.hlsl">
+      <FileType>Document</FileType>
+    </Text>
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

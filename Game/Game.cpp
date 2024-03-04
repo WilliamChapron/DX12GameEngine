@@ -8,8 +8,10 @@
 #include <Windows.h>
 #include <iostream>
 
-#include "./include.h"
+#include "./src/include.h"
 #include "./MathLibrary.h"
+#include "./src/core/Engine.h"
+
 
 #define MAX_LOADSTRING 100
 
@@ -43,7 +45,12 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
 
     std::cout << MathLibrary::Arithmetic::Add(1.f, 1.f)  << std::endl;
 
+    /*ID3D12Device* pD3DDevice = nullptr;
+    D3D_FEATURE_LEVEL featureLevel;
 
+    if (FAILED(D3D11CreateDevice(nullptr, D3D_DRIVER_TYPE_HARDWARE, nullptr, 0, nullptr, 0, D3D11_SDK_VERSION, &pD3DDevice, &featureLevel, &pImmediateContext))) {
+        return -1;
+    }*/
 
     while (true) {};
 
