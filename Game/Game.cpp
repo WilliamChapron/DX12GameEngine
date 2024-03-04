@@ -8,6 +8,7 @@
 #include <Windows.h>
 #include <iostream>
 
+#include "./include.h"
 #include "./MathLibrary.h"
 
 #define MAX_LOADSTRING 100
@@ -41,6 +42,8 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
     }
 
     std::cout << MathLibrary::Arithmetic::Add(1.f, 1.f)  << std::endl;
+
+
 
     while (true) {};
 
