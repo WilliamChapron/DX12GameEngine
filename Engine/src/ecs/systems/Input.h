@@ -1,8 +1,5 @@
 ﻿#pragma once
 
-#include <unordered_map>
-#include <Windows.h>
-#include <iostream>
 
 enum class KeyState {
     Pressed,

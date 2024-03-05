@@ -1,11 +1,8 @@
 #pragma once
 
-#include "../../include.h"
+
 #include "../../core/Defines.h"
 #include "../entities/GameObject.h"
-#include <vector>
-#include <unordered_map>
-#include <string>
 
 class Renderer;
 class Camera;

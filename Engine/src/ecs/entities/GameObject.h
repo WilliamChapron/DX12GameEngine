@@ -1,15 +1,8 @@
 #pragma once
 
 
-#include "../../include.h"
 #include "../components/Transform.h"
 
-#include <iostream>
-#include <map>
-#include <list>
-#include <vector>
-#include <unordered_map>
-#include <string>
 
 using namespace DirectX;
 using Microsoft::WRL::ComPtr;

@@ -1,12 +1,12 @@
-
+#include "../../../pch.h"
 
 #include "CubeMesh.h"
 #include "../../renderer/Graphics.h"
 #include "../../core/Defines.h"
-#include <stdexcept>
+
 
 #include "../../Utils.h"
-#include <DirectXColors.h>
+
 
 #include "../components/Camera.h"
 #include "../components/Texture.h"

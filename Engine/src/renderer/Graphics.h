@@ -1,9 +1,7 @@
 #pragma once
 
-#include "../include.h"
+
 #include "Resources.h"
-#include <iostream>
-#include <vector>
 
 
 class Window;

@@ -4,13 +4,6 @@
 //#include "../entities/GameObject.h"  
 #include "../components/Component.h"  
 
-#include <iostream>
-#include <map>
-#include <list>
-#include <vector>
-#include <unordered_map>
-#include <string>
-
 
 class GameObjectManager;
 class GameObject;

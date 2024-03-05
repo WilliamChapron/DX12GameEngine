@@ -1,6 +1,5 @@
 // MathLibrary.h
 #pragma once
-#include "pch.h"
 
 namespace MathLibrary
 {

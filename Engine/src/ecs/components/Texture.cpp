@@ -1,3 +1,5 @@
+#include "../../../pch.h"
+
 #include "Texture.h"
 #include "../../renderer/Graphics.h"
 #include "../../core/Defines.h"

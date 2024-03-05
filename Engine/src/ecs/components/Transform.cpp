@@ -1,3 +1,5 @@
+#include "../../../pch.h"
+
 #include "Transform.h"
 #include "../../core/Defines.h"
 //

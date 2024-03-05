@@ -186,7 +186,7 @@
     <ClCompile Include="src\ecs\components\Camera.cpp" />
     <ClCompile Include="src\ecs\components\Component.cpp" />
     <ClCompile Include="src\ecs\components\Shader.cpp" />
-    <ClCompile Include="src\ecs\components\Shader.h.cpp" />
+    <ClCompile Include="src\ecs\components\Shader.h" />
     <ClCompile Include="src\ecs\components\Texture.cpp" />
     <ClCompile Include="src\ecs\components\Transform.cpp" />
     <ClCompile Include="src\ecs\entities\CubeMesh.cpp" />

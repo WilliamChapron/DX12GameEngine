@@ -1,3 +1,5 @@
+#include "../../../pch.h"
+
 #include "GameObject.h"
 #include "../../renderer/Graphics.h"
 #include "../../core/Defines.h"
@@ -9,9 +11,6 @@
 #include "../../core/Engine.h"  
 #include "../components/Camera.h"
 
-
-#include <iostream>
-#include <iomanip>
 
 GameObject::GameObject() : m_vertexBuffer(nullptr), m_indexBuffer(nullptr), m_constantBuffer(nullptr), m_mappedConstantBuffer(nullptr), m_vertexBufferView({}), m_indexBufferView({}), m_cbData()
 {

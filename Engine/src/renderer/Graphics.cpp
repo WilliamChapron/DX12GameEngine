@@ -1,6 +1,7 @@
 #pragma once
 
-#include "../include.h"
+#include "../../pch.h"
+
 #include "Graphics.h"
 #include "../core/Defines.h"
 #include "../core/Window.h"

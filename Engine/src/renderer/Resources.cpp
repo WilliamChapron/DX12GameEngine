@@ -1,5 +1,7 @@
 #pragma once
 
+#include "./../../pch.h"
+
 #include "./Resources.h"
 #include "../core/Defines.h"
 #include "./Graphics.h"

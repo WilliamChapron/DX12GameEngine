@@ -1,6 +1,5 @@
 #pragma once
 
-#include "../../include.h"
 #include "./Component.h"
 
 using namespace DirectX;

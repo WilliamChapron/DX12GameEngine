@@ -2,11 +2,7 @@
 
 #pragma once
 
-#include "../../pch.h"   
 
-
-#include <Windows.h>
-#include <iostream>
 #include "../ecs/systems/StateMachine.h"
 class Renderer;
 class CubeMesh;
