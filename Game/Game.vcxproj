@@ -154,12 +154,22 @@
   </ItemGroup>
   <ItemGroup>
     <Image Include="Game.ico" />
+    <Image Include="res\texture\texture.dds" />
+    <Image Include="res\texture\texture2.dds" />
     <Image Include="small.ico" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Engine\Engine.vcxproj">
       <Project>{99c9fb43-75b9-4aa6-9f24-df5bdd2ffed5}</Project>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="res\shader\Shader.hlsl">
+      <FileType>Document</FileType>
+    </Text>
+    <Text Include="res\shader\ShaderTriangle.hlsl">
+      <FileType>Document</FileType>
+    </Text>
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

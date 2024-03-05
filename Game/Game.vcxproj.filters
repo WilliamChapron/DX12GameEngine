@@ -48,5 +48,11 @@
     <Image Include="Game.ico">
       <Filter>Fichiers de ressources</Filter>
     </Image>
+    <Image Include="res\texture\texture.dds" />
+    <Image Include="res\texture\texture2.dds" />
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="res\shader\ShaderTriangle.hlsl" />
+    <Text Include="res\shader\Shader.hlsl" />
   </ItemGroup>
 </Project>
