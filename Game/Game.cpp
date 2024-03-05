@@ -8,8 +8,7 @@
 #include <Windows.h>
 #include <iostream>
 
-#include "./src/include.h"
-#include "./MathLibrary.h"
+#include "./stafx.h"
 #include "./src/core/Engine.h"
 
 
@@ -43,7 +42,7 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
         return 1;
     }
 
-    std::cout << MathLibrary::Arithmetic::Add(1.f, 1.f)  << std::endl;
+    //std::cout << MathLibrary::Arithmetic::Add(1.f, 1.f)  << std::endl;
 
     /*ID3D12Device* pD3DDevice = nullptr;
     D3D_FEATURE_LEVEL featureLevel;
@@ -51,6 +50,8 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
     if (FAILED(D3D11CreateDevice(nullptr, D3D_DRIVER_TYPE_HARDWARE, nullptr, 0, nullptr, 0, D3D11_SDK_VERSION, &pD3DDevice, &featureLevel, &pImmediateContext))) {
         return -1;
     }*/
+
+    Engine::GetInstance().Init(hInstance, nCmdShow);
 
     while (true) {};
 

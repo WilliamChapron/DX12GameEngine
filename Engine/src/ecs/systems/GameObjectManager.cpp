@@ -1,4 +1,4 @@
-#include "../../../pch.h"
+#include "pch.h"
 
 #include "GameObjectManager.h"
 #include "../../renderer/Graphics.h" // renderer

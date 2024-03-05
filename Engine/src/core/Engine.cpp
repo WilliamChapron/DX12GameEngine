@@ -1,10 +1,10 @@
 
-#include "../../pch.h"
+#include "pch.h"
 
 #include "Engine.h"
 #include "../ecs/entities/CubeMesh.h"
 
-#include "../../pch.h"
+#include "pch.h"
 
 #include "../renderer/Graphics.h"   
 #include "Defines.h"   

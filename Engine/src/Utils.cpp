@@ -1,4 +1,4 @@
-#include "../pch.h"
+#include "pch.h"
 #include "Utils.h"
 
 void PrintMatrix(const DirectX::XMFLOAT4X4& matrix)

@@ -17,13 +17,14 @@
 // http://go.microsoft.com/fwlink/?LinkId=248926
 // http://go.microsoft.com/fwlink/?LinkId=248929
 //--------------------------------------------------------------------------------------
+#include "pch.h"
 #include <assert.h>
 #include <algorithm>
 #include <memory>
 #include <wrl.h>
 #include <new>
 
-#include "include.h"
+//#include "include.h"
 #include "DDSTextureLoader.h" 
 
 using namespace Microsoft::WRL;

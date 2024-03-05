@@ -1,6 +1,6 @@
 // main.cpp
 
-#include "../pch.h"
+#include "pch.h"
 #include "core/Window.h"
 #include "core/Engine.h"
 

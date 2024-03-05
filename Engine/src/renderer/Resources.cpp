@@ -1,6 +1,6 @@
-#pragma once
+//#pragma once
 
-#include "./../../pch.h"
+#include "pch.h"
 
 #include "./Resources.h"
 #include "../core/Defines.h"
