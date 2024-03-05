@@ -2,4 +2,3 @@
 
 #include "stdafx.h"
 
-// Quand vous utilisez des en-têtes précompilés, ce fichier source est nécessaire pour la réussite de la compilation.

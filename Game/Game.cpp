@@ -3,6 +3,8 @@
 
 #include "stdafx.h"
 #include "Game.h"
+#include "GameManager.h"
+
 
 
 
@@ -47,7 +49,35 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
         return -1;
     }*/
 
+    GameManager* gameInstance = new GameManager();
     Engine::GetInstance().Init(hInstance, nCmdShow);
+    //gameInstance->Initialize();
+
+    Input* m_pInput = new Input();
+    Camera* m_pCamera = new Camera(); // #TODO Shared ptr camera to each object
+
+
+
+    std::shared_ptr<GameObjectManager> m_pGameObjectManager = std::make_shared<GameObjectManager>(m_pCamera);
+    ComponentManager* m_pComponentManager = new ComponentManager(m_pGameObjectManager, Engine::GetInstance().m_pRenderer);
+
+
+    // Create Objects
+    CubeMesh* m_pTriangle = new CubeMesh;
+    //CubeMesh* m_pTriangle2 = new CubeMesh;
+
+    m_pTriangle->Initialize(Engine::GetInstance().m_pRenderer, m_pCamera, m_pComponentManager, XMFLOAT3(0.5f, 0.0f, 0.0f), XMFLOAT3(0.0f, 0.0f, 0.0f), XMFLOAT3(1.0f, 1.0f, 1.0f));
+
+
+
+
+    //Engine::GetInstance().isRenderable = true;
+
+    m_pGameObjectManager->AddObject("Triangle", m_pTriangle);
+    
+    Engine::GetInstance().Run(gameInstance->m_pGameObjectManager, Engine::GetInstance().m_pRenderer);
+
+
 
     while (true) {};
 

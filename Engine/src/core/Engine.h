@@ -19,7 +19,7 @@ public:
     void Init(HINSTANCE hInstance, int nShowCmd);
     void Cleanup();
 
-    void Run();
+    void Run(std::shared_ptr<GameObjectManager> gameObjectManager, Renderer* renderer);
     void Update();
 
     static Engine& GetInstance() {
@@ -50,3 +50,4 @@ private:
     int m_nShowCmd;
     FILE* m_pConsole;
 };
+
