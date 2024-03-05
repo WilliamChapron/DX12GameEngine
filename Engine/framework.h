@@ -1,5 +1,9 @@
 #pragma once
 
+#pragma comment(lib,"d3dcompiler.lib")
+#pragma comment(lib, "D3D12.lib")
+#pragma comment(lib, "dxgi.lib")
+
 // en-têtes standard C++
 #include <iostream>
 #include <iomanip>
@@ -23,3 +27,5 @@
 #include <wrl/client.h>
 
 #include <DirectXColors.h>
+
+#include "src/core/Engine.h"

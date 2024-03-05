@@ -1,15 +1,11 @@
 // Game.cpp : Définit le point d'entrée de l'application.
 //
 
-#include "framework.h"
+#include "stdafx.h"
 #include "Game.h"
 
 
-#include <Windows.h>
-#include <iostream>
 
-#include "./stafx.h"
-#include "./src/core/Engine.h"
 
 
 #define MAX_LOADSTRING 100
