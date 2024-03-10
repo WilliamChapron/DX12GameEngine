@@ -1,5 +1,7 @@
 #pragma once
 
+struct Vertex;
+
 class CubeMesh {
 public:
     Vertex* cubeVertices;

@@ -1,14 +1,14 @@
 ﻿
-#include "../../../pch.h"
+#include "pch.h"
 
-#include "../entities/GameObject.hpp"
-
+//#include "../entities/GameObject.hpp"
+//
 #include "Component.h"
-#include "Transform.h"
-#include "Mesh.h"
-#include "Collider.h"
+//#include "Transform.h"
+//#include "Mesh.h"
+//#include "Collider.h"
 
-using namespace DirectX;
+//using namespace DirectX;
 
 
 ColliderComponent::ColliderComponent(std::string name) : Component(name, ComponentType::ColliderComponent) {
@@ -16,7 +16,7 @@ ColliderComponent::ColliderComponent(std::string name) : Component(name, Compone
 }
 
 
-#define PRINT_VECTOR3(vec) std::cout << #vec << ": (" << (vec).x << ", " << (vec).y << ", " << (vec).z << ")" << std::endl;
+//#define PRINT_VECTOR3(vec) std::cout << #vec << ": (" << (vec).x << ", " << (vec).y << ", " << (vec).z << ")" << std::endl;
 
 
 void ColliderComponent::InitializeBoundingBox(GameObject* gameObject, Vertex* vertices, int numVertices) {
@@ -48,7 +48,7 @@ void ColliderComponent::InitializeBoundingBox(GameObject* gameObject, Vertex* ve
 
 
 void ColliderComponent::Update(Renderer* renderer) {
-    //PRINT("Update Collider");
+    PRINT("Update Collider");
 
 }
 

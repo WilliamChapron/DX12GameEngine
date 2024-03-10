@@ -1,5 +1,6 @@
 ﻿#pragma once
 
+struct WindowProperties;
 
 enum class KeyState {
     Pressed,

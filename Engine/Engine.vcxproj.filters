@@ -45,9 +45,6 @@
     <ClInclude Include="src\ecs\components\Transform.h">
       <Filter>Fichiers d%27en-tête</Filter>
     </ClInclude>
-    <ClInclude Include="src\ecs\entities\CubeMesh.h">
-      <Filter>Fichiers d%27en-tête</Filter>
-    </ClInclude>
     <ClInclude Include="src\ecs\entities\GameObject.h">
       <Filter>Fichiers d%27en-tête</Filter>
     </ClInclude>
@@ -132,9 +129,6 @@
       <Filter>Fichiers sources</Filter>
     </ClCompile>
     <ClCompile Include="src\ecs\components\Transform.cpp">
-      <Filter>Fichiers sources</Filter>
-    </ClCompile>
-    <ClCompile Include="src\ecs\entities\CubeMesh.cpp">
       <Filter>Fichiers sources</Filter>
     </ClCompile>
     <ClCompile Include="src\ecs\entities\GameObject.cpp">

@@ -1,16 +1,16 @@
 #pragma once
 
 
-
-using namespace DirectX;
+#include "Component.h"
 
 struct AABB {
     XMFLOAT3 min;
     XMFLOAT3 max;
 };
 
-struct Vertex;
+class Component;
 class GameObject;
+
 struct Vertex;
 
 class ColliderComponent : public Component

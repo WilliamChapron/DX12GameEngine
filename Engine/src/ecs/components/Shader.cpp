@@ -1,9 +1,9 @@
-#include "../../../pch.h"
+#include "pch.h"
 
-#include "Shader.h"
-#include "./Component.h"
-
-#include "../../renderer/Graphics.h" 
+//#include "Shader.h"
+//#include "./Component.h"
+//
+//#include "../../renderer/Graphics.h" 
 
 ShaderComponent::ShaderComponent(std::string name, Renderer* pRenderer) : Component(name, ComponentType::Shader), m_pRenderer(pRenderer)
 {

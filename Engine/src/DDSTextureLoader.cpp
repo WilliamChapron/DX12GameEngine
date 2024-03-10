@@ -19,12 +19,10 @@
 //--------------------------------------------------------------------------------------
 
 
-#include "../pch.h"
+#include "pch.h"
 
 #include <assert.h>
-#include <algorithm>
 #include <memory>
-#include <wrl.h>
 #include <new>
 
 #include "DDSTextureLoader.h" 

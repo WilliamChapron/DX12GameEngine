@@ -1,11 +1,11 @@
-﻿#include "../../../pch.h"
+﻿#include "pch.h"
 
-
-#include "Input.h"
-
-#include "../../core/Window.h"
-
-#include "State.h"
+//
+//#include "Input.h"
+//
+//#include "../../core/Window.h"
+//
+//#include "State.h"
 
 
 Input::Input(WindowProperties _m_wndProps) : m_wndProps(&_m_wndProps){

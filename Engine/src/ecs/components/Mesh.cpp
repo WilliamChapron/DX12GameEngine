@@ -1,12 +1,12 @@
-#include "../../../pch.h"
+#include "pch.h"
 
-#include "Mesh.h"
-#include "Component.h"
-
-#include "../../renderer/Graphics.h"
-
-#include "../entities/GameObject.hpp"
-
+//#include "Mesh.h"
+//#include "Component.h"
+//
+//#include "../../renderer/Graphics.h"
+//
+//#include "../entities/GameObject.hpp"
+//#include "../../renderer/Resources.h"
 
 
 

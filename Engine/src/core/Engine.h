@@ -15,6 +15,7 @@ class ResourceManager;
 class Camera;
 class TextureComponent;
 class Input;
+class StateMachine;
 
 
 class Engine {

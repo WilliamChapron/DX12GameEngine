@@ -1,35 +1,35 @@
-﻿#include "../../pch.h"
+﻿#include "pch.h"
 
-#include "Engine.h"
-#include "../renderer/Graphics.h"   
-#include "Window.h"  
-
-// System
-#include "../ecs/systems/GameObjectManager.h"  
-#include "../ecs/systems/ComponentManager.h"  
-#include "../ecs/systems/ResourceManager.h"
-
-
-// Ent
-#include "../ecs/entities/GameObject.hpp"          
-
-// Component
-#include "../ecs/components/Component.h"
-#include "../ecs/components/Transform.h"
-#include "../ecs/components/Texture.h"
-#include "../ecs/components/Camera.h"
-#include "../ecs/components/Mesh.h"
-#include "../ecs/components/Shader.h"
-
-#include "../ecs/components/MeshRenderer.h"
-
-// Miscellaneous
-#include "../ecs/systems/Time.h"
-#include "../ecs/systems/Input.h"
-
-
-#include "../CommonsMesh.h"
-#include "../ecs/systems/StateMachine.h"
+//#include "Engine.h"
+//#include "../renderer/Graphics.h"   
+//#include "Window.h"  
+//
+//// System
+//#include "../ecs/systems/GameObjectManager.h"  
+//#include "../ecs/systems/ComponentManager.h"  
+//#include "../ecs/systems/ResourceManager.h"
+//
+//
+//// Ent
+//#include "../ecs/entities/GameObject.hpp"          
+//
+//// Component
+//#include "../ecs/components/Component.h"
+//#include "../ecs/components/Transform.h"
+//#include "../ecs/components/Texture.h"
+//#include "../ecs/components/Camera.h"
+//#include "../ecs/components/Mesh.h"
+//#include "../ecs/components/Shader.h"
+//
+//#include "../ecs/components/MeshRenderer.h"
+//
+//// Miscellaneous
+//#include "../ecs/systems/Time.h"
+//#include "../ecs/systems/Input.h"
+//
+//
+//#include "../CommonsMesh.h"
+//#include "../ecs/systems/StateMachine.h"
 
 
 using namespace DirectX;

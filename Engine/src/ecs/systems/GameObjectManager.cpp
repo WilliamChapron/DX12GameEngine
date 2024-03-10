@@ -1,13 +1,13 @@
-﻿#include "../../../pch.h"
+﻿#include "pch.h"
 
-#include "GameObjectManager.h"
-
-#include "../../renderer/Graphics.h" 
-
-#include "../components/Component.h" 
-#include "../components/Collider.h" 
-
-#include "../entities/GameObject.hpp"
+//#include "GameObjectManager.h"
+//
+//#include "../../renderer/Graphics.h" 
+//
+//#include "../components/Component.h" 
+//#include "../components/Collider.h" 
+//
+//#include "../entities/GameObject.hpp"
 
 
 GameObjectManager::GameObjectManager(Camera* camera) : m_pCamera(camera) {}

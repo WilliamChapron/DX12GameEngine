@@ -1,7 +1,7 @@
-#include "../../pch.h"
+#include "pch.h"
 
-#include "Window.h"
-#include "Engine.h"
+//#include "Window.h"
+//#include "Engine.h"
 
 Window::Window(HINSTANCE hInstance, int nShowCmd) {
 

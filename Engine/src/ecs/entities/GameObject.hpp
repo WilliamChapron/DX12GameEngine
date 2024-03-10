@@ -4,6 +4,8 @@
 using namespace DirectX;
 using Microsoft::WRL::ComPtr;
 
+#include "../systems/ComponentManager.h"
+
 class Renderer;
 class Component;
 class Camera;
@@ -11,6 +13,7 @@ class Mesh;
 class MeshRenderer;
 struct ConstantBufferData;
 struct Vertex;
+class ComponentManager;
 
 
 class GameObject
@@ -21,17 +24,11 @@ public:
     void Initialize(Renderer* renderer, Camera* camera, const XMFLOAT3& position, const XMFLOAT3& rotation, const XMFLOAT3& scale, Mesh* mesh, ConstantBufferData* cbData, Vertex* vertices, int numVertices);
     void Update(Renderer* renderer, Camera* camera);
 
-    //const Transform& GetTransform() const { return m_transform; }
-    //const ConstantBufferData& GetConstantBufferData() const { return m_cbData; }
 
-    template <typename T>
-    T* GetComponent(ComponentType type);
+    
 
-    template <typename T>
-    T* GameObject::GetComponent(ComponentType type) {
-        Component* component = m_pComponentManager->GetGameObjectComponentByType(*this, type);
-        return dynamic_cast<T*>(component);
-    }
+
+
 
     std::list<Component*> componentsList;
 
@@ -42,5 +39,11 @@ private:
     //ConstantBufferData m_cbData;
 
     ComponentManager* m_pComponentManager;
+public:
+    template <typename T>
+    T* GetComponent(ComponentType type) {
+        Component* component = m_pComponentManager->GetGameObjectComponentByType(*this, type);
+        return dynamic_cast<T*>(component);
+    }
 };
 

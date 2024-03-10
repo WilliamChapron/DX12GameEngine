@@ -1,17 +1,17 @@
-#include "../../../pch.h"
+#include "pch.h"
 
-#include "ComponentManager.h"
-
-#include "GameObjectManager.h"
-
-#include "../../renderer/Graphics.h"
-
-#include "../components/Camera.h"
-#include "../components/Component.h"
-
-#include "../components/Texture.h"
-#include "../components/Mesh.h"
-#include "../components/MeshRenderer.h"
+//#include "ComponentManager.h"
+//
+//#include "GameObjectManager.h"
+//
+//#include "../../renderer/Graphics.h"
+//
+//#include "../components/Camera.h"
+//#include "../components/Component.h"
+//
+//#include "../components/Texture.h"
+//#include "../components/Mesh.h"
+//#include "../components/MeshRenderer.h"
 
 
 

@@ -1,11 +1,11 @@
-#include "../../../pch.h"
+#include "pch.h"
 
-#include "ResourceManager.h"
-
-#include "../components/Component.h"
-#include "../components/Texture.h"
-#include "../components/Mesh.h"
-#include "../components/Shader.h"
+//#include "ResourceManager.h"
+//
+//#include "../components/Component.h"
+//#include "../components/Texture.h"
+//#include "../components/Mesh.h"
+//#include "../components/Shader.h"
 
 ResourceManager::ResourceManager() : m_currentMeshComponentID(0), m_currentTextureComponentID(0), m_currentShaderComponentID(0) {
 }

@@ -1,12 +1,12 @@
-#include "../../../pch.h"
+#include "pch.h"
 
-#include "Texture.h"
-#include "./Component.h"
+//#include "Texture.h"
+//#include "./Component.h"
+//
+//
+//#include "../../renderer/Graphics.h"
+//
 
-
-#include "../../renderer/Graphics.h"
-
-#include "../../DDSTextureLoader.h"
 
 TextureComponent::TextureComponent(std::string name) : Component(name, ComponentType::Texture)
 {

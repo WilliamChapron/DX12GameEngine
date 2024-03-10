@@ -1,7 +1,7 @@
-#include "../../../pch.h"
+#include "pch.h"
 
-#include "StateMachine.h"
-#include "State.h"
+//#include "StateMachine.h"
+//#include "State.h"
 
 void StateMachine::AddState(State* state) {
     states.push_back(state);

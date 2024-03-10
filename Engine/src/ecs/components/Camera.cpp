@@ -1,6 +1,8 @@
-﻿#include "Camera.h"
+﻿#include "pch.h"
 
-#include "../../../pch.h"
+//#include "Camera.h"
+
+
 
 using namespace DirectX;
 

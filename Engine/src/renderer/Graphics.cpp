@@ -1,14 +1,12 @@
-﻿#pragma once
+﻿#include "pch.h"
 
-#include "../../pch.h"
-
-#include "Graphics.h"
-
-#include "../core/Window.h"
-
-#include "../ecs/entities/GameObject.hpp"
-
-#include "Resources.h"
+//#include "Graphics.h"
+//
+//#include "../core/Window.h"
+//
+//#include "../ecs/entities/GameObject.hpp"
+//
+//#include "Resources.h"
 
 
 

@@ -1,10 +1,10 @@
-#include "../../../pch.h"
+#include "pch.h"
 
-#include "Mesh.h"
-#include "MeshRenderer.h"
-#include "Component.h"
-
-#include "../../renderer/Graphics.h"
+//#include "Mesh.h"
+//#include "MeshRenderer.h"
+//#include "Component.h"
+//
+//#include "../../renderer/Graphics.h"
 
 MeshRenderer::MeshRenderer(std::string name, ConstantBufferData* cbData, Mesh* mesh) : Component(name, ComponentType::MeshRenderer)
 {

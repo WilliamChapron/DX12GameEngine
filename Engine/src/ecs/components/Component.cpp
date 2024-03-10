@@ -1,4 +1,4 @@
-#include "../../../pch.h"
+#include "pch.h"
 
 #include "Component.h"
 
@@ -15,4 +15,5 @@ Component::~Component() {
 
 void Component::Update(Renderer* renderer)
 {
+	PRINT("Update Component");
 }

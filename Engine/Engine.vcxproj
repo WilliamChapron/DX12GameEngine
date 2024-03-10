@@ -118,7 +118,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>_DEBUG;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <PrecompiledHeader>Use</PrecompiledHeader>
+      <PrecompiledHeader>Create</PrecompiledHeader>
       <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
     </ClCompile>
     <Link>
@@ -135,7 +135,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>NDEBUG;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <PrecompiledHeader>Use</PrecompiledHeader>
+      <PrecompiledHeader>Create</PrecompiledHeader>
       <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
     </ClCompile>
     <Link>
@@ -163,7 +163,6 @@
     <ClInclude Include="src\ecs\components\ScriptComponent.h" />
     <ClInclude Include="src\ecs\components\Texture.h" />
     <ClInclude Include="src\ecs\components\Transform.h" />
-    <ClInclude Include="src\ecs\entities\CubeMesh.h" />
     <ClInclude Include="src\ecs\entities\GameObject.h" />
     <ClInclude Include="src\ecs\entities\GameObject.hpp" />
     <ClInclude Include="src\ecs\systems\ComponentManager.h" />
@@ -198,7 +197,6 @@
     <ClInclude Include="src\ecs\components\Shader.h" />
     <ClCompile Include="src\ecs\components\Texture.cpp" />
     <ClCompile Include="src\ecs\components\Transform.cpp" />
-    <ClCompile Include="src\ecs\entities\CubeMesh.cpp" />
     <ClCompile Include="src\ecs\entities\GameObject.cpp" />
     <ClCompile Include="src\ecs\systems\ComponentManager.cpp" />
     <ClCompile Include="src\ecs\systems\GameObjectManager.cpp" />
