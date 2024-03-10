@@ -1,8 +1,10 @@
 #pragma once
 
+#include "../../include.h"
 #include "./Component.h"
 
 using namespace DirectX;
+
 
 class Transform : public Component
 {
@@ -17,6 +19,17 @@ public:
     XMFLOAT4X4 GetTransformMatrix() const;
     XMFLOAT3 GetPosition() const;
     XMFLOAT3 GetScale() const;
+    XMFLOAT3 GetRotation() const;
+
+    inline XMFLOAT4X4 GetRotationMatrix() {
+        return mRotation;
+    }
+
+    inline XMFLOAT4 GetRotationQuaternion() {
+        return qRotation;
+    }
+
+    //XMFLOAT3 QuaternionToEulerAngles(const XMFLOAT4& quaternion);
 
     // Update them between each other
     void UpdateTransformMatrix();
@@ -26,6 +39,7 @@ public:
     void Translate(float offsetX, float offsetY, float offsetZ);
     void Rotate(float pitch, float roll, float yaw);
     void SetScale(float scaleX, float scaleY, float scaleZ);
+    void SetRotation(float pitch, float roll, float yaw);
 
 private:
     // Translate data

@@ -1,8 +1,5 @@
-#include "pch.h"
-
 #include "Window.h"
 #include "Engine.h"
-#include "../ecs/entities/CubeMesh.h"
 #include "Defines.h"   
 
 Window::Window(HINSTANCE hInstance, int nShowCmd) {
@@ -115,3 +112,4 @@ void Window::UpdateTitleWithFPS(int fps)
 
     SetWindowText(m_wndProps.hwnd, newTitle.c_str());
 }
+

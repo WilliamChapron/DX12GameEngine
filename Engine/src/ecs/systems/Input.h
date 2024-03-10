@@ -1,5 +1,9 @@
 ﻿#pragma once
 
+#include <unordered_map>
+#include <Windows.h>
+#include "../../core/Window.h"
+#include <iostream>
 
 enum class KeyState {
     Pressed,
@@ -10,7 +14,7 @@ enum class KeyState {
 
 class Input {
 public:
-    Input();
+    Input(WindowProperties m_wndProps);
 
     // Met � jour l'�tat des entr�es 
     void Update();
@@ -24,7 +28,11 @@ public:
     // Trouve la position de la souris
     POINT GetMousePosition() const;
 
+    void ResetMousePosition();
+
 private:
+
+    WindowProperties* m_wndProps;
 
     // M�thode pour g�rer les entr�es clavier
     void HandleKeyboardInput();
