@@ -1,23 +1,14 @@
-﻿#include "Mesh.h"
-
-#include "Collider.h"
+﻿
+#include "../../../pch.h"
 
 #include "../entities/GameObject.hpp"
 
 #include "Component.h"
-
 #include "Transform.h"
-
-#include "../../core/Defines.h"
-
 #include "Mesh.h"
-
-#include <iostream>
-
-#include "../../Utils.h"
+#include "Collider.h"
 
 using namespace DirectX;
-
 
 
 ColliderComponent::ColliderComponent(std::string name) : Component(name, ComponentType::ColliderComponent) {

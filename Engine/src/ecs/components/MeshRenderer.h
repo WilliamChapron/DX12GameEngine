@@ -1,9 +1,6 @@
 #pragma once
 
 
-#include "../components/Component.h"
-//#include "../components/Mesh.h"
-
 class Mesh;
 
 struct ConstantBufferData {

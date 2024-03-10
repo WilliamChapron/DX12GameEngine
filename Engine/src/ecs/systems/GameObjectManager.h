@@ -7,6 +7,15 @@
 #include <unordered_map>
 #include <string>
 
+struct TestedPair {
+    std::string first;
+    std::string second;
+
+    bool operator == (const TestedPair& other) const {
+        return (first == other.second);
+    }
+};
+
 class Renderer;
 class Camera;
 

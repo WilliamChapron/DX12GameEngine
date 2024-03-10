@@ -1,7 +1,5 @@
 #pragma once
 
-#include <iostream>
-
 class Renderer;
 
 enum class ComponentType {

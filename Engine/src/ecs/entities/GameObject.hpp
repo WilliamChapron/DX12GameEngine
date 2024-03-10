@@ -1,23 +1,6 @@
 #pragma once
 
 
-#include "../../include.h"
-#include "../components/Transform.h"
-
-
-
-//#include <iostream>
-//#include <map>
-//#include <list>
-//#include <vector>
-//#include <unordered_map>
-//#include <string>
-
-#include "../systems/ComponentManager.h"
-
-
-
-
 using namespace DirectX;
 using Microsoft::WRL::ComPtr;
 
@@ -44,6 +27,12 @@ public:
     template <typename T>
     T* GetComponent(ComponentType type);
 
+    template <typename T>
+    T* GameObject::GetComponent(ComponentType type) {
+        Component* component = m_pComponentManager->GetGameObjectComponentByType(*this, type);
+        return dynamic_cast<T*>(component);
+    }
+
     std::list<Component*> componentsList;
 
 protected:
@@ -55,8 +44,3 @@ private:
     ComponentManager* m_pComponentManager;
 };
 
-template <typename T>
-T* GameObject::GetComponent(ComponentType type) {
-    Component* component = m_pComponentManager->GetGameObjectComponentByType(*this, type);
-    return dynamic_cast<T*>(component);
-}

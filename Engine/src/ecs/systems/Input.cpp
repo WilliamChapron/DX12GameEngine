@@ -1,4 +1,10 @@
-﻿#include "Input.h"
+﻿#include "../../../pch.h"
+
+
+#include "Input.h"
+
+#include "../../core/Window.h"
+
 #include "State.h"
 
 

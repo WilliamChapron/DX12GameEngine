@@ -1,9 +1,7 @@
-﻿#include "Transform.h"
-#include "../../core/Defines.h"
-//
-//Transform::Transform() : Component("Transform", ComponentType::Transform) {
-//
-//}
+﻿#include "../../../pch.h"
+
+#include "Transform.h"
+#include "./Component.h"
 
 
 Transform::Transform(const XMFLOAT3& pos, const XMFLOAT3& rot, const XMFLOAT3& scl) : Component("Transform", ComponentType::Transform), vPosition(0.0f, 0.0f, 0.0f), vRotation(0.0f, 0.0f, 0.0f), qRotation(0.0f, 0.0f, 0.0f, 1.0f), vScale(1.0f, 1.0f, 1.0f)
@@ -65,26 +63,6 @@ void Transform::UpdateTransformMatrix()
 
     XMStoreFloat4x4(&mWorld, transformMatrix);
 }
-
-//XMFLOAT3 Transform::QuaternionToEulerAngles(const XMFLOAT4& quaternion)
-//{
-//    XMFLOAT3 euler;
-//
-//    // Convertissez le quaternion en une matrice de rotation
-//    XMMATRIX rotationMatrix = XMLoadFloat4x4(&mRotation);
-//
-//    // Extrait les angles d'Euler de la matrice de rotation
-//    euler.y = asinf(rotationMatrix.r[2].m128_f32[0]); // Pitch
-//    euler.x = atan2f(rotationMatrix.r[2].m128_f32[1], rotationMatrix.r[2].m128_f32[2]); // Roll
-//    euler.z = atan2f(rotationMatrix.r[1].m128_f32[0], rotationMatrix.r[0].m128_f32[0]); // Yaw
-//
-//    // Convertissez les angles d'Euler de radians � degr�s
-//    euler.x = XMConvertToDegrees(euler.x);
-//    euler.y = XMConvertToDegrees(euler.y);
-//    euler.z = XMConvertToDegrees(euler.z);
-//
-//    return euler;
-//}
 
 void Transform::SetRotation(float pitch, float roll, float yaw) {
 

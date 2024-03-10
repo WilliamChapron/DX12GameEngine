@@ -1,5 +1,6 @@
+#include "../../../pch.h"
+
 #include "Time.h"
-#include <math.h>
 
 Time::Time()
 {

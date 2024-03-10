@@ -1,15 +1,5 @@
 #pragma once
 
-
- 
-
-#include <iostream>
-#include <map>
-
-
-#include "../components/Component.h"  
-
-
 class TextureComponent;
 class Mesh;
 class ShaderComponent;

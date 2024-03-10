@@ -1,11 +1,8 @@
 ﻿#include "Camera.h"
 
-#include "../../include.h"
+#include "../../../pch.h"
+
 using namespace DirectX;
-
-#include <iostream>
-
-
 
 
 Camera::Camera(float fov, float aspectRatio, float nearPlane, float farPlane) {

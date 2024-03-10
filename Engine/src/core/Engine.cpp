@@ -1,7 +1,7 @@
-﻿#include "Engine.h"
-#include "../include.h"   
+﻿#include "../../pch.h"
+
+#include "Engine.h"
 #include "../renderer/Graphics.h"   
-#include "Defines.h"   
 #include "Window.h"  
 
 // System
@@ -14,6 +14,7 @@
 #include "../ecs/entities/GameObject.hpp"          
 
 // Component
+#include "../ecs/components/Component.h"
 #include "../ecs/components/Transform.h"
 #include "../ecs/components/Texture.h"
 #include "../ecs/components/Camera.h"
@@ -24,11 +25,12 @@
 
 // Miscellaneous
 #include "../ecs/systems/Time.h"
-#include "../Utils.h"
 #include "../ecs/systems/Input.h"
 
 
 #include "../CommonsMesh.h"
+#include "../ecs/systems/StateMachine.h"
+
 
 using namespace DirectX;
 

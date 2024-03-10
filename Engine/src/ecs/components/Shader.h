@@ -1,10 +1,5 @@
 #pragma once
 
-#include "../../include.h"
-#include "./Component.h"
-
-#include <iostream>
-
 class Renderer;
 
 using namespace DirectX;

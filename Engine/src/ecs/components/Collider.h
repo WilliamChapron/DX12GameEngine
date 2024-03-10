@@ -1,11 +1,6 @@
 #pragma once
 
-#include "../../include.h"
 
-
-#include "../components/Component.h"
-
-#include <vector>
 
 using namespace DirectX;
 

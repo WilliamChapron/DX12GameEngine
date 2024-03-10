@@ -1,18 +1,5 @@
 #pragma once
 
-
-//#include "../entities/GameObject.h"  
-#include "../components/Component.h"  
-
-#include <iostream>
-#include <map>
-#include <list>
-#include <vector>
-#include <unordered_map>
-#include <string>
-#include "../components/Camera.h"
-
-
 class GameObjectManager;
 class GameObject;
 class Renderer;

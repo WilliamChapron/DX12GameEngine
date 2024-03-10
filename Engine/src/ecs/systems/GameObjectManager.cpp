@@ -1,10 +1,13 @@
-﻿#include "GameObjectManager.h"
-#include "../../renderer/Graphics.h" // renderer
-#include "../components/Component.h" // renderer
-#include "../components/Collider.h" // renderer
+﻿#include "../../../pch.h"
+
+#include "GameObjectManager.h"
+
+#include "../../renderer/Graphics.h" 
+
+#include "../components/Component.h" 
+#include "../components/Collider.h" 
 
 #include "../entities/GameObject.hpp"
-
 
 
 GameObjectManager::GameObjectManager(Camera* camera) : m_pCamera(camera) {}
@@ -26,60 +29,8 @@ void GameObjectManager::RemoveObject(const std::string& name) {
 
 }
 
-//#define PRINT_VECTOR3(vec) std::cout << #vec << ": (" << XMVectorGetX(vec) << ", " << XMVectorGetY(vec) << ", " << XMVectorGetZ(vec) << ")" << std::endl;
-//
-//bool IsColliding(XMFLOAT3& vectorPositionInput, XMFLOAT3& vectorPositionOutput) {
-//
-//
-//    XMVECTOR inputVector = XMLoadFloat3(&vectorPositionInput);
-//    XMVECTOR outputVector = XMLoadFloat3(&vectorPositionOutput);
-//
-//    float length = XMVector3Length(inputVector - outputVector).m128_f32[0];
-//
-//    XMFLOAT3 normalizedDistance;
-//    normalizedDistance.x = (vectorPositionInput.x - vectorPositionOutput.x);
-//    normalizedDistance.y = (vectorPositionInput.y - vectorPositionOutput.y);
-//    normalizedDistance.z = (vectorPositionInput.z - vectorPositionOutput.z);
-//
-//    //PRINT(normalizedDistance.x);
-//
-//
-//    normalizedDistance.x = abs(normalizedDistance.x);
-//    normalizedDistance.y = abs(normalizedDistance.y);
-//    normalizedDistance.z = abs(normalizedDistance.z);
-//
-//    PRINT("Normalize");
-//    PRINT(normalizedDistance.x);
-//    PRINT(normalizedDistance.y);
-//    PRINT(normalizedDistance.z);
-//    PRINT("Normalize end");
-//
-//    if (normalizedDistance.x == 0 && normalizedDistance.y == 0 && normalizedDistance.x == 0) {
-//        PRINT("EEEEEEEEEEEEEEEEEEEEEEEEEEE");
-//        PRINT("EEEEEEEEEEEEEEEEEEEEEEEEEEE");
-//        PRINT("EEEEEEEEEEEEEEEEEEEEEEEEEEE");
-//        PRINT("EEEEEEEEEEEEEEEEEEEEEEEEEEE");
-//        PRINT("EEEEEEEEEEEEEEEEEEEEEEEEEEE");
-//    }
-//
-//
-//    return normalizedDistance.x <= 0 && normalizedDistance.y <= 0 && normalizedDistance.x <= 0;
-//}
-//
-struct TestedPair {
-    std::string first;
-    std::string second;
-
-    bool operator == (const TestedPair& other) const {
-        return (first == other.second);
-    }
-};
-
-
 void GameObjectManager::Update(Renderer* renderer) {
     HRESULT hr;
-
-    //PRINT("Rendering...");
 
     renderer->Precommandlist();
 
@@ -116,12 +67,6 @@ void GameObjectManager::Update(Renderer* renderer) {
         }
     }
 
-    //for (const auto& pair : testedPairs) {
-    //    std::cout << "Tested Pair: (" << pair.first << ", " << pair.second << ")\n";
-    //}
-
-    // CHECK COLLIDING
-
 
     renderer->Postcommandlist();
 
@@ -133,6 +78,4 @@ void GameObjectManager::Update(Renderer* renderer) {
     ASSERT_FAILED(hr);
 
     renderer->WaitForPreviousFrame();
-
-    //PRINT("Rendering complete");
 };

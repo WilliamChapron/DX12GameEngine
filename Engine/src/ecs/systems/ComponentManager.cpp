@@ -1,23 +1,24 @@
-#include "ComponentManager.h"
-#include "GameObjectManager.h"
-#include "../../renderer/Graphics.h"
-#include "../../core/Defines.h"
-#include "../components/Camera.h"
+#include "../../../pch.h"
 
+#include "ComponentManager.h"
+
+#include "GameObjectManager.h"
+
+#include "../../renderer/Graphics.h"
+
+#include "../components/Camera.h"
 #include "../components/Component.h"
+
 #include "../components/Texture.h"
 #include "../components/Mesh.h"
 #include "../components/MeshRenderer.h"
 
-#include <iostream>
-#include <map>
-#include <algorithm>
+
 
 
 // Pass Instance of GameObjectManager to Work with alive entity
 ComponentManager::ComponentManager(std::shared_ptr<GameObjectManager>& gameObjectManager, Renderer* renderer, Camera* camera) : m_pGameObjectManager(gameObjectManager), m_pRenderer(renderer), m_pCamera(camera)
 {
-    //PRINT(m_pGameObjectManager.use_count());
 }
 
 

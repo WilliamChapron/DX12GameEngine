@@ -1,7 +1,8 @@
-#include "Utils.h"
-#include "core/Defines.h"
+#include "../pch.h"
 
-void PrintMatrix(const DirectX::XMFLOAT4X4& matrix)
+using namespace DirectX;
+
+void PrintMatrix(const XMFLOAT4X4& matrix)
 {
     std::cout << std::fixed << std::setprecision(3);
 

@@ -1,11 +1,16 @@
 ﻿#pragma once
 
+#include "../../pch.h"
 
 #include "Graphics.h"
-#include "../core/Defines.h"
+
 #include "../core/Window.h"
+
 #include "../ecs/entities/GameObject.hpp"
-#include "../Utils.h"
+
+#include "Resources.h"
+
+
 
 
 Renderer::Renderer(Window* pWindow) {

@@ -24,7 +24,6 @@
 
 #include <wrl.h>
 #include <d3d11_1.h>
-#include "include.h"
 
 #pragma warning(push)
 #pragma warning(disable : 4005)

@@ -1,9 +1,5 @@
 #pragma once
 
-#include "../../include.h"
-
-#include <iostream>
-
 using namespace DirectX;
 
 struct ConstantBufferData;

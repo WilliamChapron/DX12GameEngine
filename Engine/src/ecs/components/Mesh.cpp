@@ -1,9 +1,11 @@
+#include "../../../pch.h"
+
 #include "Mesh.h"
-#include "../../renderer/Graphics.h"
-#include "../../core/Defines.h"
 #include "Component.h"
+
+#include "../../renderer/Graphics.h"
+
 #include "../entities/GameObject.hpp"
-#include "../../Utils.h"
 
 
 

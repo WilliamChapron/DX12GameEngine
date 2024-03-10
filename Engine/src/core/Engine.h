@@ -3,10 +3,6 @@
 #pragma once
 
 
-#include <Windows.h>
-#include <iostream>
-#include "../ecs/systems/StateMachine.h"
-
 
 class Renderer;
 class GameObject;

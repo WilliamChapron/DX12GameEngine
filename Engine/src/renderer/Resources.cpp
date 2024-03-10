@@ -1,8 +1,9 @@
-#pragma once
+#include "../../pch.h"
 
 #include "./Resources.h"
-#include "../core/Defines.h"
+
 #include "./Graphics.h"
+
 #include "../ecs/entities/GameObject.hpp"
 
 void CreateIndexBuffer(const UINT& size, UINT* indices, ID3D12Resource* buffer, D3D12_INDEX_BUFFER_VIEW& bufferView, Renderer* renderer) {

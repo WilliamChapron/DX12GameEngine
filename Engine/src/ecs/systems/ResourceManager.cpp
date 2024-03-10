@@ -1,3 +1,5 @@
+#include "../../../pch.h"
+
 #include "ResourceManager.h"
 
 #include "../components/Component.h"

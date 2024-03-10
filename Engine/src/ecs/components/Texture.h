@@ -1,12 +1,5 @@
 #pragma once
 
-#include "../../include.h"
-#include "./Component.h"
-
-#include <iostream>
-
-
-
 using namespace DirectX;
 using Microsoft::WRL::ComPtr;
 

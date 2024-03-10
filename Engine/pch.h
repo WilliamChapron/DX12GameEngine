@@ -20,6 +20,7 @@
 #include <list>
 #include <stdexcept>
 #include <math.h>
+#include <algorithm>
 
 // Windows
 #include <Windows.h>
@@ -33,6 +34,9 @@
 #include <wrl/client.h>
 
 #include <DirectXColors.h>
+
+#include "src/core/Defines.h"   
+#include "src/Utils.h"
 
 //// autres en-têtes à précompiler
 //#include "framework.h"
