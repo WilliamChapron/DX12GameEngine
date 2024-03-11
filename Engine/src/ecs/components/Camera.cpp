@@ -35,30 +35,35 @@ void Camera::Update(float deltaTime) {
     //std::cout << m_position.z << std::endl;
 }
 
-void Camera::UpdatePosition(XMFLOAT3 m_newPosition)
+void Camera::UpdatePosition(XMFLOAT3 displacement)
 {
-    m_position.x += m_newPosition.x;
-    m_position.y += m_newPosition.y;
-    m_position.z += m_newPosition.z;
+    XMVECTOR m_displacement = XMVector3Rotate(XMLoadFloat3(&displacement), currentRotation);
 
-    XMFLOAT3 camMovementVector((m_newPosition.x - m_position.x), (m_newPosition.y - m_position.y), (m_newPosition.z - m_position.z));
+    // Mettre à jour la position de la caméra en tenant compte du vecteur de déplacement
+    XMVECTOR newPosition = XMLoadFloat3(&m_position) + m_displacement;
+    XMStoreFloat3(&m_position, newPosition);
 
-    m_target.x += camMovementVector.x;
-    m_target.y += camMovementVector.y;
-    m_target.z += camMovementVector.z;
+    // Mettre à jour la cible de la caméra en fonction de la nouvelle position
+    m_target.x = m_position.x + XMVectorGetX(forward);
+    m_target.y = m_position.y + XMVectorGetY(forward);
+    m_target.z = m_position.z + XMVectorGetZ(forward);
 }
 
 void Camera::UpdatePosition(float x, float y, float z)
 {
+    // Calculer le vecteur de translation
+    // Transformer le vecteur de déplacement par la rotation actuelle
+    XMFLOAT3 m_displacementVector(x, y, z);
+    XMVECTOR m_displacement = XMVector3Rotate(XMLoadFloat3(&m_displacementVector), currentRotation);
 
-    m_position.x += x;
-    m_position.y += y;
-    m_position.z += z;
-    XMFLOAT3 camMovementVector((x - m_position.x), (y - m_position.y), (z - m_position.z));
+    // Mettre à jour la position de la caméra en tenant compte du vecteur de déplacement
+    XMVECTOR newPosition = XMLoadFloat3(&m_position) + m_displacement;
+    XMStoreFloat3(&m_position, newPosition);
 
-    m_target.x += x;
-    m_target.y += y;
-    m_target.z += z;
+    // Mettre à jour la cible de la caméra en fonction de la nouvelle position
+    m_target.x = m_position.x + XMVectorGetX(forward);
+    m_target.y = m_position.y + XMVectorGetY(forward);
+    m_target.z = m_position.z + XMVectorGetZ(forward);
 }
 
 void Camera::UpdateTarget(XMFLOAT3 m_newTarget)
@@ -82,32 +87,26 @@ XMFLOAT4X4 Camera::GetProjectionMatrix() const
 void Camera::Rotate(float pitch, float yaw, float roll)
 {
 
-    // Convertir les angles en radians
     pitch = XMConvertToRadians(pitch);
     yaw = XMConvertToRadians(yaw);
     roll = XMConvertToRadians(roll);
 
-    // Cr�er le quaternion de rotation � partir des angles d'Euler
     XMVECTOR rotationQuaternion = XMQuaternionRotationRollPitchYaw(pitch, yaw, roll);
 
-    // Accumuler la rotation actuelle avec la nouvelle rotation
     currentRotation = XMQuaternionMultiply(currentRotation, rotationQuaternion);
 
     forward = XMVectorSet(0.0f, 0.0f, 1.0f, 0.0f);
     right = XMVectorSet(1.0f, 0.0f, 0.0f, 0.0f);
     up = XMVectorSet(0.0f, 1.0f, 0.0f, 0.0f);
 
-    // Faire pivoter les vecteurs de direction et de haut avec le quaternion de rotation
     forward = XMVector3Rotate(forward, currentRotation);
     up = XMVector3Rotate(up, currentRotation);
     right = XMVector3Rotate(right, currentRotation);
     
-    // Mettre � jour la cible de la cam�ra en fonction de la direction
     m_target.x = m_position.x + XMVectorGetX(forward);
     m_target.y = m_position.y + XMVectorGetY(forward);
     m_target.z = m_position.z + XMVectorGetZ(forward);
 
-    // Mettre � jour le vecteur 'up' de la cam�ra
     m_up.x = XMVectorGetX(up);
     m_up.y = XMVectorGetY(up);
     m_up.z = XMVectorGetZ(up);

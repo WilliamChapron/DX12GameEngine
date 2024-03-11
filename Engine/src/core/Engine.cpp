@@ -176,40 +176,9 @@ void Engine::Run() {
 
         time.UpdateTime();
 
-        //CAMERA DEBUG
-        //m_pCamera->UpdatePosition(0.0f, 0.0f, 0.2f);
-        //m_pCamera->Rotate(0.0f, 0.0f, 0.25f);
-        /*m_pCamera->RotateAroundTarget(0.f, .0f, 0.2f);
-        m_pCamera->UpdateTarget(XMFLOAT3(0.0f, 0.0f, 0.0f));*/
-        //m_pCamera->Rotate(m_pInput->GetMousePosition().x, m_pInput->GetMousePosition().y, 0.f);
-
         m_pCamera->Update(time.GetDeltaTime());
 
         m_pWindow->UpdateTitleWithFPS(time.GetFramePerSecond());
-
-        //------ TEST INPUT
-
-        //// Affichez la liste des touches et leur �tat
-        //std::cout << "Touches pressees : " << std::endl;
-        //for (const auto& pair : m_pInput->GetKeyStates()) {
-        //    std::cout << "Touche : " << pair.first << ", Etat : ";
-        //    // Utilisez un switch pour g�rer les diff�rents �tats de la touche
-        //    switch (pair.second) {
-        //    case KeyState::Pressed:
-        //        std::cout << "Pressed";
-        //        break;
-        //    case KeyState::Held:
-        //        std::cout << "Held";
-        //        break;
-        //    case KeyState::Released:
-        //        std::cout << "Released";
-        //        break;
-        //    case KeyState::Inactive:
-        //        std::cout << "Inactive";
-        //        break;
-        //    }
-        //    std::cout << std::endl;
-        //}
 
 
         m_pInput->Update();
@@ -217,66 +186,36 @@ void Engine::Run() {
         //------ Camera Movement
         for (const auto& pair : m_pInput->GetKeyStates()) {
             switch (pair.first) {
-                case 'Z':
-                    if (pair.second == KeyState::Pressed || pair.second == KeyState::Held)
-                        m_pCamera->UpdatePosition(0.0f, speed * time.GetDeltaTime(), 0.0f);
-                    break;
-                case 'S':
-                    if (pair.second == KeyState::Pressed || pair.second == KeyState::Held)
-                        m_pCamera->UpdatePosition(0.0f, -speed * time.GetDeltaTime(), 0.0f);
-                    break;
-                case 'Q':
-                    if (pair.second == KeyState::Pressed || pair.second == KeyState::Held)
-                        m_pCamera->UpdatePosition(-speed * time.GetDeltaTime(), 0.0f, 0.0f);
-                    break;
-                case 'D':
-                    if (pair.second == KeyState::Pressed || pair.second == KeyState::Held)
-                        m_pCamera->UpdatePosition(speed * time.GetDeltaTime(), 0.0f, 0.0f);
-                    break;
-                case 'R':
-                    if (pair.second == KeyState::Pressed || pair.second == KeyState::Held) {
-                        std::cout << "dsds" << std::endl;
-                        transformComponent->Rotate(0.03, 0.03, 0.03);
-                    }
-                    break;
-                case 'T':
-                    if (pair.second == KeyState::Pressed || pair.second == KeyState::Held) {
-                        transformComponent->Translate(0.005, 0, 0);
-                    }
-                    break;
-                case VK_SPACE:
-                    if (pair.second == KeyState::Pressed || pair.second == KeyState::Held)
-                        m_pCamera->UpdatePosition(0.0f, 0.0f, -speed * time.GetDeltaTime());
-                    break;
-                case VK_SHIFT:
-                    if (pair.second == KeyState::Pressed || pair.second == KeyState::Held)
-                        m_pCamera->UpdatePosition(0.0f, 0.0f, speed * time.GetDeltaTime());
-                    break;
-                /*case VK_LBUTTON:
-                    if (pair.second == KeyState::Pressed || pair.second == KeyState::Held)
-                    {
-                        
-                    }*/
+            case 'Z':
+                if (pair.second == KeyState::Pressed || pair.second == KeyState::Held)
+                    m_pCamera->UpdatePosition(0.0f, 0.0f, speed * time.GetDeltaTime());
+                break;
+            case 'S':
+                if (pair.second == KeyState::Pressed || pair.second == KeyState::Held)
+                    m_pCamera->UpdatePosition(0.0f, 0.0f, -speed * time.GetDeltaTime());
+                break;
+            case 'Q':
+                if (pair.second == KeyState::Pressed || pair.second == KeyState::Held)
+                    m_pCamera->UpdatePosition(-speed * time.GetDeltaTime(), 0.0f, 0.0f);
+                break;
+            case 'D':
+                if (pair.second == KeyState::Pressed || pair.second == KeyState::Held)
+                    m_pCamera->UpdatePosition(speed * time.GetDeltaTime(), 0.0f, 0.0f);
+                break;
+            case VK_SPACE:
+                if (pair.second == KeyState::Pressed || pair.second == KeyState::Held)
+                    m_pCamera->UpdatePosition(0.0f, speed * time.GetDeltaTime(), 0.0f);
+                break;
+            case VK_SHIFT:
+                if (pair.second == KeyState::Pressed || pair.second == KeyState::Held)
+                    m_pCamera->UpdatePosition(0.0f, -speed * time.GetDeltaTime(), 0.0f);
+                break;
             }
         }
+
         m_pCamera->Rotate(m_pInput->GetMousePosition().y * 0.2f, 0.0f, - m_pInput->GetMousePosition().x * 0.2f);
-        //std::cout << "mouse x : "
-        //    << m_pInput->GetMousePosition().x
-        //    << "   mouse y : "
-        //    << m_pInput->GetMousePosition().y
-        //    << std::endl;
-
+        
         m_pInput->ResetMousePosition();
-
-        /***
-        * J'ai un problème par rapport à la rotate de la caméra
-        * Lorsque je rotate ma caméra, elle rotate par rapport au nouvel axe
-        * MAIS mes déplacement restent sur l'axe originel, faudrait que j'arrive à update le nouvel axe     
-        ***/
-        
-        //------ Camera Movement
-        
-
 
 
         if (PeekMessage(&msg, NULL, 0, 0, PM_REMOVE)) {
@@ -285,8 +224,6 @@ void Engine::Run() {
             TranslateMessage(&msg);
             DispatchMessage(&msg);
         }
-        //PRINT(m_isRenderable);
-            // Appelez la fonction Render de la classe Renderer et passez-lui la liste de Cubes
         m_pGameObjectManager->Update(m_pRenderer);
     }
 }

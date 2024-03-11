@@ -10,7 +10,7 @@ public:
     ~Camera() {};
 
     void Update(float deltaTime);
-    void UpdatePosition(XMFLOAT3 m_newPosition);
+    void UpdatePosition(XMFLOAT3 displacement);
     void UpdatePosition(float x, float y, float z);
 
 
