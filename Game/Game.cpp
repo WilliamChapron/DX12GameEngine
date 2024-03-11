@@ -9,7 +9,6 @@
 
 
 
-
 #define MAX_LOADSTRING 100
 
 // Variables globales :
@@ -31,81 +30,8 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
     UNREFERENCED_PARAMETER(hPrevInstance);
     UNREFERENCED_PARAMETER(lpCmdLine);
 
-    AllocConsole();
 
-    FILE* consoleFile;
-    if (freopen_s(&consoleFile, "CONOUT$", "w", stdout) != 0) {
-        MessageBox(0, L"Failed to redirect console output", L"Error", MB_OK);
-        FreeConsole();
-        return 1;
-    }
-
-    //std::cout << MathLibrary::Arithmetic::Add(1.f, 1.f)  << std::endl;
-
-    /*ID3D12Device* pD3DDevice = nullptr;
-    D3D_FEATURE_LEVEL featureLevel;
-
-    if (FAILED(D3D11CreateDevice(nullptr, D3D_DRIVER_TYPE_HARDWARE, nullptr, 0, nullptr, 0, D3D11_SDK_VERSION, &pD3DDevice, &featureLevel, &pImmediateContext))) {
-        return -1;
-    }*/
-
-    //GameManager* gameInstance = new GameManager();
-    Engine::GetInstance().Init(hInstance, nCmdShow);
-    //gameInstance->Initialize();
-
-    //Input* m_pInput = new Input();
-    //Camera* m_pCamera = new Camera(); // #TODO Shared ptr camera to each object
-
-
-
-    //std::shared_ptr<GameObjectManager> m_pGameObjectManager = std::make_shared<GameObjectManager>(m_pCamera);
-    //ComponentManager* m_pComponentManager = new ComponentManager(m_pGameObjectManager, Engine::GetInstance().m_pRenderer);
-
-
-    //// Create Objects
-    //CubeMesh* m_pTriangle = new CubeMesh;
-    ////CubeMesh* m_pTriangle2 = new CubeMesh;
-
-    //m_pTriangle->Initialize(Engine::GetInstance().m_pRenderer, m_pCamera, m_pComponentManager, XMFLOAT3(0.5f, 0.0f, 0.0f), XMFLOAT3(0.0f, 0.0f, 0.0f), XMFLOAT3(1.0f, 1.0f, 1.0f));
-
-
-
-
-    ////Engine::GetInstance().isRenderable = true;
-
-    //m_pGameObjectManager->AddObject("Triangle", m_pTriangle);
-    //
-    //Engine::GetInstance().Run(gameInstance->m_pGameObjectManager, Engine::GetInstance().m_pRenderer);
-
-
-
-    //while (true) {};
-
-
-    //// Initialise les chaînes globales
-    //LoadStringW(hInstance, IDS_APP_TITLE, szTitle, MAX_LOADSTRING);
-    //LoadStringW(hInstance, IDC_GAME, szWindowClass, MAX_LOADSTRING);
-    //MyRegisterClass(hInstance);
-
-    //// Effectue l'initialisation de l'application :
-    //if (!InitInstance (hInstance, nCmdShow))
-    //{
-    //    return FALSE;
-    //}
-
-    //HACCEL hAccelTable = LoadAccelerators(hInstance, MAKEINTRESOURCE(IDC_GAME));
-
-    //MSG msg;
-
-    //// Boucle de messages principale :
-    //while (GetMessage(&msg, nullptr, 0, 0))
-    //{
-    //    if (!TranslateAccelerator(msg.hwnd, hAccelTable, &msg))
-    //    {
-    //        TranslateMessage(&msg);
-    //        DispatchMessage(&msg);
-    //    }
-    //}
+    GameManager::GetInstance().Init(hInstance, nCmdShow);
 
     return 0;
 }
