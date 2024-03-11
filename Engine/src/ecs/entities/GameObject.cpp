@@ -31,6 +31,7 @@ void GameObject::Initialize(Renderer* renderer, Camera* camera, const XMFLOAT3& 
     Transform* baseTransform = new Transform(position, rotation, scale);
     m_pComponentManager->AddComponent(*this, baseTransform);  
 
+
     MeshRenderer* baseMeshRenderer = new MeshRenderer("MeshRenderer", cbData, mesh); // Component
     baseMeshRenderer->Initialize(renderer, cbData);
     m_pComponentManager->AddComponent(*this, baseMeshRenderer);

@@ -18,6 +18,12 @@ public:
 	void UpdatePSO();
 	void UpdateRootSignature();
 
+
+	inline ID3DBlob* GetVertexShaderBlob() const { return m_vertexShaderBlob.Get(); }
+	inline ID3DBlob* GetPixelShaderBlob() const { return m_pixelShaderBlob.Get(); }
+	inline ID3D12PipelineState* GetPipelineState() const { return m_pPipelineState.Get(); }
+	inline ID3D12RootSignature* GetRootSignature() const { return m_pRootSignature.Get(); }
+
 private:
 
 	Renderer* m_pRenderer;

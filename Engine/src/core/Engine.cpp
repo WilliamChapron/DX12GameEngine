@@ -88,6 +88,7 @@ void Engine::Init(HINSTANCE hInstance, int nShowCmd) {
 
     ShaderComponent* baseShader = new ShaderComponent("shader1", m_pRenderer);
 
+
     m_pResourceManager->AddTextureToResources(texture);
     m_pResourceManager->AddTextureToResources(texture2);
     m_pResourceManager->AddMeshToResources(baseMesh);
@@ -134,6 +135,28 @@ void Engine::Init(HINSTANCE hInstance, int nShowCmd) {
     //m_pGameObjectManager->AddObject("Cube2", m_pCube2);
     m_pGameObjectManager->AddObject("Cube3", m_pCube3);
     //m_pGameObjectManager->AddObject("Cube4", m_pCube4);
+
+    
+
+    StateMachine stateMachine;
+
+    // Définir les états
+    stateMachine.SetState("Marche", 0);
+    stateMachine.SetState("Coure", 1);
+    stateMachine.SetState("Saute", 2);
+
+    // Associer des fonctions aux états
+    stateMachine.SetStateEvent(0, []() { std::cout << "Je marche." << std::endl; });
+    stateMachine.SetStateEvent(1, []() { std::cout << "Je cours." << std::endl; });
+    stateMachine.SetStateEvent(2, []() { std::cout << "Je saute." << std::endl; });
+
+    // Changer d'état et appeler la fonction associée
+    stateMachine.ChangeState("Coure");
+    stateMachine.Update(); // Je cours.
+
+    stateMachine.ChangeState("Saute");
+    stateMachine.Update(); // Je saute.
+
 
     // Drawing
     m_isRenderable = true;

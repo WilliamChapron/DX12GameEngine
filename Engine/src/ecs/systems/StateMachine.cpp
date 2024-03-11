@@ -1,22 +1,39 @@
 #include "pch.h"
 
-//#include "StateMachine.h"
-//#include "State.h"
+#include "StateMachine.h"
 
-void StateMachine::AddState(State* state) {
-    states.push_back(state);
+
+StateMachine::StateMachine() : currentState(-1) {}
+
+void StateMachine::SetState(const std::string& stateName, int stateValue) {
+    stateMap[stateName] = stateValue;
 }
 
-void StateMachine::ChangeState(int index) {
-    if (index >= 0 && index < states.size()) {
-        if (currentState)
-            currentState->exit(); // Sortir de l'état actuel
-        currentState = states[index];
-        currentState->enter(); // Entrer dans le nouvel état
+
+void StateMachine::SetStateEvent(int stateValue, std::function<void()> eventFunction) {
+    stateEventTable[stateValue][-1] = eventFunction; 
+}
+
+void StateMachine::ChangeState(const std::string& stateName) {
+    auto it = stateMap.find(stateName);
+    if (it != stateMap.end()) {
+        currentState = it->second;
+    }
+    else {
+        std::cout << "State not found." << std::endl;
     }
 }
 
-void StateMachine::UpdateCurrentState() {
-    if (currentState)
-        currentState->update();
+void StateMachine::Update() {
+    if (stateEventTable.find(currentState) != stateEventTable.end() &&
+        stateEventTable[currentState].find(-1) != stateEventTable[currentState].end()) {
+        stateEventTable[currentState][-1]();
+    }
+    else {
+        std::cout << "No event defined for current state." << std::endl;
+    }
+}
+
+int StateMachine::GetCurrentState() const {
+    return currentState;
 }

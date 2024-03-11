@@ -147,8 +147,10 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="src\Atom.h" />
     <ClInclude Include="extern\d3dx12.h" />
     <ClInclude Include="framework.h" />
+    <ClInclude Include="src\ecs\components\Particle.h" />
     <ClInclude Include="pch.h" />
     <ClInclude Include="src\CommonsMesh.h" />
     <ClInclude Include="src\core\Defines.h" />
@@ -169,7 +171,6 @@
     <ClInclude Include="src\ecs\systems\GameObjectManager.h" />
     <ClInclude Include="src\ecs\systems\Input.h" />
     <ClInclude Include="src\ecs\systems\ResourceManager.h" />
-    <ClInclude Include="src\ecs\systems\State.h" />
     <ClInclude Include="src\ecs\systems\StateMachine.h" />
     <ClInclude Include="src\ecs\systems\Time.h" />
     <ClInclude Include="src\include.h" />
@@ -178,6 +179,8 @@
     <ClInclude Include="src\Utils.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="src\Atom.cpp" />
+    <ClCompile Include="src\ecs\components\Particle.cpp" />
     <ClCompile Include="pch.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>

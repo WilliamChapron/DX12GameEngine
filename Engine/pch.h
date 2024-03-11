@@ -21,6 +21,7 @@
 #include <stdexcept>
 #include <math.h>
 #include <algorithm>
+#include <functional>
 
 // Windows
 #include <Windows.h>
@@ -54,6 +55,13 @@
 #include "src/ecs/components/Texture.h"
 #include "src/ecs/components/Transform.h"
 
+#include "src/ecs/components/ScriptComponent.h"
+#include "src/ecs/components/ScriptComponent.cpp"
+
+#include "src/ecs/components/Particle.h"
+#include "src/ecs/components/Particle.cpp"
+
+
 
 // Ent
 #include "src/ecs/entities/GameObject.hpp"          
@@ -65,7 +73,6 @@
 #include "src/ecs/systems/GameObjectManager.h"  
 #include "src/ecs/systems/Input.h"
 #include "src/ecs/systems/ResourceManager.h"
-#include "src/ecs/systems/State.h"
 #include "src/ecs/systems/StateMachine.h"
 #include "src/ecs/systems/Time.h"
 
@@ -83,7 +90,9 @@
 #include "src/Utils.h"
 #include "src/DDSTextureLoader.h"
 
+// Other
 
+#include "src/Atom.h"
 
 using namespace DirectX;
 

@@ -1,19 +1,26 @@
 #pragma once
 
+#include <iostream>
+#include <unordered_map>
+#include <functional>
 
-class State;
-
-class StateMachine
-{
+class StateMachine {
 public:
-    void AddState(State* state);
+    StateMachine();
 
-    void ChangeState(int index);
+    void SetState(const std::string& stateName, int stateValue);
+    void SetStateEvent(int stateValue, std::function<void()> eventFunction);
 
-    void UpdateCurrentState();
+    void ChangeState(const std::string& stateName);
+    void Update();
+
+    int GetCurrentState() const;
 
 private:
-    std::vector<State*> states; // Liste des états
-    State* currentState = nullptr; // État actuel
-};
+    using EventFunction = std::function<void()>;
+    using StateEventMap = std::unordered_map<int, EventFunction>;
 
+    int currentState;
+    std::unordered_map<std::string, int> stateMap;
+    std::unordered_map<int, StateEventMap> stateEventTable;
+};
