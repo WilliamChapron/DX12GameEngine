@@ -39,6 +39,11 @@ void GameObject::Initialize(Renderer* renderer, Camera* camera, const XMFLOAT3& 
     ColliderComponent* baseCollider = new ColliderComponent("ColliderComponent");
     baseCollider->InitializeBoundingBox(this, vertices, numVertices);
     m_pComponentManager->AddComponent(*this, baseCollider);
+
+    ScriptComponent* scriptComponent = new ScriptComponent("ScriptComponent", this);
+    m_pComponentManager->AddComponent(*this, scriptComponent);
+
+
 }
 
 

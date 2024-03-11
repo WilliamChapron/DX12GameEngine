@@ -1,55 +1,63 @@
 #pragma once
 
-#include <vector>
-#include <iostream>
+//#include <vector>
+//#include <iostream>
+
+#include "../entities/GameObject.hpp"
 
 class Renderer;
 class GameObject;
-class StateMachine;
+class Transform;
 
 class Script {
 public:
-    virtual void Initialize(GameObject* gameObject) = 0;
-    virtual void Update(Renderer* renderer) = 0;
-    virtual ~Script() = default;
-private:
+
+    virtual void Initialize(std::string name, GameObject* gameObject) = 0;
+    virtual void Update() = 0;
+
+    inline std::string GetName() {
+        return m_name;
+    }
+protected:
     std::string m_name;
+    StateMachine* m_pStateMachine;
+    GameObject* m_pGameObject;
+};
+
+class MovableScript : public Script {
+public:
+    void Initialize(std::string name, GameObject* gameObject) override;
+    void Update() override;
+
+    inline void IdleMove() {
+        std::cout << "IdleMove" << std::endl;
+    }
+
+    inline void NormalMove() {
+        std::cout << "NormalMove" << std::endl;
+        Transform* transformComponent = m_pGameObject->GetComponent<Transform>(ComponentType::Transform);
+        if (transformComponent != nullptr) {
+            transformComponent->Translate(0, 0, 0.01);
+        }
+
+    }
 };
 
 
 class ScriptComponent : public Component {
 public:
-    ScriptComponent(std::string name);
+    ScriptComponent(std::string name, GameObject* gameObject);
 
-    //void Initialize(GameObject* gameObject);
+    void Update(Renderer* renderer) override;
 
-    //void Update(Renderer* renderer) override;
+    void RemoveScript(Script* script);
 
-    void LinkOneScriptToStateMachine();
+    void AddScript(Script* script);
 
-    inline void RemoveScript(Script* script) {
-        auto it = std::find(m_pScripts.begin(), m_pScripts.end(), script);
-        if (it != m_pScripts.end()) {
-            m_pScripts.erase(it);
-            delete script;
-        }
-    }
+    Script* GetScriptByName(const std::string& scriptName);
 
-    inline void AddScript(Script* script) {
-        m_pScripts.push_back(script);
-    }
-
-
-    void GetScriptByName() {
-
-    }
-
-    //void UpdateStateMachine();
 
 private:
     GameObject* m_pGameObject;
-    StateMachine* m_pStateMachine;
-
     std::vector<Script*> m_pScripts;
 };
-

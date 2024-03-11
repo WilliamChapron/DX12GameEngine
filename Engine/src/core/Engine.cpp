@@ -136,27 +136,12 @@ void Engine::Init(HINSTANCE hInstance, int nShowCmd) {
     m_pGameObjectManager->AddObject("Cube3", m_pCube3);
     //m_pGameObjectManager->AddObject("Cube4", m_pCube4);
 
+    MovableScript* movableScript = new MovableScript();
+    movableScript->Initialize("MovableScript", m_pCube);
+    ScriptComponent* scriptComponent = m_pCube->GetComponent<ScriptComponent>(ComponentType::ScriptComponent);
+    scriptComponent->AddScript(movableScript);
+
     
-
-    StateMachine stateMachine;
-
-    // Définir les états
-    stateMachine.SetState("Marche", 0);
-    stateMachine.SetState("Coure", 1);
-    stateMachine.SetState("Saute", 2);
-
-    // Associer des fonctions aux états
-    stateMachine.SetStateEvent(0, []() { std::cout << "Je marche." << std::endl; });
-    stateMachine.SetStateEvent(1, []() { std::cout << "Je cours." << std::endl; });
-    stateMachine.SetStateEvent(2, []() { std::cout << "Je saute." << std::endl; });
-
-    // Changer d'état et appeler la fonction associée
-    stateMachine.ChangeState("Coure");
-    stateMachine.Update(); // Je cours.
-
-    stateMachine.ChangeState("Saute");
-    stateMachine.Update(); // Je saute.
-
 
     // Drawing
     m_isRenderable = true;

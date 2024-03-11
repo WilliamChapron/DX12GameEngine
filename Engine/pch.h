@@ -54,12 +54,8 @@
 #include "src/ecs/components/Shader.h"
 #include "src/ecs/components/Texture.h"
 #include "src/ecs/components/Transform.h"
-
 #include "src/ecs/components/ScriptComponent.h"
-#include "src/ecs/components/ScriptComponent.cpp"
-
 #include "src/ecs/components/Particle.h"
-#include "src/ecs/components/Particle.cpp"
 
 
 
