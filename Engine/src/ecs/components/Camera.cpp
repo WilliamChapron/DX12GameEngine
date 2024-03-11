@@ -120,6 +120,7 @@
 
 using namespace DirectX;
 
+
 Camera::Camera(ComponentManager* componentManager, float fov, float aspectRatio, float nearPlane, float farPlane) : GameObject(componentManager) {
     // Init View Matrix
 
@@ -129,14 +130,39 @@ Camera::Camera(ComponentManager* componentManager, float fov, float aspectRatio,
 
     // Déclarer un quaternion pour stocker l'orientation actuelle de la caméra
     currentRotation = XMQuaternionIdentity();
+    m_up = XMFLOAT3(0.0f, 1.0f, 0.0f);
+    m_defaultForward = XMFLOAT3(0.0f, 0.0f, 1.0f);
+}
+
+void Camera::UpdateTransform()
+{
+    transform = GetComponent<Transform>(ComponentType::Transform);
 }
 
 void Camera::Update(float deltaTime) {
-    // Calculer la matrice de vue
-    XMFLOAT3 d = transform->GetPosition();
-    m_viewMatrix = XMMatrixLookAtLH(XMLoadFloat3(&d), XMLoadFloat3(&m_target), XMLoadFloat3(&m_up));
-    m_projectionMatrix = XMMatrixTranspose(m_viewMatrix);
-    XMStoreFloat4x4(&f_viewMatrix, m_projectionMatrix);
+    XMFLOAT3 position = transform->GetPosition();
+    XMFLOAT3 rotation = transform->GetRotation();
+
+    float someDistance = 2.0f;
+    XMVECTOR forward;
+    if (rotation.x == 0.f && rotation.y == 0.f && rotation.z == 0.f)
+    {
+        forward = XMLoadFloat3(&m_defaultForward);
+    }
+    else {
+        forward = XMVector3Rotate(XMLoadFloat3(&m_defaultForward), XMLoadFloat3(&rotation));
+    }
+    forward = XMVector3Normalize(forward); // Normaliser le vecteur vers l'avant pour obtenir une direction
+    XMFLOAT3 targetPosition;
+    XMStoreFloat3(&targetPosition, XMVectorAdd(XMLoadFloat3(&position), XMVectorScale(forward, someDistance)));
+
+    
+    // Calculez la matrice de vue directement
+    m_viewMatrix = XMMatrixLookAtLH(XMLoadFloat3(&position), XMLoadFloat3(&targetPosition), XMLoadFloat3(&m_up));
+
+    // Transposez la matrice de vue si nécessaire
+    m_viewMatrix = XMMatrixTranspose(m_viewMatrix);
+    XMStoreFloat4x4(&f_viewMatrix, m_viewMatrix);
 }
 
 void Camera::UpdatePosition(XMFLOAT3 displacement) {
@@ -148,7 +174,10 @@ void Camera::UpdatePosition(float x, float y, float z) {
 }
 
 void Camera::Rotate(float pitch, float yaw, float roll) {
-    transform->Rotate(pitch, yaw, roll);
+    std::cout << "ROTATION CAMERA bis x : " << pitch << " y : " << yaw << " z : " << roll << std::endl;
+
+    transform->SetRotation(pitch, yaw, roll);
+    std::cout << "ROTATION CAMERA x : " << transform->GetRotation().x << " y : " << transform->GetRotation().y << " z : " << transform->GetRotation().z << std::endl;
 }
 
 void Camera::UpdateTarget(XMFLOAT3 m_newTarget)

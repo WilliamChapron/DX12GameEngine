@@ -4,7 +4,7 @@
 //#include "./Component.h"
 
 
-Transform::Transform(const XMFLOAT3& pos, const XMFLOAT3& rot, const XMFLOAT3& scl) : Component("Transform", ComponentType::Transform), vPosition(0.0f, 0.0f, 0.0f), vRotation(0.0f, 0.0f, 0.0f), qRotation(0.0f, 0.0f, 0.0f, 1.0f), vScale(1.0f, 1.0f, 1.0f)
+Transform::Transform(const XMFLOAT3& pos, const XMFLOAT3& rot, const XMFLOAT3& scl) : Component("Transform", ComponentType::Transform), vPosition(0.0f, 0.0f, 0.0f), vRotation(0.0f, 0.0f, 1.0f), qRotation(0.0f, 0.0f, 0.0f, 1.0f), vScale(1.0f, 1.0f, 1.0f)
 {
     Init();
     SetPosition(pos.x, pos.y, pos.z);
@@ -84,8 +84,6 @@ void Transform::SetRotation(float pitch, float roll, float yaw) {
 
 void Transform::Rotate(float pitch, float roll, float yaw)
 {
-
-
     XMVECTOR forwardVector = XMLoadFloat3(&vForward);
     XMVECTOR rightVector = XMLoadFloat3(&vRight);
     XMVECTOR upVector = XMLoadFloat3(&vUp);

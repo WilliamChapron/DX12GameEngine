@@ -29,22 +29,17 @@ public:
     
 
 
-
-
     std::list<Component*> componentsList;
 
-protected:
-    
-private:
-
-    //ConstantBufferData m_cbData;
-
-    ComponentManager* m_pComponentManager;
-public:
     template <typename T>
     T* GetComponent(ComponentType type) {
         Component* component = m_pComponentManager->GetGameObjectComponentByType(*this, type);
         return dynamic_cast<T*>(component);
     }
+protected:
+    
+    ComponentManager* m_pComponentManager;
+private:
+
 };
 

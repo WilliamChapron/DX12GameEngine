@@ -14,7 +14,8 @@ class MeshRenderer;
 class ComponentManager
 {
 public:
-    ComponentManager(std::shared_ptr<GameObjectManager>& gameObjectManager, Renderer* renderer, Camera* camera);
+    ComponentManager(std::shared_ptr<GameObjectManager>& gameObjectManager, Renderer* renderer);
+    void AddCamera(Camera* camera);
 
     // Actions to add, remove, ... on a game object
     ComponentType GetComponentPriority(Component* component);
