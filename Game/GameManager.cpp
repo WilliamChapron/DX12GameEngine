@@ -198,7 +198,8 @@ void GameManager::Run() {
                 break;
             case 'T':
                 if (pair.second == KeyState::Pressed || pair.second == KeyState::Held) {
-                    transformComponent->Translate(0.005, 0, 0);
+                    //DirectX::XMFLOAT3 direction = transformComponent->GetPosition() - m_pCamera->m_position;
+                    transformComponent->Translate(0, 0, 0);
                 }
                 break;
             case VK_SPACE:

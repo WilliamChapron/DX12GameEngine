@@ -2,7 +2,7 @@
 //
 
 #include "stdafx.h"
-#include "Game.h"
+#include "main.h"
 #include "GameManager.h"
 
 

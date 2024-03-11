@@ -23,6 +23,10 @@ public:
     void RotateAroundTarget(float pitch, float yaw, float roll);
 
 
+    DirectX::XMFLOAT3 m_position;
+    DirectX::XMFLOAT3 m_target;
+    DirectX::XMFLOAT3 m_up;
+
 private:
     XMVECTOR currentRotation;
 
@@ -34,10 +38,6 @@ private:
     XMVECTOR forward;
     XMVECTOR up;
     XMVECTOR right;
-
-    DirectX::XMFLOAT3 m_position;
-    DirectX::XMFLOAT3 m_target;
-    DirectX::XMFLOAT3 m_up;
 
     XMMATRIX m_viewMatrix;
     XMMATRIX m_projectionMatrix;
