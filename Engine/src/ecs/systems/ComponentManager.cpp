@@ -22,6 +22,10 @@ ComponentManager::ComponentManager(std::shared_ptr<GameObjectManager>& gameObjec
 }
 
 
+ComponentType ComponentManager::GetComponentPriority(Component* component) {
+    return component->GetType();
+}
+
 
 bool CompareByPriority(const Component* leftValue, const Component* rightValue) {
     ComponentType leftType = leftValue->GetType();

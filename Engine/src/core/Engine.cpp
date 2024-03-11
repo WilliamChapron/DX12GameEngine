@@ -67,12 +67,14 @@ void Engine::Init(HINSTANCE hInstance, int nShowCmd) {
     m_pInput->ResetMousePosition();
 
 
-    m_pCamera = new Camera(); // #TODO Shared ptr camera to each object
-
-    m_pGameObjectManager = std::make_shared<GameObjectManager>(m_pCamera);
     m_pComponentManager = new ComponentManager(m_pGameObjectManager, m_pRenderer, m_pCamera);
     m_pResourceManager = new ResourceManager();
 
+    m_pCamera = new Camera(m_pComponentManager); // #TODO Shared ptr camera to each object
+    m_pCamera->Initialize(XMFLOAT3(0.0f, -5.0f, -2.0f), XMFLOAT3(0.0f, 0.0f, 0.0f), XMFLOAT3(1.f, 1.f, 1.f));
+
+
+    m_pGameObjectManager = std::make_shared<GameObjectManager>(m_pCamera);
     // INITIALIZE UNIQUE COMPONENT
 
     ConstantBufferData* cbData = new ConstantBufferData(); // Alloue de la mémoire pour m_cbData
@@ -213,7 +215,11 @@ void Engine::Run() {
             }
         }
 
-        m_pCamera->Rotate(m_pInput->GetMousePosition().y * 0.2f, 0.0f, - m_pInput->GetMousePosition().x * 0.2f);
+        XMFLOAT2 cameraVect = NormalizeVector(XMFLOAT2(m_pInput->GetMousePosition().x, - m_pInput->GetMousePosition().y));
+
+        std::cout << cameraVect.x << " et " << cameraVect.y << std::endl;
+
+        m_pCamera->Rotate(cameraVect.x * 0.2f,cameraVect.y * 0.2f , 0.0f);
         
         m_pInput->ResetMousePosition();
 

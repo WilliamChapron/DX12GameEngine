@@ -57,3 +57,12 @@ HRESULT CompileShaderFromFile(const wchar_t* filePath, const char* entryPoint, c
 
     return S_OK;
 }
+
+XMFLOAT2 NormalizeVector(XMFLOAT2 vect)
+{
+    float x = vect.x, y = vect.y;
+    
+    float norm = sqrt(pow(x, 2) + pow(y, 2));
+
+    return XMFLOAT2(x / norm, y / norm);
+}

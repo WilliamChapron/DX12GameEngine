@@ -13,8 +13,8 @@ public:
 
     void UpdateTime();
 
-    double GetElapsedTime();
-    double GetDeltaTime();
+    float GetElapsedTime();
+    float GetDeltaTime();
     int GetFramePerSecond();
 
 

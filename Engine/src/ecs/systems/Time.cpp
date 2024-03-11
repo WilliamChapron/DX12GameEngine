@@ -17,14 +17,15 @@ void Time::UpdateTime()
     QueryPerformanceCounter(&currentTime);
 }
 
-double Time::GetElapsedTime() {
-    return static_cast<double>(currentTime.QuadPart - startTime.QuadPart) / frequency.QuadPart;
+float Time::GetElapsedTime() {
+    double res = static_cast<double>(currentTime.QuadPart - startTime.QuadPart) / frequency.QuadPart;
+    return (float)res;
 }
 
-double Time::GetDeltaTime(){
+float Time::GetDeltaTime(){
     double deltaTime = static_cast<double>(currentTime.QuadPart - lastTime.QuadPart) / frequency.QuadPart;
 
-    return deltaTime;
+    return (float)deltaTime;
 }
 
 int Time::GetFramePerSecond()

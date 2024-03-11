@@ -22,6 +22,7 @@ public:
     GameObject(ComponentManager* componentManager);
 
     void Initialize(Renderer* renderer, Camera* camera, const XMFLOAT3& position, const XMFLOAT3& rotation, const XMFLOAT3& scale, Mesh* mesh, ConstantBufferData* cbData, Vertex* vertices, int numVertices);
+    void Initialize(XMFLOAT3 position, XMFLOAT3 rotation, XMFLOAT3 scale);
     void Update(Renderer* renderer, Camera* camera);
 
 

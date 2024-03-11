@@ -1,12 +1,15 @@
 #pragma once
-
-
+//#include "pch.h"
+#include "../entities/GameObject.hpp"
 using namespace DirectX;
 
-class Camera
+class Transform;
+
+class Camera : public GameObject
 {
 public:
-    Camera(float fov = XM_PIDIV4, float aspectRatio = 16.0f / 9.0f, float nearPlane = 0.1f, float farPlane = 100.0f);
+    Camera(ComponentManager* componentManager, float fov = XM_PIDIV4, float aspectRatio = 16.0f / 9.0f, float nearPlane = 0.1f, float farPlane = 100.0f);
+    //Camera(float fov = XM_PIDIV4, float aspectRatio = 16.0f / 9.0f, float nearPlane = 0.1f, float farPlane = 100.0f);
     ~Camera() {};
 
     void Update(float deltaTime);
@@ -16,28 +19,30 @@ public:
 
     void UpdateTarget(XMFLOAT3 m_newTarget);
 
-    XMFLOAT4X4 GetViewMatrix() const;
-    XMFLOAT4X4 GetProjectionMatrix() const;
+    inline XMFLOAT4X4 GetViewMatrix() const { return f_viewMatrix; };
+    inline XMFLOAT4X4 GetProjectionMatrix() const { return f_projectionMatrix; };
 
-    void Rotate(float pitch, float yaw, float roll);
+    void Rotate(float pitch, float yaw, float roll = 0.0f);
     void RotateAroundTarget(float pitch, float yaw, float roll);
 
+    //Transform* transform;
 
 private:
+    Transform* transform;
+
+
     XMVECTOR currentRotation;
 
-    // Rotate data
-    XMFLOAT3 qRotation;  // Quaternion 
-    XMFLOAT4X4 mRotation;
+    XMFLOAT3 m_rotation;
 
     // Direction vector 
     XMVECTOR forward;
     XMVECTOR up;
     XMVECTOR right;
 
-    DirectX::XMFLOAT3 m_position;
-    DirectX::XMFLOAT3 m_target;
-    DirectX::XMFLOAT3 m_up;
+    XMFLOAT3 m_position;
+    XMFLOAT3 m_target;
+    XMFLOAT3 m_up;
 
     XMMATRIX m_viewMatrix;
     XMMATRIX m_projectionMatrix;
