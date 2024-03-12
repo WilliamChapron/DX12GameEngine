@@ -8,7 +8,8 @@ enum class ComponentType {
     Texture = 2,
     MeshRenderer = 3,
     ColliderComponent = 4,
-    ScriptComponent = 5
+    ScriptComponent = 5,
+    ParticleComponent = 6,
 };
 
 class Component {

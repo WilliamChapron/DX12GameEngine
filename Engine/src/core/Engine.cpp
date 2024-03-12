@@ -131,12 +131,14 @@ void Engine::Init(HINSTANCE hInstance, int nShowCmd) {
     m_pComponentManager->AddComponent(*m_pCube3, m_pResourceManager->FindShaderComponentByName("shader1").component);
     m_pComponentManager->AddComponent(*m_pCube4, m_pResourceManager->FindShaderComponentByName("shader1").component);
 
+
+
     m_pGameObjectManager->AddObject("Cube", m_pCube);
     //m_pGameObjectManager->AddObject("Cube2", m_pCube2);
     m_pGameObjectManager->AddObject("Cube3", m_pCube3);
     //m_pGameObjectManager->AddObject("Cube4", m_pCube4);
 
-    MovableScript* movableScript = new MovableScript();
+    ZigzagMoveScript* movableScript = new ZigzagMoveScript();
     movableScript->Initialize("MovableScript", m_pCube);
     ScriptComponent* scriptComponent = m_pCube->GetComponent<ScriptComponent>(ComponentType::ScriptComponent);
     scriptComponent->AddScript(movableScript);

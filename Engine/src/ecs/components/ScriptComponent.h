@@ -43,6 +43,19 @@ public:
     }
 };
 
+class ZigzagMoveScript : public Script {
+public:
+    void Initialize(std::string name, GameObject* gameObject) override;
+    void Update() override;
+
+private:
+    float m_zigzagSpeed;
+    float m_zigzagAmplitude;
+    bool m_goingRight;
+    float m_currentAmplitude;
+};
+
+
 
 class ScriptComponent : public Component {
 public:

@@ -32,6 +32,7 @@ void GameObject::Initialize(Renderer* renderer, Camera* camera, const XMFLOAT3& 
     m_pComponentManager->AddComponent(*this, baseTransform);  
 
 
+
     MeshRenderer* baseMeshRenderer = new MeshRenderer("MeshRenderer", cbData, mesh); // Component
     baseMeshRenderer->Initialize(renderer, cbData);
     m_pComponentManager->AddComponent(*this, baseMeshRenderer);
@@ -43,7 +44,10 @@ void GameObject::Initialize(Renderer* renderer, Camera* camera, const XMFLOAT3& 
     ScriptComponent* scriptComponent = new ScriptComponent("ScriptComponent", this);
     m_pComponentManager->AddComponent(*this, scriptComponent);
 
-
+    //ParticleComponent* particleComponent = new ParticleComponent("ParticleComponent", renderer);
+    //particleComponent->Initialize(camera);
+    //m_pComponentManager->AddComponent(*this, particleComponent);
+    //PRINT("ParticleComponent");
 }
 
 
