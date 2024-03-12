@@ -219,8 +219,9 @@ void Engine::Run() {
         }
 
         XMFLOAT2 cameraVect = NormalizeVector(XMFLOAT2(m_pInput->GetMousePosition().x, - m_pInput->GetMousePosition().y));
+        
 
-        m_pCamera->Rotate(cameraVect.x * 0.2f,cameraVect.y * 0.2f , 0.0f);
+        m_pCamera->Rotate(cameraVect.x, cameraVect.y);
         
         //m_pInput->ResetMousePosition();
 

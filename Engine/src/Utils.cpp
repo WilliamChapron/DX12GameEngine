@@ -1,4 +1,5 @@
 #include "pch.h"
+#define PI 3,14159265358979
 
 using namespace DirectX;
 
@@ -66,3 +67,10 @@ XMFLOAT2 NormalizeVector(XMFLOAT2 vect)
 
     return XMFLOAT2(x / norm, y / norm);
 }
+
+float DegreesToRadians(float degrees)
+{
+    return degrees * (PI / 180.0f);
+}
+
+

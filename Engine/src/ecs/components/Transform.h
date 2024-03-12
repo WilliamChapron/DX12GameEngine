@@ -12,6 +12,8 @@ public:
     void Init();
     void Update();
 
+    void IdentityRotation();
+
     // Getter
     XMFLOAT4X4 GetTransformMatrix() const;
     XMFLOAT3 GetPosition() const;

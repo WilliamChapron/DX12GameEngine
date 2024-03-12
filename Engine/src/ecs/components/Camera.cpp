@@ -132,6 +132,9 @@ Camera::Camera(ComponentManager* componentManager, float fov, float aspectRatio,
     currentRotation = XMQuaternionIdentity();
     m_up = XMFLOAT3(0.0f, 1.0f, 0.0f);
     m_defaultForward = XMFLOAT3(0.0f, 0.0f, 1.0f);
+
+    pitch = 0.0f;
+    yaw = 0.0f;
 }
 
 void Camera::UpdateTransform()
@@ -173,12 +176,20 @@ void Camera::UpdatePosition(float x, float y, float z) {
     transform->Translate(x, y, z);
 }
 
-void Camera::Rotate(float pitch, float yaw, float roll) {
-    std::cout << "ROTATION CAMERA bis x : " << pitch << " y : " << yaw << " z : " << roll << std::endl;
+void Camera::Rotate(float _pitch, float _yaw) {
+    pitch += _pitch;
+    yaw += _yaw;
+    
+    std::cout << "ROTATION CAMERA bis x : " << pitch << " y : " << yaw << std::endl;
+    
+    transform->IdentityRotation();
+    transform->SetRotation(pitch, yaw, 0.0f);
 
-    transform->SetRotation(pitch, yaw, roll);
-    std::cout << "ROTATION CAMERA x : " << transform->GetRotation().x << " y : " << transform->GetRotation().y << " z : " << transform->GetRotation().z << std::endl;
+    std::cout << "ROTATION CAMERA x : " << transform->GetRotation().x << " y : " << transform->GetRotation().y << std::endl;
 }
+
+
+
 
 void Camera::UpdateTarget(XMFLOAT3 m_newTarget)
 {
@@ -188,6 +199,9 @@ void Camera::UpdateTarget(XMFLOAT3 m_newTarget)
 }
 
 
+
+
+// -----------------------------------
 void Camera::RotateAroundTarget(float pitch, float yaw, float roll) {
     /*pitch = XMConvertToRadians(pitch);
     yaw = XMConvertToRadians(yaw);

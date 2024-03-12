@@ -16,6 +16,11 @@ void Transform::Update() {
     //PRINT("Update Texture");
 }
 
+void Transform::IdentityRotation()
+{
+    vRotation = XMFLOAT3(0.0f, 0.0f, 0.0f);
+}
+
 void Transform::Init() {
     XMMATRIX positionMatrix = XMMatrixIdentity();
     XMStoreFloat4x4(&mPosition, positionMatrix);

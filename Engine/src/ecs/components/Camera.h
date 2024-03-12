@@ -23,12 +23,14 @@ public:
     inline XMFLOAT4X4 GetViewMatrix() const { return f_viewMatrix; };
     inline XMFLOAT4X4 GetProjectionMatrix() const { return f_projectionMatrix; };
 
-    void Rotate(float pitch, float yaw, float roll = 0.0f);
+    void Rotate(float _pitch, float _yaw);
     void RotateAroundTarget(float pitch, float yaw, float roll);
 
     //Transform* transform;
 
 private:
+    float pitch, yaw;
+
     XMFLOAT3 m_defaultForward;
 
     Transform* transform;
