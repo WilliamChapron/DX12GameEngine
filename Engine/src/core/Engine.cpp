@@ -71,7 +71,8 @@ void Engine::Init(HINSTANCE hInstance, int nShowCmd) {
     m_pResourceManager = new ResourceManager();
 
     m_pCamera = new Camera(m_pComponentManager); // #TODO Shared ptr camera to each object
-    m_pCamera->Initialize(XMFLOAT3(0.0f, -5.0f, -2.0f), XMFLOAT3(0.0f, 0.0f, 0.0f), XMFLOAT3(1.f, 1.f, 1.f));
+    //m_pCamera->Initialize(XMFLOAT3(0.0f, -5.0f, -2.0f), XMFLOAT3(0.0f, 0.0f, 0.0f), XMFLOAT3(1.f, 1.f, 1.f));
+    m_pCamera->Initialize(XMFLOAT3(0.0f, 0.0f, -10.0f), XMFLOAT3(0.0f, 0.0f, 0.0f), XMFLOAT3(1.f, 1.f, 1.f));
     m_pCamera->UpdateTransform();
     m_pComponentManager->AddCamera(m_pCamera);
 
@@ -118,9 +119,9 @@ void Engine::Init(HINSTANCE hInstance, int nShowCmd) {
 
 
 
-    m_pCube->Initialize(m_pRenderer, m_pCamera, XMFLOAT3(-1.5f, -1.0f, 0.0f), XMFLOAT3(0.0f, 0.0f, 0.0f), XMFLOAT3(1.0f, 1.0f, 1.0f), m_pResourceManager->FindMeshComponentByName("mesh1").component, cbData, cubeMesh.cubeVertices, cubeMesh.numElementsV);
+    m_pCube->Initialize(m_pRenderer, m_pCamera, XMFLOAT3(-1.5f, 0.0f, 0.0f), XMFLOAT3(0.0f, 0.0f, 0.0f), XMFLOAT3(1.0f, 1.0f, 1.0f), m_pResourceManager->FindMeshComponentByName("mesh1").component, cbData, cubeMesh.cubeVertices, cubeMesh.numElementsV);
     m_pCube2->Initialize(m_pRenderer, m_pCamera, XMFLOAT3(0.0f, 0.0f, 0.0f), XMFLOAT3(0.0f, 0.0f, 0.0f), XMFLOAT3(1.0f, 1.0f, 1.0f), m_pResourceManager->FindMeshComponentByName("mesh2").component, cbData, cubeMesh2.cubeVertices, cubeMesh2.numElementsV);
-    m_pCube3->Initialize(m_pRenderer, m_pCamera, XMFLOAT3(1.5f, -1.0f, 0.0f), XMFLOAT3(0.0f, 0.0f, 0.0f), XMFLOAT3(1.0f, 1.0f, 1.0f), m_pResourceManager->FindMeshComponentByName("mesh1").component, cbData, cubeMesh.cubeVertices, cubeMesh.numElementsV);
+    m_pCube3->Initialize(m_pRenderer, m_pCamera, XMFLOAT3(1.5f, 0.0f, 0.0f), XMFLOAT3(0.0f, 0.0f, 0.0f), XMFLOAT3(1.0f, 1.0f, 1.0f), m_pResourceManager->FindMeshComponentByName("mesh1").component, cbData, cubeMesh.cubeVertices, cubeMesh.numElementsV);
     m_pCube4->Initialize(m_pRenderer, m_pCamera, XMFLOAT3(3.5f, 0.0f, 0.0f), XMFLOAT3(0.0f, 0.0f, 0.0f), XMFLOAT3(1.0f, 1.0f, 1.0f), m_pResourceManager->FindMeshComponentByName("mesh2").component, cbData, cubeMesh2.cubeVertices, cubeMesh2.numElementsV);
 
     m_pComponentManager->AddComponent(*m_pCube, m_pResourceManager->FindTextureComponentByName("texture").component);
@@ -193,37 +194,40 @@ void Engine::Run() {
             switch (pair.first) {
             case 'Z':
                 if (pair.second == KeyState::Pressed || pair.second == KeyState::Held)
-                    m_pCamera->UpdatePosition(speed * time.GetDeltaTime(), 0.0f, 0.0f);
+                    m_pCamera->UpdatePosition(0.0f, 0.0f, speed * time.GetDeltaTime());
                 break;
             case 'S':
                 if (pair.second == KeyState::Pressed || pair.second == KeyState::Held)
-                    m_pCamera->UpdatePosition(-speed * time.GetDeltaTime(), 0.0f, 0.0f);
+                    m_pCamera->UpdatePosition(0.0f, 0.0f, -speed * time.GetDeltaTime());
                 break;
             case 'Q':
                 if (pair.second == KeyState::Pressed || pair.second == KeyState::Held)
-                    m_pCamera->UpdatePosition(0.0f, -speed * time.GetDeltaTime(), 0.0f);
+                    m_pCamera->UpdatePosition(-speed * time.GetDeltaTime(), 0.0f, 0.0f);
                 break;
             case 'D':
                 if (pair.second == KeyState::Pressed || pair.second == KeyState::Held)
-                    m_pCamera->UpdatePosition(0.0f, speed * time.GetDeltaTime(), 0.0f);
+                    m_pCamera->UpdatePosition(speed * time.GetDeltaTime(), 0.0f, 0.0f);
                 break;
             case VK_SPACE:
                 if (pair.second == KeyState::Pressed || pair.second == KeyState::Held)
-                    m_pCamera->UpdatePosition(0.0f, 0.0f, speed * time.GetDeltaTime());
+                    m_pCamera->UpdatePosition(0.0f, speed * time.GetDeltaTime(), 0.0f);
                 break;
             case VK_SHIFT:
                 if (pair.second == KeyState::Pressed || pair.second == KeyState::Held)
-                    m_pCamera->UpdatePosition(0.0f, 0.0f, -speed * time.GetDeltaTime());
+                    m_pCamera->UpdatePosition(0.0f,-speed * time.GetDeltaTime(), 0.0f);
                 break;
             }
         }
+        XMFLOAT2 cameraVect;
 
-        XMFLOAT2 cameraVect = NormalizeVector(XMFLOAT2(m_pInput->GetMousePosition().x, - m_pInput->GetMousePosition().y));
-        
+        if (m_pInput->GetMousePosition().x != 0 || m_pInput->GetMousePosition().y)
+            cameraVect = NormalizeVector(XMFLOAT2(m_pInput->GetMousePosition().x, -m_pInput->GetMousePosition().y));
+        else
+            cameraVect = XMFLOAT2(m_pInput->GetMousePosition().x, m_pInput->GetMousePosition().y);
 
-        m_pCamera->Rotate(cameraVect.x, cameraVect.y);
+        m_pCamera->Rotate(cameraVect.x, -cameraVect.y);
         
-        //m_pInput->ResetMousePosition();
+        m_pInput->ResetMousePosition();
 
 
         if (PeekMessage(&msg, NULL, 0, 0, PM_REMOVE)) {

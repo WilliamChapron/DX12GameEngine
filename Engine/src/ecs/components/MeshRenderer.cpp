@@ -39,13 +39,14 @@ void MeshRenderer::Initialize(Renderer* renderer, ConstantBufferData* cbData) {
     hr = m_constantBuffer->Map(0, nullptr, reinterpret_cast<void**>(&m_mappedConstantBuffer));
     ASSERT_FAILED(hr);
     // Copie des données des constantes
-    memcpy(m_mappedConstantBuffer, cbData, sizeof(ConstantBufferData));
-    m_constantBuffer->Unmap(0, nullptr);
+    //memcpy(m_mappedConstantBuffer, cbData, sizeof(ConstantBufferData));
+    //m_constantBuffer->Unmap(0, nullptr);
 }
 
 void MeshRenderer::UpdateConstantBuffer(ConstantBufferData* cbData)
 {
-    m_cbData = cbData;
+    memcpy(m_mappedConstantBuffer, cbData, sizeof(ConstantBufferData));
+    //m_cbData = cbData;
     //PRINT("Update Constant buffer");
     // Affichage de la matrice modèle
     //std::cout << "Model Matrix of" << GetName() << std::endl;
@@ -61,11 +62,11 @@ void MeshRenderer::Update(Renderer* renderer) {
     //std::cout << "Model Matrix of" << GetName() << std::endl;
     //PrintMatrix(m_cbData->model);
 
-    hr = m_constantBuffer->Map(0, nullptr, reinterpret_cast<void**>(m_mappedConstantBuffer));
-    ASSERT_FAILED(hr);
-
-    memcpy(m_mappedConstantBuffer, m_cbData, sizeof(ConstantBufferData));
-    m_constantBuffer->Unmap(0, nullptr);
+    //hr = m_constantBuffer->Map(0, nullptr, reinterpret_cast<void**>(m_mappedConstantBuffer));
+    //ASSERT_FAILED(hr);
+    //
+    //memcpy(m_mappedConstantBuffer, m_cbData, sizeof(ConstantBufferData));
+    //m_constantBuffer->Unmap(0, nullptr);
 
 
 

@@ -74,3 +74,11 @@ float DegreesToRadians(float degrees)
 }
 
 
+float Clamp(float v, float a, float b)
+{
+    if (v < a)
+        return a;
+    if (v > b)
+        return b;
+    return v;
+}

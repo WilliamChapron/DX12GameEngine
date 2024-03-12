@@ -19,6 +19,10 @@ public:
     XMFLOAT3 GetPosition() const;
     XMFLOAT3 GetScale() const;
     XMFLOAT3 GetRotation() const;
+    XMFLOAT3 GetDirVectorForward() const;
+    XMFLOAT3 GetDirVectorRight() const;
+    XMFLOAT3 GetDirVectorUp() const;
+
 
     inline XMFLOAT4X4 GetRotationMatrix() {
         return mRotation;
@@ -45,7 +49,7 @@ private:
 
     // Rotate data
     XMFLOAT4 qRotation;  // Quaternion 
-    XMFLOAT3 vRotation;  // Vector
+  XMFLOAT3 vRotation;  // Vector
     XMFLOAT4X4 mRotation;
 
     // Scale data
