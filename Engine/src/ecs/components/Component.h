@@ -38,6 +38,8 @@ public:
     //virtual void Initialize(Renderer* renderer);
     virtual void Update(Renderer* renderer);
 
+   // virtual void Render();
+
 private:
     std::string m_name;
     ComponentType m_type;

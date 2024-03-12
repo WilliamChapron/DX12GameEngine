@@ -11,12 +11,9 @@
 //using namespace DirectX;
 
 
-ColliderComponent::ColliderComponent(std::string name) : Component(name, ComponentType::ColliderComponent) {
+ColliderComponent::ColliderComponent(std::string name) : Component(name, ComponentType::ColliderComponent), m_collideState(0), m_colliderObject(nullptr) {
 
 }
-
-
-//#define PRINT_VECTOR3(vec) std::cout << #vec << ": (" << (vec).x << ", " << (vec).y << ", " << (vec).z << ")" << std::endl;
 
 
 void ColliderComponent::InitializeBoundingBox(GameObject* gameObject, Vertex* vertices, int numVertices) {
@@ -48,7 +45,7 @@ void ColliderComponent::InitializeBoundingBox(GameObject* gameObject, Vertex* ve
 
 
 void ColliderComponent::Update(Renderer* renderer) {
-    PRINT("Update Collider");
+    //PRINT("Update Collider");
 
 }
 
@@ -152,7 +149,22 @@ bool ColliderComponent::CheckCollision(GameObject* collideObject) {
     bool collisionY = maxBox1.y >= minBox2.y && minBox1.y <= maxBox2.y;
     bool collisionZ = maxBox1.z >= minBox2.z && minBox1.z <= maxBox2.z;
 
-    return collisionX && collisionY && collisionZ;
+    if (collisionX && collisionY && collisionZ) {
+        m_collideState = 1;
+        m_colliderObject = collideObject;
+
+        PRINT("Collision detected! Collided with object: ");
+        PRINT("----");
+        return true;
+    }
+    else {
+        m_collideState = 0;
+        PRINT("No collision detected.");
+        PRINT("----");
+        return false;
+    }
+
+
 }
 
 

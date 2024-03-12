@@ -108,6 +108,9 @@
     <ClInclude Include="src\Atom.h">
       <Filter>Fichiers d%27en-tête</Filter>
     </ClInclude>
+    <ClInclude Include="src\ecs\components\MathHelper.h">
+      <Filter>Fichiers d%27en-tête</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="pch.cpp">
@@ -186,6 +189,9 @@
       <Filter>Fichiers sources</Filter>
     </ClCompile>
     <ClCompile Include="src\Atom.cpp">
+      <Filter>Fichiers sources</Filter>
+    </ClCompile>
+    <ClCompile Include="src\ecs\components\MathHelper.cpp">
       <Filter>Fichiers sources</Filter>
     </ClCompile>
   </ItemGroup>

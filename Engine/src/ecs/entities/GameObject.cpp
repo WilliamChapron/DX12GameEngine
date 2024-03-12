@@ -22,7 +22,7 @@
 
 
 
-GameObject::GameObject(ComponentManager* componentManager) : m_pComponentManager(componentManager)
+GameObject::GameObject(ComponentManager* componentManager) : m_pComponentManager(componentManager), deadState(0)
 {
 }
 

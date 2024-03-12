@@ -29,9 +29,12 @@ public:
 
     bool CheckCollision(GameObject* gameObject);
       
-
+    int m_collideState;
+    GameObject* m_colliderObject;
 private:
     GameObject* m_pGameObject;
     AABB m_localAxisAlignedBoundingBox;
     XMFLOAT3 m_halfSize;
+    
+
 };

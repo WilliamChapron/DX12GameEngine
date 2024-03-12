@@ -23,20 +23,17 @@ public:
 
     void Initialize(Renderer* renderer, Camera* camera, const XMFLOAT3& position, const XMFLOAT3& rotation, const XMFLOAT3& scale, Mesh* mesh, ConstantBufferData* cbData, Vertex* vertices, int numVertices);
     void Update(Renderer* renderer, Camera* camera);
-
-
-    
-
-
-
+    void Render();
 
     std::list<Component*> componentsList;
+
+    int deadState;
 
 protected:
     
 private:
 
-    //ConstantBufferData m_cbData;
+
 
     ComponentManager* m_pComponentManager;
 public:

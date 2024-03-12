@@ -12,28 +12,33 @@
 
 GameObjectManager::GameObjectManager(Camera* camera) : m_pCamera(camera) {}
 
-// Ajouter un objet au gestionnaire
+
 void GameObjectManager::AddObject(const std::string& name, GameObject* object) {
     objectMap[name] = object;
     PRINT("Object added: " << name);
 }
 
-// Supprimer un objet du gestionnaire
-void GameObjectManager::RemoveObject(const std::string& name) {
-    auto it = objectMap.find(name);
+
+void GameObjectManager::RemoveObject(GameObject* object) {
+    auto it = std::find_if(objectMap.begin(), objectMap.end(), [object](const auto& pair) {
+        return pair.second == object;
+    });
+
     if (it != objectMap.end()) {
-        objectMap.erase(it);
-        PRINT("Object erased: " << name);
+        PRINT("Removing object: " << it->first);
+        object->deadState = 1;
+       // objectMap.erase(it);
     }
-
-
+    else {
+        PRINT("Object not found for removal.");
+    }
 }
 
 void GameObjectManager::Update(Renderer* renderer) {
     HRESULT hr;
 
-    renderer->Precommandlist();
 
+    renderer->Precommandlist();
 
 
     PRINT("Frame");
@@ -42,7 +47,11 @@ void GameObjectManager::Update(Renderer* renderer) {
     for (auto& pair : objectMap) {
         GameObject* gameObject = pair.second;
 
+
         gameObject->Update(renderer, m_pCamera);
+
+        ColliderComponent* colliderComponent = gameObject->GetComponent<ColliderComponent>(ComponentType::ColliderComponent);
+        colliderComponent->m_collideState = 0;
 
         // tryCollide = object on which we test collision
         for (auto& tryCollide : objectMap) {
@@ -57,11 +66,16 @@ void GameObjectManager::Update(Renderer* renderer) {
                 continue;
             }
 
-            ColliderComponent* colliderComponent = gameObject->GetComponent<ColliderComponent>(ComponentType::ColliderComponent);
+
+            ColliderComponent* colliderComponentTryCollide = tryCollide.second->GetComponent<ColliderComponent>(ComponentType::ColliderComponent);
 
 
-            std::cout << "Check Collide Object : " << pair.first << " With : " << tryCollide.first << std::endl;
-            PRINT(colliderComponent->CheckCollision(tryCollide.second));
+            //std::cout << "Check Collide Object : " << pair.first << " With : " << tryCollide.first << std::endl;
+
+            // If collision detect, Game object have collide
+            if (colliderComponent->CheckCollision(tryCollide.second)) {
+                break;
+            };
 
             testedPairs.push_back(objectPair);
         }
@@ -78,4 +92,16 @@ void GameObjectManager::Update(Renderer* renderer) {
     ASSERT_FAILED(hr);
 
     renderer->WaitForPreviousFrame();
+
+
+    //for (auto& item : objectMap) {
+    //    if (item.second->deadState) {
+    //        PRINT("Removing dead object: ");
+
+    //        delete item.second;
+    //        objectMap.erase(item.first);
+    //    }
+    //}
+
+
 };

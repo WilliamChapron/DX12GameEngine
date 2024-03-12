@@ -1,5 +1,6 @@
 ﻿#include "stdafx.h"
 #include "GameManager.h"
+#include "Scripts.h"
 
 GameManager::GameManager() /*: m_hInstance(nullptr), m_nShowCmd(0), m_pConsole(nullptr), m_pInput(nullptr), m_pCamera(nullptr), m_pGameObjectManager(nullptr) */
 {
@@ -94,9 +95,30 @@ void GameManager::Init(HINSTANCE hInstance, int nShowCmd) {
     m_pComponentManager->AddComponent(*m_pCube4, m_pResourceManager->FindShaderComponentByName("shader1").component);
 
     m_pGameObjectManager->AddObject("Cube", m_pCube);
-    //m_pGameObjectManager->AddObject("Cube2", m_pCube2);
+    m_pGameObjectManager->AddObject("Cube2", m_pCube2);
     m_pGameObjectManager->AddObject("Cube3", m_pCube3);
-    //m_pGameObjectManager->AddObject("Cube4", m_pCube4);
+    m_pGameObjectManager->AddObject("Cube4", m_pCube4);
+
+    ScriptComponent* scriptComponent = m_pCube->GetComponent<ScriptComponent>(ComponentType::ScriptComponent);
+    ScriptComponent* scriptComponent2 = m_pCube2->GetComponent<ScriptComponent>(ComponentType::ScriptComponent);
+    ScriptComponent* scriptComponent3 = m_pCube3->GetComponent<ScriptComponent>(ComponentType::ScriptComponent);
+    ScriptComponent* scriptComponent4 = m_pCube4->GetComponent<ScriptComponent>(ComponentType::ScriptComponent);
+
+    //ZigzagMoveScript* movableScript = new ZigzagMoveScript();
+    //movableScript->Initialize("ZigZagScript", m_pCube);
+    //scriptComponent->AddScript(movableScript);
+
+    LifeScript* lifeScript = new LifeScript("LifeScript1", m_pCube, m_pGameObjectManager);
+    scriptComponent->AddScript(lifeScript);
+
+    LifeScript* lifeScript2 = new LifeScript("LifeScript2", m_pCube2, m_pGameObjectManager);
+    scriptComponent2->AddScript(lifeScript2);
+
+    LifeScript* lifeScript3 = new LifeScript("LifeScript3", m_pCube3, m_pGameObjectManager);
+    scriptComponent->AddScript(lifeScript3);
+
+    LifeScript* lifeScript4 = new LifeScript("LifeScript4", m_pCube4, m_pGameObjectManager);
+    scriptComponent2->AddScript(lifeScript4);
 
     // Drawing
     m_isRenderable = true;
@@ -122,51 +144,20 @@ void GameManager::Run() {
     ShowCursor(FALSE);
 
     m_pCamera->UpdateTarget(XMFLOAT3(0.0f, 0.0f, 0.0f));
-    //Cubes.push_back(*m_pCube1);
-    //Cubes.push_back(*m_pCube2);
-    // Ajoutez d'autres Cubes au besoin
 
     while (true) {
 
         Transform* transformComponent = m_pCube->GetComponent<Transform>(ComponentType::Transform);
+        Transform* transformComponent2 = m_pCube2->GetComponent<Transform>(ComponentType::Transform);
 
 
         time.UpdateTime();
 
-        //CAMERA DEBUG
-        //m_pCamera->UpdatePosition(0.0f, 0.0f, 0.2f);
-        //m_pCamera->Rotate(0.0f, 0.0f, 0.25f);
-        /*m_pCamera->RotateAroundTarget(0.f, .0f, 0.2f);
-        m_pCamera->UpdateTarget(XMFLOAT3(0.0f, 0.0f, 0.0f));*/
-        //m_pCamera->Rotate(m_pInput->GetMousePosition().x, m_pInput->GetMousePosition().y, 0.f);
 
         m_pCamera->Update(time.GetDeltaTime());
 
         m_pWindow->UpdateTitleWithFPS(time.GetFramePerSecond());
 
-        //------ TEST INPUT
-
-        //// Affichez la liste des touches et leur �tat
-        //std::cout << "Touches pressees : " << std::endl;
-        //for (const auto& pair : m_pInput->GetKeyStates()) {
-        //    std::cout << "Touche : " << pair.first << ", Etat : ";
-        //    // Utilisez un switch pour g�rer les diff�rents �tats de la touche
-        //    switch (pair.second) {
-        //    case KeyState::Pressed:
-        //        std::cout << "Pressed";
-        //        break;
-        //    case KeyState::Held:
-        //        std::cout << "Held";
-        //        break;
-        //    case KeyState::Released:
-        //        std::cout << "Released";
-        //        break;
-        //    case KeyState::Inactive:
-        //        std::cout << "Inactive";
-        //        break;
-        //    }
-        //    std::cout << std::endl;
-        //}
 
 
         m_pInput->Update();
@@ -199,7 +190,8 @@ void GameManager::Run() {
             case 'T':
                 if (pair.second == KeyState::Pressed || pair.second == KeyState::Held) {
                     //DirectX::XMFLOAT3 direction = transformComponent->GetPosition() - m_pCamera->m_position;
-                    transformComponent->Translate(0, 0, 0);
+                    transformComponent->Translate(0.03, 0.0, 0);
+                    transformComponent2->Translate(0.03, 0.0, 0);
                 }
                 break;
             case VK_SPACE:
@@ -218,21 +210,10 @@ void GameManager::Run() {
             }
         }
         m_pCamera->Rotate(m_pInput->GetMousePosition().y * 0.2f, 0.0f, -m_pInput->GetMousePosition().x * 0.2f);
-        //std::cout << "mouse x : "
-        //    << m_pInput->GetMousePosition().x
-        //    << "   mouse y : "
-        //    << m_pInput->GetMousePosition().y
-        //    << std::endl;
 
         m_pInput->ResetMousePosition();
 
-        /***
-        * J'ai un problème par rapport à la rotate de la caméra
-        * Lorsque je rotate ma caméra, elle rotate par rapport au nouvel axe
-        * MAIS mes déplacement restent sur l'axe originel, faudrait que j'arrive à update le nouvel axe
-        ***/
-
-        //------ Camera Movement
+        
 
 
 
