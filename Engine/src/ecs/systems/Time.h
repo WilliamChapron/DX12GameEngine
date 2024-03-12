@@ -7,6 +7,7 @@ private:
 
     LARGE_INTEGER currentTime;
     LARGE_INTEGER lastTime;
+    bool isPaused = false; 
 public:
 
     Time();
@@ -16,6 +17,7 @@ public:
     double GetElapsedTime();
     double GetDeltaTime();
     int GetFramePerSecond();
-
+    void Pause();
+    void Resume();
 
 };
