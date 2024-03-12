@@ -45,15 +45,13 @@ void GameObjectManager::Update(Renderer* renderer) {
 
     for (auto& pair : objectMap) {
         GameObject* gameObject = pair.second;
+        ColliderComponent* colliderComponent = gameObject->GetComponent<ColliderComponent>(ComponentType::ColliderComponent);
         if (gameObject->deadState) {
             continue;
         }
 
 
         gameObject->Update(renderer, m_pCamera);
-
-        ColliderComponent* colliderComponent = gameObject->GetComponent<ColliderComponent>(ComponentType::ColliderComponent);
-        colliderComponent->m_collideState = 0;
 
         // tryCollide = object on which we test collision
         for (auto& tryCollide : objectMap) {
