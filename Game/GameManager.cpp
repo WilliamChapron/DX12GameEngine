@@ -72,10 +72,10 @@ void GameManager::Init(HINSTANCE hInstance, int nShowCmd) {
 
 
     // #TODO CREATE FONCTION | CREATE OBJECT | CREATE TEXTURE | CREATE MESH | CREATE SHADER
-    m_pCube = new GameObject(m_pComponentManager);
-    m_pCube2 = new GameObject(m_pComponentManager);
-    m_pCube3 = new GameObject(m_pComponentManager);
-    m_pCube4 = new GameObject(m_pComponentManager);
+    m_pCube = new GameObject(m_pComponentManager, "Cube1");
+    m_pCube2 = new GameObject(m_pComponentManager, "Cube2");
+    m_pCube3 = new GameObject(m_pComponentManager, "Cube3");
+    m_pCube4 = new GameObject(m_pComponentManager, "Cube4");
 
 
 

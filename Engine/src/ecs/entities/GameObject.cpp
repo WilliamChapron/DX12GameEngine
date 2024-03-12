@@ -22,7 +22,7 @@
 
 
 
-GameObject::GameObject(ComponentManager* componentManager) : m_pComponentManager(componentManager), deadState(0)
+GameObject::GameObject(ComponentManager* componentManager, std::string name) : m_pComponentManager(componentManager), deadState(0), m_name(name)
 {
 }
 

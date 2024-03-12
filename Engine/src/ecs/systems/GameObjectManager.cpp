@@ -27,7 +27,6 @@ void GameObjectManager::RemoveObject(GameObject* object) {
     if (it != objectMap.end()) {
         PRINT("Removing object: " << it->first);
         object->deadState = 1;
-       // objectMap.erase(it);
     }
     else {
         PRINT("Object not found for removal.");
@@ -46,6 +45,9 @@ void GameObjectManager::Update(Renderer* renderer) {
 
     for (auto& pair : objectMap) {
         GameObject* gameObject = pair.second;
+        if (gameObject->deadState) {
+            continue;
+        }
 
 
         gameObject->Update(renderer, m_pCamera);
@@ -97,9 +99,8 @@ void GameObjectManager::Update(Renderer* renderer) {
     //for (auto& item : objectMap) {
     //    if (item.second->deadState) {
     //        PRINT("Removing dead object: ");
-
     //        delete item.second;
-    //        objectMap.erase(item.first);
+    //        objectMap.erase(objectMap.find(item.first));
     //    }
     //}
 

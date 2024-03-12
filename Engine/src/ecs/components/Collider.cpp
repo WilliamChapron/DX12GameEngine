@@ -102,22 +102,6 @@ bool ColliderComponent::CheckCollision(GameObject* collideObject) {
     };
 
 
-    // #TODO la meilleure facon de gerer la rotation est d'obtenir a partir du point local un point global qui marche 
-    
-    //for (int i = 0; i < 8; ++i) {
-    //    XMVECTOR corner = XMLoadFloat3(&cornersBox1[i]);
-    //    corner = XMVector3Rotate(corner, XMLoadFloat4(&rotQBox1));
-    //    XMStoreFloat3(&cornersBox1[i], corner);
-    //}
-
-
-    //for (int i = 0; i < 8; ++i) {
-    //    XMVECTOR corner = XMLoadFloat3(&cornersBox2[i]);
-    //    corner = XMVector3Rotate(corner, XMLoadFloat4(&rotQBox2));
-    //    XMStoreFloat3(&cornersBox2[i], corner);
-    //}
-
-
     XMFLOAT3 minBox1(FLT_MAX, FLT_MAX, FLT_MAX);
     XMFLOAT3 maxBox1(-FLT_MAX, -FLT_MAX, -FLT_MAX);
 
@@ -149,18 +133,42 @@ bool ColliderComponent::CheckCollision(GameObject* collideObject) {
     bool collisionY = maxBox1.y >= minBox2.y && minBox1.y <= maxBox2.y;
     bool collisionZ = maxBox1.z >= minBox2.z && minBox1.z <= maxBox2.z;
 
+
+    // Instance of Component Collider of other object
+    ColliderComponent* colliderComponentObject = collideObject->GetComponent<ColliderComponent>(ComponentType::ColliderComponent);
+
     if (collisionX && collisionY && collisionZ) {
+        // Set collide info self
         m_collideState = 1;
         m_colliderObject = collideObject;
 
-        PRINT("Collision detected! Collided with object: ");
-        PRINT("----");
+        // Set collide info other object
+        colliderComponentObject->m_collideState = 1;
+        colliderComponentObject->m_colliderObject = m_pGameObject;
+
+        std::cout << "Collision detected! Collided with object: " << collideObject->m_name << std::endl;
+        std::cout << "Self - m_collideState: " << m_collideState << ", m_colliderObject: " << m_colliderObject->m_name << std::endl;
+
+        // Print collide info of the other object
+        std::cout << "Other - m_collideState: " << colliderComponentObject->m_collideState << ", m_colliderObject: " << colliderComponentObject->m_colliderObject->m_name << std::endl;
+
+        std::cout << "----" << std::endl;
         return true;
     }
     else {
+        // Set collide info self
         m_collideState = 0;
-        PRINT("No collision detected.");
-        PRINT("----");
+
+        // Set collide info other object
+        colliderComponentObject->m_collideState = 0;
+
+        std::cout << "No collision detected." << std::endl;
+        std::cout << "Self - m_collideState: " << m_collideState << ", m_colliderObject: " << (m_colliderObject ? m_colliderObject->m_name : "nullptr") << std::endl;
+
+        // Print collide info of the other object
+        std::cout << "Other - m_collideState: " << colliderComponentObject->m_collideState << ", m_colliderObject: " << (colliderComponentObject->m_colliderObject ? colliderComponentObject->m_colliderObject->m_name : "nullptr") << std::endl;
+
+        std::cout << "----" << std::endl;
         return false;
     }
 
