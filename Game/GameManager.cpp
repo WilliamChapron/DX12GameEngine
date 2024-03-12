@@ -1,6 +1,9 @@
 ﻿#include "stdafx.h"
 #include "GameManager.h"
 
+Time time;
+bool isPaused = false;
+
 GameManager::GameManager() /*: m_hInstance(nullptr), m_nShowCmd(0), m_pConsole(nullptr), m_pInput(nullptr), m_pCamera(nullptr), m_pGameObjectManager(nullptr) */
 {
 
@@ -190,12 +193,12 @@ void GameManager::Run() {
                 if (pair.second == KeyState::Pressed || pair.second == KeyState::Held)
                     m_pCamera->UpdatePosition(speed * time.GetDeltaTime(), 0.0f, 0.0f);
                 break;
-            case 'R':
+            /*case 'R':
                 if (pair.second == KeyState::Pressed || pair.second == KeyState::Held) {
                     std::cout << "dsds" << std::endl;
                     transformComponent->Rotate(0.03, 0.03, 0.03);
                 }
-                break;
+                break;*/
             case 'T':
                 if (pair.second == KeyState::Pressed || pair.second == KeyState::Held) {
                     //DirectX::XMFLOAT3 direction = transformComponent->GetPosition() - m_pCamera->m_position;
@@ -210,6 +213,22 @@ void GameManager::Run() {
                 if (pair.second == KeyState::Pressed || pair.second == KeyState::Held)
                     m_pCamera->UpdatePosition(0.0f, 0.0f, speed * time.GetDeltaTime());
                 break;
+ 
+            if (isPaused) { 
+                case 'P':
+                if (pair.second == KeyState::Pressed)
+                    std::cout << "RESUME THIS GAME PLEASE" << std::endl;
+                isPaused = false;
+            }
+            else {
+                case 'R' : 
+                    if (pair.second == KeyState::Pressed) {
+                        std::cout << "Pause" << std::endl;
+                        isPaused = true;
+                }
+            }
+            
+
                 /*case VK_LBUTTON:
                     if (pair.second == KeyState::Pressed || pair.second == KeyState::Held)
                     {

@@ -1,0 +1,15 @@
+﻿  main.cpp
+  GameManager.cpp
+C:\Users\jkillingback\Downloads\DX12GameEngine-Naelle_v1\DX12GameEngine-Naelle_v1\Game\GameManager.cpp(4,6): error C2365: 'time' : redéfinition ; la précédente définition était 'fonction'
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.22621.0\ucrt\time.h(548,42): message : voir la déclaration de 'time'
+C:\Users\jkillingback\Downloads\DX12GameEngine-Naelle_v1\DX12GameEngine-Naelle_v1\Game\GameManager.cpp(145,44): warning C4244: 'argument' : conversion de 'double' en 'float', perte possible de données
+C:\Users\jkillingback\Downloads\DX12GameEngine-Naelle_v1\DX12GameEngine-Naelle_v1\Game\GameManager.cpp(181,59): warning C4244: 'argument' : conversion de 'double' en 'float', perte possible de données
+C:\Users\jkillingback\Downloads\DX12GameEngine-Naelle_v1\DX12GameEngine-Naelle_v1\Game\GameManager.cpp(185,60): warning C4244: 'argument' : conversion de 'double' en 'float', perte possible de données
+C:\Users\jkillingback\Downloads\DX12GameEngine-Naelle_v1\DX12GameEngine-Naelle_v1\Game\GameManager.cpp(189,54): warning C4244: 'argument' : conversion de 'double' en 'float', perte possible de données
+C:\Users\jkillingback\Downloads\DX12GameEngine-Naelle_v1\DX12GameEngine-Naelle_v1\Game\GameManager.cpp(193,53): warning C4244: 'argument' : conversion de 'double' en 'float', perte possible de données
+C:\Users\jkillingback\Downloads\DX12GameEngine-Naelle_v1\DX12GameEngine-Naelle_v1\Game\GameManager.cpp(198,60): warning C4305: 'argument' : troncation de 'double' à 'float'
+C:\Users\jkillingback\Downloads\DX12GameEngine-Naelle_v1\DX12GameEngine-Naelle_v1\Game\GameManager.cpp(198,54): warning C4305: 'argument' : troncation de 'double' à 'float'
+C:\Users\jkillingback\Downloads\DX12GameEngine-Naelle_v1\DX12GameEngine-Naelle_v1\Game\GameManager.cpp(198,48): warning C4305: 'argument' : troncation de 'double' à 'float'
+C:\Users\jkillingback\Downloads\DX12GameEngine-Naelle_v1\DX12GameEngine-Naelle_v1\Game\GameManager.cpp(209,66): warning C4244: 'argument' : conversion de 'double' en 'float', perte possible de données
+C:\Users\jkillingback\Downloads\DX12GameEngine-Naelle_v1\DX12GameEngine-Naelle_v1\Game\GameManager.cpp(213,65): warning C4244: 'argument' : conversion de 'double' en 'float', perte possible de données
+  stdafx.cpp
