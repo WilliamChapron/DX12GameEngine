@@ -95,9 +95,9 @@ void GameManager::Init(HINSTANCE hInstance, int nShowCmd) {
     m_pComponentManager->AddComponent(*m_pCube4, m_pResourceManager->FindShaderComponentByName("shader1").component);
 
     m_pGameObjectManager->AddObject("Cube", m_pCube);
-    //m_pGameObjectManager->AddObject("Cube2", m_pCube2);
+    m_pGameObjectManager->AddObject("Cube2", m_pCube2);
     m_pGameObjectManager->AddObject("Cube3", m_pCube3);
-    //m_pGameObjectManager->AddObject("Cube4", m_pCube4);
+    m_pGameObjectManager->AddObject("Cube4", m_pCube4);
 
     ScriptComponent* scriptComponent = m_pCube->GetComponent<ScriptComponent>(ComponentType::ScriptComponent);
     ScriptComponent* scriptComponent2 = m_pCube2->GetComponent<ScriptComponent>(ComponentType::ScriptComponent);
@@ -111,14 +111,14 @@ void GameManager::Init(HINSTANCE hInstance, int nShowCmd) {
     LifeScript* lifeScript = new LifeScript("LifeScript1", m_pCube, m_pGameObjectManager);
     scriptComponent->AddScript(lifeScript);
 
-    //LifeScript* lifeScript2 = new LifeScript("LifeScript2", m_pCube2, m_pGameObjectManager);
-    //scriptComponent2->AddScript(lifeScript2);
+    LifeScript* lifeScript2 = new LifeScript("LifeScript2", m_pCube2, m_pGameObjectManager);
+    scriptComponent2->AddScript(lifeScript2);
 
     LifeScript* lifeScript3 = new LifeScript("LifeScript3", m_pCube3, m_pGameObjectManager);
     scriptComponent->AddScript(lifeScript3);
 
-    //LifeScript* lifeScript4 = new LifeScript("LifeScript4", m_pCube4, m_pGameObjectManager);
-    //scriptComponent2->AddScript(lifeScript4);
+    LifeScript* lifeScript4 = new LifeScript("LifeScript4", m_pCube4, m_pGameObjectManager);
+    scriptComponent2->AddScript(lifeScript4);
 
     // Drawing
     m_isRenderable = true;

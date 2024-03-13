@@ -157,10 +157,10 @@ bool ColliderComponent::CheckCollision(GameObject* collideObject) {
     }
     else {
         // Set collide info self
-        m_collideState = 0;
+        //m_collideState = 0;
 
-        // Set collide info other object
-        colliderComponentObject->m_collideState = 0;
+        //// Set collide info other object
+        //colliderComponentObject->m_collideState = 0;
 
         std::cout << "No collision detected." << std::endl;
         std::cout << "Self - m_collideState: " << m_collideState << ", m_colliderObject: " << (m_colliderObject ? m_colliderObject->m_name : "nullptr") << std::endl;

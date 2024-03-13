@@ -43,42 +43,37 @@ void GameObjectManager::Update(Renderer* renderer) {
     PRINT("Frame");
     std::vector<TestedPair> testedPairs;
 
+
+
     for (auto& pair : objectMap) {
         GameObject* gameObject = pair.second;
         ColliderComponent* colliderComponent = gameObject->GetComponent<ColliderComponent>(ComponentType::ColliderComponent);
+
         if (gameObject->deadState) {
             continue;
         }
-
-
-        gameObject->Update(renderer, m_pCamera);
-
         // tryCollide = object on which we test collision
         for (auto& tryCollide : objectMap) {
+            // object is himself
             if (tryCollide.first == pair.first) {
                 continue;
             }
-
             TestedPair objectPair{ pair.first, tryCollide.first };
-
+            // if already tested, don't try collide
             auto it = std::find(testedPairs.begin(), testedPairs.end(), objectPair);
             if (it != testedPairs.end()) {
                 continue;
             }
-
-
             ColliderComponent* colliderComponentTryCollide = tryCollide.second->GetComponent<ColliderComponent>(ComponentType::ColliderComponent);
-
-
-            //std::cout << "Check Collide Object : " << pair.first << " With : " << tryCollide.first << std::endl;
-
             // If collision detect, Game object have collide
             if (colliderComponent->CheckCollision(tryCollide.second)) {
                 break;
             };
-
             testedPairs.push_back(objectPair);
         }
+
+        // Update after test collide
+        gameObject->Update(renderer, m_pCamera);
     }
 
 
@@ -92,6 +87,13 @@ void GameObjectManager::Update(Renderer* renderer) {
     ASSERT_FAILED(hr);
 
     renderer->WaitForPreviousFrame();
+
+    for (auto& pair : objectMap) {
+        GameObject* gameObject = pair.second;
+        ColliderComponent* colliderComponent = gameObject->GetComponent<ColliderComponent>(ComponentType::ColliderComponent);
+        colliderComponent->m_collideState = 0;
+        colliderComponent->m_colliderObject = nullptr;
+    }
 
 
     //for (auto& item : objectMap) {
