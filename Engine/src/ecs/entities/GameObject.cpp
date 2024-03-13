@@ -26,7 +26,7 @@ GameObject::GameObject(ComponentManager* componentManager, std::string name) : m
 {
 }
 
-void GameObject::Initialize(Renderer* renderer, Camera* camera, const XMFLOAT3& position, const XMFLOAT3& rotation, const XMFLOAT3& scale, Mesh* mesh, ConstantBufferData* cbData, Vertex* vertices, int numVertices, bool needCollide) {
+void GameObject::Initialize(Renderer* renderer, Camera* camera, const XMFLOAT3& position, const XMFLOAT3& rotation, const XMFLOAT3& scale, Mesh* mesh, ConstantBufferData* cbData, bool needCollide) {
 
     m_needCollide = needCollide;
 
@@ -41,7 +41,7 @@ void GameObject::Initialize(Renderer* renderer, Camera* camera, const XMFLOAT3& 
     m_pComponentManager->AddComponent(*this, baseMeshRenderer);
 
     ColliderComponent* baseCollider = new ColliderComponent("ColliderComponent");
-    baseCollider->InitializeBoundingBox(this, vertices, numVertices);
+    baseCollider->InitializeBoundingBox(this, mesh->GetVertices(), mesh->GetNumVertices());
     m_pComponentManager->AddComponent(*this, baseCollider);
 
     ScriptComponent* scriptComponent = new ScriptComponent("ScriptComponent", this);

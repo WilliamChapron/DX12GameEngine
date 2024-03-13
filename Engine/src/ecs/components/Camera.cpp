@@ -100,7 +100,27 @@ XMFLOAT3 Camera::GetPosition() {
     return XMFLOAT3(transform->GetPosition().x, transform->GetPosition().y, transform->GetPosition().z);
 }
 
+XMFLOAT3 Camera::GetDirection() {
+    XMFLOAT4X4 rMatrix = transform->GetRotationMatrix();
+    XMMATRIX rotation = XMLoadFloat4x4(&rMatrix);
+    XMVECTOR directionVector = rotation.r[2];  
+    directionVector = XMVector3Normalize(directionVector);
 
+    XMFLOAT3 direction;
+    XMStoreFloat3(&direction, directionVector);
+
+    std::cout << "Combined Direction: (" << direction.x << ", " << direction.y << ", " << direction.z << ")" << std::endl;
+    std::cout << "Combined Direction: (" << direction.x << ", " << direction.y << ", " << direction.z << ")" << std::endl;
+    std::cout << "Combined Direction: (" << direction.x << ", " << direction.y << ", " << direction.z << ")" << std::endl;
+    std::cout << "Combined Direction: (" << direction.x << ", " << direction.y << ", " << direction.z << ")" << std::endl;
+    std::cout << "Combined Direction: (" << direction.x << ", " << direction.y << ", " << direction.z << ")" << std::endl;
+    std::cout << "Combined Direction: (" << direction.x << ", " << direction.y << ", " << direction.z << ")" << std::endl;
+    std::cout << "Combined Direction: (" << direction.x << ", " << direction.y << ", " << direction.z << ")" << std::endl;
+    std::cout << "Combined Direction: (" << direction.x << ", " << direction.y << ", " << direction.z << ")" << std::endl;
+    std::cout << "Combined Direction: (" << direction.x << ", " << direction.y << ", " << direction.z << ")" << std::endl;
+
+    return direction;
+}
 
 
 void Camera::UpdateTarget(XMFLOAT3 m_newTarget)

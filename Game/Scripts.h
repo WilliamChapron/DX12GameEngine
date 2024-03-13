@@ -3,6 +3,7 @@
 
 class MovableScript : public Script {
 public:
+    MovableScript(XMFLOAT3 direction);
     void Initialize(std::string name, GameObject* gameObject) override;
     void Update() override;
 
@@ -14,10 +15,12 @@ public:
         std::cout << "NormalMove" << std::endl;
         Transform* transformComponent = m_pGameObject->GetComponent<Transform>(ComponentType::Transform);
         if (transformComponent != nullptr) {
-            transformComponent->Translate(0, 0, 0.01);
+            transformComponent->Translate(m_direction.x, m_direction.y, m_direction.z);
         }
 
     }
+private:
+    XMFLOAT3 m_direction;
 };
 
 class ZigzagMoveScript : public Script {

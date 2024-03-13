@@ -1,6 +1,10 @@
 #include "stdafx.h"
 #include "Scripts.h"
 
+MovableScript::MovableScript(XMFLOAT3 direction) {
+    m_direction = direction;
+}
+
 void MovableScript::Initialize(std::string name, GameObject* gameObject) {
     m_pGameObject = gameObject;
     m_pStateMachine = new StateMachine();
@@ -85,8 +89,8 @@ void LifeScript::Update() {
 
 
     if (colliderComponent->m_collideState) {
-        std::cout << "DAMAGE" << std::endl;
-        std::cout << m_name << std::endl;
+        //std::cout << "DAMAGE" << std::endl;
+        //std::cout << m_name << std::endl;
 
 
         /*m_pGameObjectManager->RemoveObject(m_pGameObject);*/

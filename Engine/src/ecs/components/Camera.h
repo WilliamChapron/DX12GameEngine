@@ -20,13 +20,19 @@ public:
 
     void UpdateTarget(XMFLOAT3 m_newTarget);
 
+
+    // William 
+
+    XMFLOAT3 GetPosition();
+    XMFLOAT3 GetDirection();
+
+    //
     XMFLOAT4X4 GetViewMatrix() const;
     XMFLOAT4X4 GetProjectionMatrix() const { return f_projectionMatrix; };
 
     void Rotate(float x, float y);
     void RotateAroundTarget(float pitch, float yaw, float roll);
 
-    XMFLOAT3 GetPosition();
 
 private:
     float pitch, yaw;

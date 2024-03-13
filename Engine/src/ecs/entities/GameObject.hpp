@@ -30,7 +30,7 @@ public:
         componentsList.clear();
     }
 
-    void Initialize(Renderer* renderer, Camera* camera, const XMFLOAT3& position, const XMFLOAT3& rotation, const XMFLOAT3& scale, Mesh* mesh, ConstantBufferData* cbData, Vertex* vertices, int numVertices, bool needCollide);
+    void Initialize(Renderer* renderer, Camera* camera, const XMFLOAT3& position, const XMFLOAT3& rotation, const XMFLOAT3& scale, Mesh* mesh, ConstantBufferData* cbData, bool needCollide);
     void Initialize(XMFLOAT3 position, XMFLOAT3 rotation, XMFLOAT3 scale);
     void Update(Renderer* renderer, Camera* camera);
     void Render();

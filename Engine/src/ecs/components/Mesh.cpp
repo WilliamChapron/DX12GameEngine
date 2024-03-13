@@ -23,6 +23,9 @@ void Mesh::Initialize(ConstantBufferData* cbData, Renderer* renderer, Vertex* ve
     const UINT indexBufferSize = sizeof(UINT) * numIndices;
     const UINT stride = sizeof(Vertex);
 
+
+    m_vertices = vertices;
+    m_indices = indices;
     m_numVertices = numVertices;
     m_numIndices = numIndices;
 

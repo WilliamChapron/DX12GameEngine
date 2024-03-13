@@ -35,14 +35,25 @@ void GameObjectManager::RemoveObject(GameObject* object) {
 
 void GameObjectManager::Update(Renderer* renderer) {
     HRESULT hr;
+    PRINT("Frame");
 
 
     renderer->Precommandlist();
 
 
-    PRINT("Frame");
+    //// Sort object according to their z position, z depth sorting
+    //std::vector<ObjectPosZPair> objectPosZPairs;
+    //for (auto& pair : objectMap) {
+    //    GameObject* gameObject = pair.second;
+    //    Transform* transform = gameObject->GetComponent<Transform>(ComponentType::Transform);
+    //    float globalZPosition = transform->GetPosition().z;
+    //    objectPosZPairs.push_back({ gameObject, globalZPosition });
+    //}
+    //std::sort(objectPosZPairs.begin(), objectPosZPairs.end());
+
     std::vector<TestedPair> testedPairs;
 
+    
 
 
     for (auto& pair : objectMap) {
@@ -117,6 +128,10 @@ void GameObjectManager::Update(Renderer* renderer) {
         colliderComponent->m_colliderObject = nullptr;
     }
 
+    for (auto& pair : objectMap) {
+        PRINT("Name");
+        PRINT(pair.first);
+    }
 
     //for (auto it = objectMap.begin(); it != objectMap.end();) {
     //    GameObject* gameObject = it->second;

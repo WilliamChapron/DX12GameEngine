@@ -30,13 +30,16 @@ public:
 	ID3D12Resource* GetIndexBuffer() const { return m_indexBuffer; }
 	const D3D12_INDEX_BUFFER_VIEW& GetIndexBufferView() const { return m_indexBufferView; }
 
-	int GetNumVertices() const { return m_numVertices; }
-	int GetNumIndices() const { return m_numIndices; }
+	inline Vertex* GetVertices() const { return m_vertices;}
+	inline UINT* GetIndices() const {return m_indices;}
+	int GetNumVertices() const { return m_numVertices;}
+	int GetNumIndices() const { return m_numIndices;}
 
 private:
 	std::string m_name;
 
-
+	Vertex* m_vertices;
+	UINT* m_indices;
 
 	// Vertex buffer
 	ID3D12Resource* m_vertexBuffer;
