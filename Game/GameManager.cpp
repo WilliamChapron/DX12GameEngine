@@ -10,7 +10,7 @@ GameManager::GameManager() /*: m_hInstance(nullptr), m_nShowCmd(0), m_pConsole(n
 void GameManager::Init(HINSTANCE hInstance, int nShowCmd) {
 
     SphereMesh cubeMesh; // Common Mesh
-    Skybox cubeMesh2; // Common Mesh
+    Skydome cubeMesh2; // Common Mesh
 
     m_hInstance = hInstance;
 
