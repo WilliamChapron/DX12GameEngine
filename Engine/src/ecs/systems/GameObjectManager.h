@@ -24,7 +24,7 @@ public:
     GameObjectManager(Camera* camera);
 
     void AddObject(const std::string& name, GameObject* object);
-    void RemoveObject(const std::string& name);
+    void RemoveObject(GameObject* object);
     void Update(Renderer* renderer);
 
     inline const std::unordered_map<std::string, GameObject*>& GetAliveObjects() const {

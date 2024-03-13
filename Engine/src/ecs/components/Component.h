@@ -7,7 +7,9 @@ enum class ComponentType {
     Shader = 1,
     Texture = 2,
     MeshRenderer = 3,
-    ColliderComponent = 4
+    ColliderComponent = 4,
+    ScriptComponent = 5,
+    ParticleComponent = 6,
 };
 
 class Component {
@@ -35,6 +37,8 @@ public:
 
     //virtual void Initialize(Renderer* renderer);
     virtual void Update(Renderer* renderer);
+
+   // virtual void Render();
 
 private:
     std::string m_name;

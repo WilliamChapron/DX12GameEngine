@@ -22,7 +22,7 @@
 
 
 
-GameObject::GameObject(ComponentManager* componentManager) : m_pComponentManager(componentManager)
+GameObject::GameObject(ComponentManager* componentManager, std::string name) : m_pComponentManager(componentManager), deadState(0), m_name(name)
 {
 }
 
@@ -31,6 +31,8 @@ void GameObject::Initialize(Renderer* renderer, Camera* camera, const XMFLOAT3& 
     Transform* baseTransform = new Transform(position, rotation, scale);
     m_pComponentManager->AddComponent(*this, baseTransform);  
 
+
+
     MeshRenderer* baseMeshRenderer = new MeshRenderer("MeshRenderer", cbData, mesh); // Component
     baseMeshRenderer->Initialize(renderer, cbData);
     m_pComponentManager->AddComponent(*this, baseMeshRenderer);
@@ -38,6 +40,14 @@ void GameObject::Initialize(Renderer* renderer, Camera* camera, const XMFLOAT3& 
     ColliderComponent* baseCollider = new ColliderComponent("ColliderComponent");
     baseCollider->InitializeBoundingBox(this, vertices, numVertices);
     m_pComponentManager->AddComponent(*this, baseCollider);
+
+    ScriptComponent* scriptComponent = new ScriptComponent("ScriptComponent", this);
+    m_pComponentManager->AddComponent(*this, scriptComponent);
+
+    //ParticleComponent* particleComponent = new ParticleComponent("ParticleComponent", renderer);
+    //particleComponent->Initialize(camera);
+    //m_pComponentManager->AddComponent(*this, particleComponent);
+    //PRINT("ParticleComponent");
 }
 
 void GameObject::Initialize(XMFLOAT3 position, XMFLOAT3 rotation, XMFLOAT3 scale)

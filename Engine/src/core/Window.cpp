@@ -73,7 +73,7 @@ LRESULT CALLBACK Window::WndProc(HWND hwnd, UINT message, WPARAM wParam, LPARAM 
     Switch event Window
     */
 
-    Engine& engineInstance = Engine::GetInstance();
+    //Engine& engineInstance = Engine::GetInstance();
 
     switch (message)
     {

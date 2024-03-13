@@ -130,3 +130,5 @@ void ShaderComponent::UpdateRootSignature()
 {
     m_pRenderer->m_pCommandList->SetGraphicsRootSignature(m_pRootSignature.Get());
 }
+
+
