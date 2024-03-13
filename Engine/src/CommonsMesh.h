@@ -114,12 +114,12 @@ public:
 
         // Générer les vertices
         for (int lat = 0; lat <= latitudeCount; ++lat) {
-            float theta = lat * DirectX::XM_PI / latitudeCount;
+            float theta = lat * XM_PI / latitudeCount;
             float sinTheta = sinf(theta);
             float cosTheta = cosf(theta);
 
             for (int lon = 0; lon <= longitudeCount; ++lon) {
-                float phi = lon * 2 * DirectX::XM_PI / longitudeCount;
+                float phi = lon * 2 * XM_PI / longitudeCount;
                 float sinPhi = sinf(phi);
                 float cosPhi = cosf(phi);
 
@@ -127,9 +127,9 @@ public:
                 float y = radius * cosTheta;
                 float z = radius * sinTheta * sinPhi;
 
-                cubeVertices[index].Pos = DirectX::XMFLOAT3(x, y, z);
-                cubeVertices[index].Color = DirectX::XMFLOAT4(1.0f, 1.0f, 1.0f, 1.0f); // Blanc par défaut
-                cubeVertices[index].Uv = DirectX::XMFLOAT2(static_cast<float>(lon) / longitudeCount, static_cast<float>(lat) / latitudeCount);
+                cubeVertices[index].Pos = XMFLOAT3(x, y, z);
+                cubeVertices[index].Color = XMFLOAT4(1.0f, 1.0f, 1.0f, 1.0f); // Blanc par défaut
+                cubeVertices[index].Uv = XMFLOAT2(static_cast<float>(lon) / longitudeCount, static_cast<float>(lat) / latitudeCount);
 
                 ++index;
             }
@@ -156,6 +156,71 @@ public:
     }
 
     ~SphereMesh() {
+        delete[] cubeVertices;
+        delete[] cubeIndices;
+    }
+};
+
+class Skybox {
+public:
+    Vertex* cubeVertices;
+    UINT* cubeIndices;
+    int numElementsV;
+    int numElementsI;
+
+    Skybox(float size = 1.0f) {
+        numElementsV = 24;
+        numElementsI = 36;
+
+        cubeVertices = new Vertex[numElementsV]{
+            // Face avant (+Z)
+            { {-size, size, size}, {1.0f, 0.0f, 0.0f, 1.0f} ,{0.25f, 0.3333f} },
+            { {size, size, size}, {1.0f, 0.0f, 0.0f, 1.0f} ,{0.5f, 0.3333f} },
+            { {size, -size, size}, {1.0f, 0.0f, 0.0f, 1.0f} ,{0.5f, 0.6666f} },
+            { {-size, -size, size}, {1.0f, 0.0f, 0.0f, 1.0f} ,{0.25f, 0.6666f} },
+
+            // Face arrière (-Z)
+            { {-size, size, -size}, {1.0f, 0.0f, 0.0f, 1.0f} ,{0.75f, 0.3333f} },
+            { {size, size, -size}, {1.0f, 0.0f, 0.0f, 1.0f} ,{1.0f, 0.3333f} },
+            { {size, -size, -size}, {1.0f, 0.0f, 0.0f, 1.0f} ,{1.0f, 0.6666f} },
+            { {-size, -size, -size}, {1.0f, 0.0f, 0.0f, 1.0f} ,{0.75f, 0.6666f} },
+
+            // Face gauche (-X)
+            { {-size, size, -size}, {1.0f, 0.0f, 0.0f, 1.0f} ,{0.0f, 0.3333f} },
+            { {-size, size, size}, {1.0f, 0.0f, 0.0f, 1.0f} ,{0.25f, 0.3333f} },
+            { {-size, -size, size}, {1.0f, 0.0f, 0.0f, 1.0f} ,{0.25f, 0.6666f} },
+            { {-size, -size, -size}, {1.0f, 0.0f, 0.0f, 1.0f} ,{0.0f, 0.6666f} },
+
+            // Face droite (+X)
+            { {size, size, size}, {1.0f, 0.0f, 0.0f, 1.0f} ,{0.5f, 0.3333f} },
+            { {size, size, -size}, {1.0f, 0.0f, 0.0f, 1.0f} ,{0.75f, 0.3333f} },
+            { {size, -size, -size}, {1.0f, 0.0f, 0.0f, 1.0f} ,{0.75f, 0.6666f} },
+            { {size, -size, size}, {1.0f, 0.0f, 0.0f, 1.0f} ,{0.5f, 0.6666f} },
+
+            // Face supérieure (+Y)
+            { {-size, size, -size}, {1.0f, 0.0f, 0.0f, 1.0f} ,{0.25f, 0.0f} },
+            { {size, size, -size}, {1.0f, 0.0f, 0.0f, 1.0f} ,{0.5f, 0.0f} },
+            { {size, size, size}, {1.0f, 0.0f, 0.0f, 1.0f} ,{0.5f, 0.3333f} },
+            { {-size, size, size}, {1.0f, 0.0f, 0.0f, 1.0f} ,{0.25f, 0.3333f} },
+
+            // Face inférieure (-Y)
+            { {-size, -size, size}, {1.0f, 0.0f, 0.0f, 1.0f} ,{0.25f, 0.6666f} },
+            { {size, -size, size}, {1.0f, 0.0f, 0.0f, 1.0f} ,{0.5f, 0.6666f} },
+            { {size, -size, -size}, {1.0f, 0.0f, 0.0f, 1.0f} ,{0.5f, 1.0f} },
+            { {-size, -size, -size}, {1.0f, 0.0f, 0.0f, 1.0f} ,{0.25f, 1.0f} }
+        };
+
+        cubeIndices = new UINT[numElementsI]{
+            0, 1, 2, 2, 3, 0, // Face avant
+            4, 5, 6, 6, 7, 4, // Face arrière
+            8, 9, 10, 10, 11, 8, // Face gauche
+            12, 13, 14, 14, 15, 12, // Face droite
+            16, 17, 18, 18, 19, 16, // Face supérieure
+            20, 21, 22, 22, 23, 20  // Face inférieure
+        };
+    }
+
+    ~Skybox() {
         delete[] cubeVertices;
         delete[] cubeIndices;
     }
