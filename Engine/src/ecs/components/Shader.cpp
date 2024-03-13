@@ -1,4 +1,4 @@
-#include "pch.h"
+﻿#include "pch.h"
 
 //#include "Shader.h"
 //#include "./Component.h"
@@ -88,6 +88,12 @@ void ShaderComponent::InitializePSO() {
         { "COLOR", 0, DXGI_FORMAT_R32G32B32A32_FLOAT, 0, 12, D3D12_INPUT_CLASSIFICATION_PER_VERTEX_DATA, 0 },
         { "TEXCOORD", 0, DXGI_FORMAT_R32G32_FLOAT, 0, 28, D3D12_INPUT_CLASSIFICATION_PER_VERTEX_DATA, 0 }
     };
+
+    //D3D12_RASTERIZER_DESC rasterizerStateDesc {};
+    //rasterizerStateDesc.CullMode = D3D12_CULL_MODE_NONE;  
+
+
+    D3D12_BLEND_DESC blendDesc {};
 
     D3D12_GRAPHICS_PIPELINE_STATE_DESC psoDesc; // a structure to define a pso
     ZeroMemory(&psoDesc, sizeof(D3D12_GRAPHICS_PIPELINE_STATE_DESC)); // IMPORTANT ?

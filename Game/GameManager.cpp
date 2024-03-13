@@ -81,10 +81,10 @@ void GameManager::Init(HINSTANCE hInstance, int nShowCmd) {
 
 
 
-    m_pCube->Initialize(m_pRenderer, m_pCamera, XMFLOAT3(-1.5f, 100.0f, 0.0f), XMFLOAT3(0.0f, 0.0f, 0.0f), XMFLOAT3(1.0f, 1.0f, 1.0f), m_pResourceManager->FindMeshComponentByName("mesh1").component, cbData, cubeMesh.cubeVertices, cubeMesh.numElementsV);
-    m_pCube2->Initialize(m_pRenderer, m_pCamera, XMFLOAT3(0.0f, 0.0f, 0.0f), XMFLOAT3(0.0f, 0.0f, 0.0f), XMFLOAT3(1.0f, 1.0f, 1.0f), m_pResourceManager->FindMeshComponentByName("mesh2").component, cbData, cubeMesh2.cubeVertices, cubeMesh2.numElementsV);
-    m_pCube3->Initialize(m_pRenderer, m_pCamera, XMFLOAT3(1.5f, -1.0f, 0.0f), XMFLOAT3(0.0f, 0.0f, 0.0f), XMFLOAT3(1.0f, 1.0f, 1.0f), m_pResourceManager->FindMeshComponentByName("mesh1").component, cbData, cubeMesh.cubeVertices, cubeMesh.numElementsV);
-    m_pCube4->Initialize(m_pRenderer, m_pCamera, XMFLOAT3(3.5f, 0.0f, 0.0f), XMFLOAT3(0.0f, 0.0f, 0.0f), XMFLOAT3(10.0f, 10.0f, 10.0f), m_pResourceManager->FindMeshComponentByName("mesh2").component, cbData, cubeMesh2.cubeVertices, cubeMesh2.numElementsV);
+    /*m_pCube->Initialize(m_pRenderer, m_pCamera, XMFLOAT3(0.0f, 0.0f, 0.0f), XMFLOAT3(0.0f, 0.0f, 0.0f), XMFLOAT3(1.0f, 1.0f, 1.0f), m_pResourceManager->FindMeshComponentByName("mesh1").component, cbData, cubeMesh.cubeVertices, cubeMesh.numElementsV);
+    m_pCube2->Initialize(m_pRenderer, m_pCamera, XMFLOAT3(0.0f, 0.0f, 0.0f), XMFLOAT3(0.0f, 0.0f, 0.0f), XMFLOAT3(1.0f, 1.0f, 1.0f), m_pResourceManager->FindMeshComponentByName("mesh2").component, cbData, cubeMesh2.cubeVertices, cubeMesh2.numElementsV);*/
+    m_pCube3->Initialize(m_pRenderer, m_pCamera, XMFLOAT3(0.0f, 0.0f, 0.0f), XMFLOAT3(0.0f, 0.0f, 0.0f), XMFLOAT3(1.0f, 1.0f, 1.0f), m_pResourceManager->FindMeshComponentByName("mesh1").component, cbData, cubeMesh.cubeVertices, cubeMesh.numElementsV);
+    m_pCube4->Initialize(m_pRenderer, m_pCamera, XMFLOAT3(0.0f, 0.0f, 0.0f), XMFLOAT3(0.0f, 0.0f, 0.0f), XMFLOAT3(60.0f, 60.0f, 60.0f), m_pResourceManager->FindMeshComponentByName("mesh2").component, cbData, cubeMesh2.cubeVertices, cubeMesh2.numElementsV);
 
     m_pComponentManager->AddComponent(*m_pCube, m_pResourceManager->FindTextureComponentByName("texture").component);
     m_pComponentManager->AddComponent(*m_pCube2, m_pResourceManager->FindTextureComponentByName("texture2").component);
@@ -96,31 +96,32 @@ void GameManager::Init(HINSTANCE hInstance, int nShowCmd) {
     m_pComponentManager->AddComponent(*m_pCube3, m_pResourceManager->FindShaderComponentByName("shader1").component);
     m_pComponentManager->AddComponent(*m_pCube4, m_pResourceManager->FindShaderComponentByName("shader1").component);
 
-    m_pGameObjectManager->AddObject("Cube", m_pCube);
-    m_pGameObjectManager->AddObject("Cube2", m_pCube2);
-    m_pGameObjectManager->AddObject("Cube3", m_pCube3);
+    //m_pGameObjectManager->AddObject("Cube", m_pCube);
+    //m_pGameObjectManager->AddObject("Cube2", m_pCube2);
     m_pGameObjectManager->AddObject("Cube4", m_pCube4);
+    m_pGameObjectManager->AddObject("Cube3", m_pCube3);
 
-    ScriptComponent* scriptComponent = m_pCube->GetComponent<ScriptComponent>(ComponentType::ScriptComponent);
-    ScriptComponent* scriptComponent2 = m_pCube2->GetComponent<ScriptComponent>(ComponentType::ScriptComponent);
-    ScriptComponent* scriptComponent3 = m_pCube3->GetComponent<ScriptComponent>(ComponentType::ScriptComponent);
-    ScriptComponent* scriptComponent4 = m_pCube4->GetComponent<ScriptComponent>(ComponentType::ScriptComponent);
 
-    ZigzagMoveScript* movableScript = new ZigzagMoveScript();
-    movableScript->Initialize("ZigZagScript", m_pCube);
-    scriptComponent->AddScript(movableScript);
+    //ScriptComponent* scriptComponent = m_pCube->GetComponent<ScriptComponent>(ComponentType::ScriptComponent);
+    //ScriptComponent* scriptComponent2 = m_pCube2->GetComponent<ScriptComponent>(ComponentType::ScriptComponent);
+    //ScriptComponent* scriptComponent3 = m_pCube3->GetComponent<ScriptComponent>(ComponentType::ScriptComponent);
+    //ScriptComponent* scriptComponent4 = m_pCube4->GetComponent<ScriptComponent>(ComponentType::ScriptComponent);
 
-    LifeScript* lifeScript = new LifeScript("LifeScript1", m_pCube, m_pGameObjectManager);
-    scriptComponent->AddScript(lifeScript);
+    //ZigzagMoveScript* movableScript = new ZigzagMoveScript();
+    //movableScript->Initialize("ZigZagScript", m_pCube);
+    //scriptComponent->AddScript(movableScript);
 
-    LifeScript* lifeScript2 = new LifeScript("LifeScript2", m_pCube2, m_pGameObjectManager);
-    scriptComponent2->AddScript(lifeScript2);
+    //LifeScript* lifeScript = new LifeScript("LifeScript1", m_pCube, m_pGameObjectManager);
+    //scriptComponent->AddScript(lifeScript);
 
-    LifeScript* lifeScript3 = new LifeScript("LifeScript3", m_pCube3, m_pGameObjectManager);
-    scriptComponent->AddScript(lifeScript3);
+    //LifeScript* lifeScript2 = new LifeScript("LifeScript2", m_pCube2, m_pGameObjectManager);
+    //scriptComponent2->AddScript(lifeScript2);
 
-    LifeScript* lifeScript4 = new LifeScript("LifeScript4", m_pCube4, m_pGameObjectManager);
-    scriptComponent2->AddScript(lifeScript4);
+    //LifeScript* lifeScript3 = new LifeScript("LifeScript3", m_pCube3, m_pGameObjectManager);
+    //scriptComponent->AddScript(lifeScript3);
+
+    //LifeScript* lifeScript4 = new LifeScript("LifeScript4", m_pCube4, m_pGameObjectManager);
+    //scriptComponent2->AddScript(lifeScript4);
 
     // Drawing
     m_isRenderable = true;
