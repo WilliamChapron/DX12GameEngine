@@ -95,3 +95,68 @@ public:
         delete[] cubeIndices;
     }
 };
+
+class SphereMesh {
+public:
+    Vertex* cubeVertices;
+    UINT* cubeIndices;
+    int numElementsV;
+    int numElementsI;
+
+    SphereMesh(float radius = 1.0f, int latitudeCount = 20, int longitudeCount = 20) {
+        numElementsV = (latitudeCount + 1) * (longitudeCount + 1);
+        numElementsI = latitudeCount * longitudeCount * 6;
+
+        cubeVertices = new Vertex[numElementsV];
+        cubeIndices = new UINT[numElementsI];
+
+        int index = 0;
+
+        // Générer les vertices
+        for (int lat = 0; lat <= latitudeCount; ++lat) {
+            float theta = lat * DirectX::XM_PI / latitudeCount;
+            float sinTheta = sinf(theta);
+            float cosTheta = cosf(theta);
+
+            for (int lon = 0; lon <= longitudeCount; ++lon) {
+                float phi = lon * 2 * DirectX::XM_PI / longitudeCount;
+                float sinPhi = sinf(phi);
+                float cosPhi = cosf(phi);
+
+                float x = radius * sinTheta * cosPhi;
+                float y = radius * cosTheta;
+                float z = radius * sinTheta * sinPhi;
+
+                cubeVertices[index].Pos = DirectX::XMFLOAT3(x, y, z);
+                cubeVertices[index].Color = DirectX::XMFLOAT4(1.0f, 1.0f, 1.0f, 1.0f); // Blanc par défaut
+                cubeVertices[index].Uv = DirectX::XMFLOAT2(static_cast<float>(lon) / longitudeCount, static_cast<float>(lat) / latitudeCount);
+
+                ++index;
+            }
+        }
+
+        // Générer les indices
+        index = 0;
+        for (int lat = 0; lat < latitudeCount; ++lat) {
+            for (int lon = 0; lon < longitudeCount; ++lon) {
+                int current = lat * (longitudeCount + 1) + lon;
+                int next = current + 1;
+                int below = (lat + 1) * (longitudeCount + 1) + lon;
+                int belowNext = below + 1;
+
+                cubeIndices[index++] = current;
+                cubeIndices[index++] = below;
+                cubeIndices[index++] = next;
+
+                cubeIndices[index++] = next;
+                cubeIndices[index++] = below;
+                cubeIndices[index++] = belowNext;
+            }
+        }
+    }
+
+    ~SphereMesh() {
+        delete[] cubeVertices;
+        delete[] cubeIndices;
+    }
+};

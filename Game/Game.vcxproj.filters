@@ -62,6 +62,7 @@
     </Image>
     <Image Include="res\texture\texture.dds" />
     <Image Include="res\texture\texture2.dds" />
+    <Image Include="res\texture\textureEarth.dds" />
   </ItemGroup>
   <ItemGroup>
     <Text Include="res\shader\ShaderTriangle.hlsl" />

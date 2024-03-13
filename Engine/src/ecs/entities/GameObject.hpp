@@ -21,6 +21,15 @@ class GameObject
 public:
     GameObject(ComponentManager* componentManager, std::string name);
 
+    inline ~GameObject()
+    {
+        for (Component* component : componentsList)
+        {
+            delete component;
+        }
+        componentsList.clear();
+    }
+
     void Initialize(Renderer* renderer, Camera* camera, const XMFLOAT3& position, const XMFLOAT3& rotation, const XMFLOAT3& scale, Mesh* mesh, ConstantBufferData* cbData, Vertex* vertices, int numVertices);
     void Update(Renderer* renderer, Camera* camera);
     void Render();

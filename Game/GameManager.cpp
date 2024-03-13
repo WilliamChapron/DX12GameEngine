@@ -9,7 +9,7 @@ GameManager::GameManager() /*: m_hInstance(nullptr), m_nShowCmd(0), m_pConsole(n
 
 void GameManager::Init(HINSTANCE hInstance, int nShowCmd) {
 
-    CubeMesh cubeMesh; // Common Mesh
+    SphereMesh cubeMesh; // Common Mesh
     TriangleMesh cubeMesh2; // Common Mesh
 
     m_hInstance = hInstance;
@@ -60,6 +60,8 @@ void GameManager::Init(HINSTANCE hInstance, int nShowCmd) {
     m_pResourceManager->AddShaderToResources(baseShader);
 
 
+
+
     // Any order
     baseMesh->Initialize(cbData, m_pRenderer, cubeMesh.cubeVertices, cubeMesh.numElementsV, cubeMesh.cubeIndices, cubeMesh.numElementsI);
     baseMesh2->Initialize(cbData, m_pRenderer, cubeMesh2.cubeVertices, cubeMesh2.numElementsV, cubeMesh2.cubeIndices, cubeMesh2.numElementsI);
@@ -79,7 +81,7 @@ void GameManager::Init(HINSTANCE hInstance, int nShowCmd) {
 
 
 
-    m_pCube->Initialize(m_pRenderer, m_pCamera, XMFLOAT3(-1.5f, -1.0f, 0.0f), XMFLOAT3(0.0f, 0.0f, 0.0f), XMFLOAT3(1.0f, 1.0f, 1.0f), m_pResourceManager->FindMeshComponentByName("mesh1").component, cbData, cubeMesh.cubeVertices, cubeMesh.numElementsV);
+    m_pCube->Initialize(m_pRenderer, m_pCamera, XMFLOAT3(-1.5f, 100.0f, 0.0f), XMFLOAT3(0.0f, 0.0f, 0.0f), XMFLOAT3(1.0f, 1.0f, 1.0f), m_pResourceManager->FindMeshComponentByName("mesh1").component, cbData, cubeMesh.cubeVertices, cubeMesh.numElementsV);
     m_pCube2->Initialize(m_pRenderer, m_pCamera, XMFLOAT3(0.0f, 0.0f, 0.0f), XMFLOAT3(0.0f, 0.0f, 0.0f), XMFLOAT3(1.0f, 1.0f, 1.0f), m_pResourceManager->FindMeshComponentByName("mesh2").component, cbData, cubeMesh2.cubeVertices, cubeMesh2.numElementsV);
     m_pCube3->Initialize(m_pRenderer, m_pCamera, XMFLOAT3(1.5f, -1.0f, 0.0f), XMFLOAT3(0.0f, 0.0f, 0.0f), XMFLOAT3(1.0f, 1.0f, 1.0f), m_pResourceManager->FindMeshComponentByName("mesh1").component, cbData, cubeMesh.cubeVertices, cubeMesh.numElementsV);
     m_pCube4->Initialize(m_pRenderer, m_pCamera, XMFLOAT3(3.5f, 0.0f, 0.0f), XMFLOAT3(0.0f, 0.0f, 0.0f), XMFLOAT3(1.0f, 1.0f, 1.0f), m_pResourceManager->FindMeshComponentByName("mesh2").component, cbData, cubeMesh2.cubeVertices, cubeMesh2.numElementsV);
@@ -104,9 +106,9 @@ void GameManager::Init(HINSTANCE hInstance, int nShowCmd) {
     ScriptComponent* scriptComponent3 = m_pCube3->GetComponent<ScriptComponent>(ComponentType::ScriptComponent);
     ScriptComponent* scriptComponent4 = m_pCube4->GetComponent<ScriptComponent>(ComponentType::ScriptComponent);
 
-    //ZigzagMoveScript* movableScript = new ZigzagMoveScript();
-    //movableScript->Initialize("ZigZagScript", m_pCube);
-    //scriptComponent->AddScript(movableScript);
+    ZigzagMoveScript* movableScript = new ZigzagMoveScript();
+    movableScript->Initialize("ZigZagScript", m_pCube);
+    scriptComponent->AddScript(movableScript);
 
     LifeScript* lifeScript = new LifeScript("LifeScript1", m_pCube, m_pGameObjectManager);
     scriptComponent->AddScript(lifeScript);

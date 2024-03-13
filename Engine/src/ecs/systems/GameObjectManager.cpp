@@ -97,7 +97,7 @@ void GameObjectManager::Update(Renderer* renderer) {
     }
 
 
-    for (auto it = objectMap.begin(); it != objectMap.end();) {
+    /*for (auto it = objectMap.begin(); it != objectMap.end();) {
         GameObject* gameObject = it->second;
         if (gameObject->deadState) {
             PRINT("Removing dead object: " << it->first);
@@ -108,7 +108,7 @@ void GameObjectManager::Update(Renderer* renderer) {
         else {
             ++it;
         }
-    }
+    }*/
 
 
 };

@@ -34,40 +34,40 @@ void ZigzagMoveScript::Initialize(std::string name, GameObject* gameObject) {
 }
 
 void ZigzagMoveScript::Update() {
-    //Transform* transformComponent = m_pGameObject->GetComponent<Transform>(ComponentType::Transform);
+    Transform* transformComponent = m_pGameObject->GetComponent<Transform>(ComponentType::Transform);
 
-    //if (m_goingRight) {
-    //    m_currentAmplitude += m_zigzagSpeed;
-    //}
-    //else {
-    //    m_currentAmplitude -= m_zigzagSpeed;
-    //}
+    if (m_goingRight) {
+        m_currentAmplitude += m_zigzagSpeed;
+    }
+    else {
+        m_currentAmplitude -= m_zigzagSpeed;
+    }
 
-    //float curvature = m_curvature * m_currentTime * 0.1f; 
-    //float xOffset = m_currentAmplitude * curvature;
+    float curvature = m_curvature * m_currentTime * 0.1f; 
+    float xOffset = m_currentAmplitude * curvature;
 
-    //m_currentTime += m_zigzagSpeed;
-
-
-
-    ////transformComponent->Translate(xOffset, -0.1f, 0.0f);
+    m_currentTime += m_zigzagSpeed;
 
 
-    ////transformComponent->Rotate(0.0f, 0.01, 0.0f);
 
-    //PRINT("Current Amplitude");
-    //PRINT(m_currentAmplitude);
-    //PRINT("Curvature");
-    //PRINT(curvature);
-    //PRINT("X Offset");
-    //PRINT(xOffset);
+    transformComponent->Translate(xOffset, -0.1f, 0.0f);
 
-    //// Inverser la direction du zigzag si nécessaire
-    //if (abs(m_currentAmplitude) >= m_zigzagAmplitude) {
-    //    PRINT("CHANGEMENT");
-    //    m_currentAmplitude = 0.0f;
-    //    m_goingRight = !m_goingRight;
-    //}
+
+    transformComponent->Rotate(0.0f, 0.01, 0.0f);
+
+    PRINT("Current Amplitude");
+    PRINT(m_currentAmplitude);
+    PRINT("Curvature");
+    PRINT(curvature);
+    PRINT("X Offset");
+    PRINT(xOffset);
+
+    // Inverser la direction du zigzag si nécessaire
+    if (abs(m_currentAmplitude) >= m_zigzagAmplitude) {
+        PRINT("CHANGEMENT");
+        m_currentAmplitude = 0.0f;
+        m_goingRight = !m_goingRight;
+    }
 }
 
 LifeScript::LifeScript(std::string name, GameObject* gameObject, std::shared_ptr<GameObjectManager> gameObjectManager) {

@@ -301,7 +301,7 @@ void Renderer::Precommandlist() {
     m_pCommandList->OMSetRenderTargets(1, &rtvHandle, FALSE, nullptr);
 
 
-    const float clearColor[] = { 0.18f, 0.5f, 0.18f, 0.0f };
+    const float clearColor[] = { 0.0f, 0.0f, 0.0f, 0.0f };
     m_pCommandList->ClearRenderTargetView(rtvHandle, clearColor, 0, nullptr);
 
 }
