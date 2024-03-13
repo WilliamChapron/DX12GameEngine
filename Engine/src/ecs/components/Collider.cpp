@@ -146,13 +146,13 @@ bool ColliderComponent::CheckCollision(GameObject* collideObject) {
         colliderComponentObject->m_collideState = 1;
         colliderComponentObject->m_colliderObject = m_pGameObject;
 
-        std::cout << "Collision detected! Collided with object: " << collideObject->m_name << std::endl;
-        std::cout << "Self - m_collideState: " << m_collideState << ", m_colliderObject: " << m_colliderObject->m_name << std::endl;
+        //std::cout << "Collision detected! Collided with object: " << collideObject->m_name << std::endl;
+        //std::cout << "Self - m_collideState: " << m_collideState << ", m_colliderObject: " << m_colliderObject->m_name << std::endl;
 
-        // Print collide info of the other object
-        std::cout << "Other - m_collideState: " << colliderComponentObject->m_collideState << ", m_colliderObject: " << colliderComponentObject->m_colliderObject->m_name << std::endl;
+        //// Print collide info of the other object
+        //std::cout << "Other - m_collideState: " << colliderComponentObject->m_collideState << ", m_colliderObject: " << colliderComponentObject->m_colliderObject->m_name << std::endl;
 
-        std::cout << "----" << std::endl;
+        //std::cout << "----" << std::endl;
         return true;
     }
     else {
@@ -162,13 +162,13 @@ bool ColliderComponent::CheckCollision(GameObject* collideObject) {
         //// Set collide info other object
         //colliderComponentObject->m_collideState = 0;
 
-        std::cout << "No collision detected." << std::endl;
-        std::cout << "Self - m_collideState: " << m_collideState << ", m_colliderObject: " << (m_colliderObject ? m_colliderObject->m_name : "nullptr") << std::endl;
+        //std::cout << "No collision detected." << std::endl;
+        //std::cout << "Self - m_collideState: " << m_collideState << ", m_colliderObject: " << (m_colliderObject ? m_colliderObject->m_name : "nullptr") << std::endl;
 
-        // Print collide info of the other object
-        std::cout << "Other - m_collideState: " << colliderComponentObject->m_collideState << ", m_colliderObject: " << (colliderComponentObject->m_colliderObject ? colliderComponentObject->m_colliderObject->m_name : "nullptr") << std::endl;
+        //// Print collide info of the other object
+        //std::cout << "Other - m_collideState: " << colliderComponentObject->m_collideState << ", m_colliderObject: " << (colliderComponentObject->m_colliderObject ? colliderComponentObject->m_colliderObject->m_name : "nullptr") << std::endl;
 
-        std::cout << "----" << std::endl;
+        //std::cout << "----" << std::endl;
         return false;
     }
 

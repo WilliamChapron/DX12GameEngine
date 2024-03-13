@@ -88,6 +88,7 @@ void GameObjectManager::Update(Renderer* renderer) {
 
     renderer->WaitForPreviousFrame();
 
+
     for (auto& pair : objectMap) {
         GameObject* gameObject = pair.second;
         ColliderComponent* colliderComponent = gameObject->GetComponent<ColliderComponent>(ComponentType::ColliderComponent);
@@ -96,13 +97,18 @@ void GameObjectManager::Update(Renderer* renderer) {
     }
 
 
-    //for (auto& item : objectMap) {
-    //    if (item.second->deadState) {
-    //        PRINT("Removing dead object: ");
-    //        delete item.second;
-    //        objectMap.erase(objectMap.find(item.first));
-    //    }
-    //}
+    for (auto it = objectMap.begin(); it != objectMap.end();) {
+        GameObject* gameObject = it->second;
+        if (gameObject->deadState) {
+            PRINT("Removing dead object: " << it->first);
+            delete gameObject;
+            it = objectMap.erase(it); 
+
+        }
+        else {
+            ++it;
+        }
+    }
 
 
 };
