@@ -200,10 +200,10 @@ void GameManager::Run() {
         }
         XMFLOAT2 cameraVect;
 
-        if (m_pInput->GetMousePosition().x != 0 || m_pInput->GetMousePosition().y)
+        /*if (m_pInput->GetMousePosition().x != 0 || m_pInput->GetMousePosition().y)
             cameraVect = NormalizeVector(XMFLOAT2(m_pInput->GetMousePosition().x, -m_pInput->GetMousePosition().y));
-        else
-            cameraVect = XMFLOAT2(m_pInput->GetMousePosition().x, m_pInput->GetMousePosition().y);
+        else*/
+        cameraVect = XMFLOAT2(m_pInput->GetMousePosition().x, -m_pInput->GetMousePosition().y);
 
         m_pCamera->Rotate(cameraVect.x, -cameraVect.y);
 
