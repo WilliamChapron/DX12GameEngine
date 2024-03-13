@@ -1,4 +1,4 @@
-#pragma once
+ï»¿#pragma once
 
 struct Vertex;
 
@@ -112,14 +112,14 @@ public:
 
         int index = 0;
 
-        // Générer les vertices
+        // Gï¿½nï¿½rer les vertices
         for (int lat = 0; lat <= latitudeCount; ++lat) {
-            float theta = lat * DirectX::XM_PI / latitudeCount;
+            float theta = lat * XM_PI / latitudeCount;
             float sinTheta = sinf(theta);
             float cosTheta = cosf(theta);
 
             for (int lon = 0; lon <= longitudeCount; ++lon) {
-                float phi = lon * 2 * DirectX::XM_PI / longitudeCount;
+                float phi = lon * 2 * XM_PI / longitudeCount;
                 float sinPhi = sinf(phi);
                 float cosPhi = cosf(phi);
 
@@ -127,15 +127,15 @@ public:
                 float y = radius * cosTheta;
                 float z = radius * sinTheta * sinPhi;
 
-                cubeVertices[index].Pos = DirectX::XMFLOAT3(x, y, z);
-                cubeVertices[index].Color = DirectX::XMFLOAT4(1.0f, 1.0f, 1.0f, 1.0f); // Blanc par défaut
-                cubeVertices[index].Uv = DirectX::XMFLOAT2(static_cast<float>(lon) / longitudeCount, static_cast<float>(lat) / latitudeCount);
+                cubeVertices[index].Pos = XMFLOAT3(x, y, z);
+                cubeVertices[index].Color = XMFLOAT4(1.0f, 1.0f, 1.0f, 1.0f); // Blanc par dï¿½faut
+                cubeVertices[index].Uv = XMFLOAT2(static_cast<float>(lon) / longitudeCount, static_cast<float>(lat) / latitudeCount);
 
                 ++index;
             }
         }
 
-        // Générer les indices
+        // Gï¿½nï¿½rer les indices
         index = 0;
         for (int lat = 0; lat < latitudeCount; ++lat) {
             for (int lon = 0; lon < longitudeCount; ++lon) {
@@ -156,6 +156,59 @@ public:
     }
 
     ~SphereMesh() {
+        delete[] cubeVertices;
+        delete[] cubeIndices;
+    }
+};
+
+
+
+class Skydome {
+public:
+    Vertex* cubeVertices;
+    UINT* cubeIndices;
+    int numElementsV;
+    int numElementsI;
+
+    Skydome(float radius = 1.0f, int numSegments = 64) {
+        numElementsV = (numSegments + 1) * (numSegments + 1);
+        numElementsI = numSegments * numSegments * 6;
+
+        cubeVertices = new Vertex[numElementsV];
+
+        for (int i = 0; i <= numSegments; ++i) {
+            float phi = static_cast<float>(i) / numSegments * static_cast<float>(XM_PI);
+            for (int j = 0; j <= numSegments; ++j) {
+                float theta = static_cast<float>(j) / numSegments * static_cast<float>(XM_PI * 2);
+
+                float x = radius * std::sinf(phi) * std::cosf(theta);
+                float y = radius * std::cosf(phi);
+                float z = radius * std::sinf(phi) * std::sinf(theta);
+
+                float u = static_cast<float>(j) / numSegments;
+                float v = static_cast<float>(i) / numSegments;
+
+                cubeVertices[i * (numSegments + 1) + j] = { {x, y, z}, {1.0f, 1.0f, 1.0f, 1.0f}, {u, v} };
+            }
+        }
+
+        cubeIndices = new UINT[numElementsI];
+
+        int index = 0;
+        for (int i = 0; i < numSegments; ++i) {
+            for (int j = 0; j < numSegments; ++j) {
+                cubeIndices[index++] = i * (numSegments + 1) + j;
+                cubeIndices[index++] = (i + 1) * (numSegments + 1) + j;
+                cubeIndices[index++] = i * (numSegments + 1) + j + 1;
+
+                cubeIndices[index++] = i * (numSegments + 1) + j + 1;
+                cubeIndices[index++] = (i + 1) * (numSegments + 1) + j;
+                cubeIndices[index++] = (i + 1) * (numSegments + 1) + j + 1;
+            }
+        }
+    }
+
+    ~Skydome() {
         delete[] cubeVertices;
         delete[] cubeIndices;
     }

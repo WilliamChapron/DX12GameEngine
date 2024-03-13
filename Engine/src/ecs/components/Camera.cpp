@@ -88,7 +88,7 @@ void Camera::Rotate(float x, float y) {
     // gère la limite des rotations
     pitch = Clamp(pitch, -XM_PI * 0.5f, XM_PI * 0.5f);
 
-    std::cout << "ROTATION CAMERA bis x : " << pitch << " y : " << yaw << std::endl;
+    //std::cout << "ROTATION CAMERA bis x : " << pitch << " y : " << yaw << std::endl;
 
     transform->IdentityRotation();
     transform->Rotate(pitch, 0.0f, yaw);

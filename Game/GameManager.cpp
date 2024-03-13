@@ -10,7 +10,7 @@ GameManager::GameManager() /*: m_hInstance(nullptr), m_nShowCmd(0), m_pConsole(n
 void GameManager::Init(HINSTANCE hInstance, int nShowCmd) {
 
     SphereMesh cubeMesh; // Common Mesh
-    TriangleMesh cubeMesh2; // Common Mesh
+    Skydome cubeMesh2; // Common Mesh
 
     m_hInstance = hInstance;
 
@@ -78,54 +78,55 @@ void GameManager::Init(HINSTANCE hInstance, int nShowCmd) {
     baseShader->InitializePSO();
 
 
-    // #TODO CREATE FONCTION | CREATE OBJECT | CREATE TEXTURE | CREATE MESH | CREATE SHADER
-    m_pCube = new GameObject(m_pComponentManager, "Cube1");
-    m_pCube2 = new GameObject(m_pComponentManager, "Cube2");
-    m_pCube3 = new GameObject(m_pComponentManager, "Cube3");
-    m_pCube4 = new GameObject(m_pComponentManager, "Cube4");
+
+    GameObject* skyBox = new GameObject(m_pComponentManager, "SkyBox");
+    GameObject* earthPlanet = new GameObject(m_pComponentManager, "EarthPlanet");
 
 
+    skyBox->Initialize(m_pRenderer, m_pCamera, XMFLOAT3(0.0f, 0.0f, 0.0f), XMFLOAT3(0.0f, 0.0f, 0.0f), XMFLOAT3(40.0f, 40.0f, 40.0f), m_pResourceManager->FindMeshComponentByName("mesh2").component, cbData, cubeMesh2.cubeVertices, cubeMesh2.numElementsV, false);
+    earthPlanet->Initialize(m_pRenderer, m_pCamera, XMFLOAT3(0.0f, 0.0f, 0.0f), XMFLOAT3(0.0f, 0.0f, 0.0f), XMFLOAT3(1.0f, 1.0f, 1.0f), m_pResourceManager->FindMeshComponentByName("mesh1").component, cbData, cubeMesh.cubeVertices, cubeMesh.numElementsV, true);
+    
 
-    m_pCube->Initialize(m_pRenderer, m_pCamera, XMFLOAT3(0.5f, 0.0f, 0.0f), XMFLOAT3(0.0f, 0.0f, 0.0f), XMFLOAT3(1.0f, 1.0f, 1.0f), m_pResourceManager->FindMeshComponentByName("mesh1").component, cbData, cubeMesh.cubeVertices, cubeMesh.numElementsV);
-    m_pCube2->Initialize(m_pRenderer, m_pCamera, XMFLOAT3(0.0f, 0.0f, 0.0f), XMFLOAT3(0.0f, 0.0f, 0.0f), XMFLOAT3(1.0f, 1.0f, 1.0f), m_pResourceManager->FindMeshComponentByName("mesh2").component, cbData, cubeMesh2.cubeVertices, cubeMesh2.numElementsV);
-    m_pCube3->Initialize(m_pRenderer, m_pCamera, XMFLOAT3(1.5f, 0.0f, 0.0f), XMFLOAT3(0.0f, 0.0f, 0.0f), XMFLOAT3(1.0f, 1.0f, 1.0f), m_pResourceManager->FindMeshComponentByName("mesh1").component, cbData, cubeMesh.cubeVertices, cubeMesh.numElementsV);
-    m_pCube4->Initialize(m_pRenderer, m_pCamera, XMFLOAT3(3.5f, 0.0f, 0.0f), XMFLOAT3(0.0f, 0.0f, 0.0f), XMFLOAT3(1.0f, 1.0f, 1.0f), m_pResourceManager->FindMeshComponentByName("mesh2").component, cbData, cubeMesh2.cubeVertices, cubeMesh2.numElementsV);
+    m_pComponentManager->AddComponent(*earthPlanet, m_pResourceManager->FindTextureComponentByName("texture").component);
+    m_pComponentManager->AddComponent(*skyBox, m_pResourceManager->FindTextureComponentByName("texture2").component);
 
-    m_pComponentManager->AddComponent(*m_pCube, m_pResourceManager->FindTextureComponentByName("texture").component);
-    m_pComponentManager->AddComponent(*m_pCube2, m_pResourceManager->FindTextureComponentByName("texture2").component);
-    m_pComponentManager->AddComponent(*m_pCube3, m_pResourceManager->FindTextureComponentByName("texture").component);
-    m_pComponentManager->AddComponent(*m_pCube4, m_pResourceManager->FindTextureComponentByName("texture2").component);
+    m_pComponentManager->AddComponent(*earthPlanet, m_pResourceManager->FindShaderComponentByName("shader1").component);
+    m_pComponentManager->AddComponent(*skyBox, m_pResourceManager->FindShaderComponentByName("shader1").component);
 
-    m_pComponentManager->AddComponent(*m_pCube, m_pResourceManager->FindShaderComponentByName("shader1").component);
-    m_pComponentManager->AddComponent(*m_pCube2, m_pResourceManager->FindShaderComponentByName("shader1").component);
-    m_pComponentManager->AddComponent(*m_pCube3, m_pResourceManager->FindShaderComponentByName("shader1").component);
-    m_pComponentManager->AddComponent(*m_pCube4, m_pResourceManager->FindShaderComponentByName("shader1").component);
+    m_pGameObjectManager->AddObject("SkyBox", skyBox);
+    m_pGameObjectManager->AddObject("EarthPlanet", earthPlanet);
 
-    m_pGameObjectManager->AddObject("Cube", m_pCube);
-//    m_pGameObjectManager->AddObject("Cube2", m_pCube2);
-    //m_pGameObjectManager->AddObject("Cube3", m_pCube3);
-//    m_pGameObjectManager->AddObject("Cube4", m_pCube4);
 
-    //ScriptComponent* scriptComponent = m_pCube->GetComponent<ScriptComponent>(ComponentType::ScriptComponent);
-    //ScriptComponent* scriptComponent2 = m_pCube2->GetComponent<ScriptComponent>(ComponentType::ScriptComponent);
-    //ScriptComponent* scriptComponent3 = m_pCube3->GetComponent<ScriptComponent>(ComponentType::ScriptComponent);
-    //ScriptComponent* scriptComponent4 = m_pCube4->GetComponent<ScriptComponent>(ComponentType::ScriptComponent);
+    // Add an object camera to allow collision
+    GameObject* cameraObject = new GameObject(m_pComponentManager, "Camera");
+    cameraObject->Initialize(m_pRenderer, m_pCamera, XMFLOAT3(10.0f, 0.0f, 0.0f), XMFLOAT3(0.0f, 0.0f, 0.0f), XMFLOAT3(0.5f, 0.5f, 0.5f), m_pResourceManager->FindMeshComponentByName("mesh1").component, cbData, cubeMesh.cubeVertices, cubeMesh.numElementsV, true);
+    m_pComponentManager->AddComponent(*cameraObject, m_pResourceManager->FindShaderComponentByName("shader1").component);
+    m_pGameObjectManager->AddObject("Camera", cameraObject);
 
-    /*ZigzagMoveScript* movableScript = new ZigzagMoveScript();
-    movableScript->Initialize("ZigZagScript", m_pCube);
+    //GameObject* additionalPlanet1 = new GameObject(m_pComponentManager, "AdditionalPlanet1");
+    //additionalPlanet1->Initialize(m_pRenderer, m_pCamera, XMFLOAT3(10.0f, 0.0f, 0.0f), XMFLOAT3(0.0f, 0.0f, 0.0f), XMFLOAT3(0.5f, 0.5f, 0.5f), m_pResourceManager->FindMeshComponentByName("mesh1").component, cbData, cubeMesh.cubeVertices, cubeMesh.numElementsV, true);
+    //m_pComponentManager->AddComponent(*additionalPlanet1, m_pResourceManager->FindTextureComponentByName("texture").component);
+    //m_pComponentManager->AddComponent(*additionalPlanet1, m_pResourceManager->FindShaderComponentByName("shader1").component);
+    //m_pGameObjectManager->AddObject("AdditionalPlanet1", additionalPlanet1);
+
+    //GameObject* additionalPlanet2 = new GameObject(m_pComponentManager, "AdditionalPlanet2");
+    //additionalPlanet2->Initialize(m_pRenderer, m_pCamera, XMFLOAT3(20.0f, 0.0f, 0.0f), XMFLOAT3(0.0f, 0.0f, 0.0f), XMFLOAT3(0.7f, 0.7f, 0.7f), m_pResourceManager->FindMeshComponentByName("mesh1").component, cbData, cubeMesh.cubeVertices, cubeMesh.numElementsV, true);
+    //m_pComponentManager->AddComponent(*additionalPlanet2, m_pResourceManager->FindTextureComponentByName("texture").component);
+    //m_pComponentManager->AddComponent(*additionalPlanet2, m_pResourceManager->FindShaderComponentByName("shader1").component);
+    //m_pGameObjectManager->AddObject("AdditionalPlanet2", additionalPlanet2);
+
+
+    ScriptComponent* scriptComponent = earthPlanet->GetComponent<ScriptComponent>(ComponentType::ScriptComponent);
+    ScriptComponent* scriptComponent2 = skyBox->GetComponent<ScriptComponent>(ComponentType::ScriptComponent);
+
+    ZigzagMoveScript* movableScript = new ZigzagMoveScript();
+    movableScript->Initialize("ZigZagScript", earthPlanet);
     scriptComponent->AddScript(movableScript);
 
-    LifeScript* lifeScript = new LifeScript("LifeScript1", m_pCube, m_pGameObjectManager);
+    LifeScript* lifeScript = new LifeScript("LifeScript1", earthPlanet, m_pGameObjectManager);
     scriptComponent->AddScript(lifeScript);
 
-    LifeScript* lifeScript2 = new LifeScript("LifeScript2", m_pCube2, m_pGameObjectManager);
-    scriptComponent2->AddScript(lifeScript2);
-
-    LifeScript* lifeScript3 = new LifeScript("LifeScript3", m_pCube3, m_pGameObjectManager);
-    scriptComponent->AddScript(lifeScript3);
-
-    LifeScript* lifeScript4 = new LifeScript("LifeScript4", m_pCube4, m_pGameObjectManager);
-    scriptComponent2->AddScript(lifeScript4);*/
+    // #TODO le problème d'erase venait peut etre du fait que les objets sont toujorus dispo dans game manager.h
 
     // Drawing
     m_isRenderable = true;
@@ -158,7 +159,7 @@ void GameManager::Run() {
 
     while (true) {
 
-        Transform* transformComponent = m_pCube->GetComponent<Transform>(ComponentType::Transform);
+        //Transform* transformComponent = m_pCube->GetComponent<Transform>(ComponentType::Transform);
 
 
         time.UpdateTime();

@@ -50,21 +50,20 @@ void ZigzagMoveScript::Update() {
 
 
 
-    transformComponent->Translate(xOffset, -0.1f, 0.0f);
+    transformComponent->Translate(xOffset, 0.0f, -0.01f);
 
 
     transformComponent->Rotate(0.0f, 0.01, 0.0f);
 
-    PRINT("Current Amplitude");
-    PRINT(m_currentAmplitude);
-    PRINT("Curvature");
-    PRINT(curvature);
-    PRINT("X Offset");
-    PRINT(xOffset);
+    //PRINT("Current Amplitude");
+    //PRINT(m_currentAmplitude);
+    //PRINT("Curvature");
+    //PRINT(curvature);
+    //PRINT("X Offset");
+    //PRINT(xOffset);
 
     // Inverser la direction du zigzag si nécessaire
     if (abs(m_currentAmplitude) >= m_zigzagAmplitude) {
-        PRINT("CHANGEMENT");
         m_currentAmplitude = 0.0f;
         m_goingRight = !m_goingRight;
     }
@@ -81,15 +80,10 @@ void LifeScript::Initialize(std::string name, GameObject* gameObject) {
 }
 
 void LifeScript::Update() {
-    PRINT("Update Life Script");
     ColliderComponent* colliderComponent = m_pGameObject->GetComponent<ColliderComponent>(ComponentType::ColliderComponent);
-
-    PRINT("Collide State");
-    PRINT(colliderComponent->m_collideState);
 
 
     if (colliderComponent->m_collideState) {
-        PRINT("IL Y A COLLISION TU DEAD");
         m_pGameObjectManager->RemoveObject(m_pGameObject);
     }
 }

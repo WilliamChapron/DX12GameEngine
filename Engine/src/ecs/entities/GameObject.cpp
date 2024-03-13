@@ -22,11 +22,14 @@
 
 
 
-GameObject::GameObject(ComponentManager* componentManager, std::string name) : m_pComponentManager(componentManager), deadState(0), m_name(name)
+GameObject::GameObject(ComponentManager* componentManager, std::string name) : m_pComponentManager(componentManager), m_needRender(true), m_needCollide(false), m_name(name)
 {
 }
 
-void GameObject::Initialize(Renderer* renderer, Camera* camera, const XMFLOAT3& position, const XMFLOAT3& rotation, const XMFLOAT3& scale, Mesh* mesh, ConstantBufferData* cbData, Vertex* vertices, int numVertices) {
+void GameObject::Initialize(Renderer* renderer, Camera* camera, const XMFLOAT3& position, const XMFLOAT3& rotation, const XMFLOAT3& scale, Mesh* mesh, ConstantBufferData* cbData, Vertex* vertices, int numVertices, bool needCollide) {
+
+    m_needCollide = needCollide;
+
     // Specific to each object
     Transform* baseTransform = new Transform(position, rotation, scale);
     m_pComponentManager->AddComponent(*this, baseTransform);  
@@ -55,6 +58,8 @@ void GameObject::Initialize(XMFLOAT3 position, XMFLOAT3 rotation, XMFLOAT3 scale
 {
     Transform* baseTransform = new Transform(position, rotation, scale);
     m_pComponentManager->AddComponent(*this, baseTransform);
+
+
 }
 
 

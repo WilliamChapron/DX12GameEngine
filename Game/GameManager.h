@@ -30,10 +30,7 @@ public:
         return instance;
     }
 
-    GameObject* m_pCube;
-    GameObject* m_pCube2;
-    GameObject* m_pCube3;
-    GameObject* m_pCube4;
+
     Renderer* m_pRenderer;
 
 
