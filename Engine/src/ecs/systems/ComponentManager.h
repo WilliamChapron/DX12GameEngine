@@ -1,5 +1,8 @@
 #pragma once
 
+#include "../components/Component.h"
+#include "../entities/GameObject.hpp"
+
 class GameObjectManager;
 class GameObject;
 class Renderer;
@@ -11,12 +14,11 @@ class MeshRenderer;
 class ComponentManager
 {
 public:
-    ComponentManager(std::shared_ptr<GameObjectManager>& gameObjectManager, Renderer* renderer, Camera* camera);
+    ComponentManager(std::shared_ptr<GameObjectManager>& gameObjectManager, Renderer* renderer);
+    void AddCamera(Camera* camera);
 
     // Actions to add, remove, ... on a game object
-    inline ComponentType GetComponentPriority(Component* component) {
-        return component->GetType();
-    }
+    ComponentType GetComponentPriority(Component* component);
     void SortComponentsMap(GameObject& gameObject);
     void AddComponent(GameObject& gameObject, Component* component);
 

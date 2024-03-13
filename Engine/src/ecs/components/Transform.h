@@ -12,11 +12,17 @@ public:
     void Init();
     void Update();
 
+    void IdentityRotation();
+
     // Getter
     XMFLOAT4X4 GetTransformMatrix() const;
     XMFLOAT3 GetPosition() const;
     XMFLOAT3 GetScale() const;
     XMFLOAT3 GetRotation() const;
+    XMFLOAT3 GetDirVectorForward() const;
+    XMFLOAT3 GetDirVectorRight() const;
+    XMFLOAT3 GetDirVectorUp() const;
+
 
     inline XMFLOAT4X4 GetRotationMatrix() {
         return mRotation;
@@ -59,5 +65,3 @@ private:
     // World Matrix
     XMFLOAT4X4 mWorld;
 };
-
-

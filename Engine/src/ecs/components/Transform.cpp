@@ -4,7 +4,7 @@
 //#include "./Component.h"
 
 
-Transform::Transform(const XMFLOAT3& pos, const XMFLOAT3& rot, const XMFLOAT3& scl) : Component("Transform", ComponentType::Transform), vPosition(0.0f, 0.0f, 0.0f), vRotation(0.0f, 0.0f, 0.0f), qRotation(0.0f, 0.0f, 0.0f, 1.0f), vScale(1.0f, 1.0f, 1.0f)
+Transform::Transform(const XMFLOAT3& pos, const XMFLOAT3& rot, const XMFLOAT3& scl) : Component("Transform", ComponentType::Transform), vPosition(0.0f, 0.0f, 0.0f), vRotation(0.0f, 0.0f, 1.0f), qRotation(0.0f, 0.0f, 0.0f, 1.0f), vScale(1.0f, 1.0f, 1.0f)
 {
     Init();
     SetPosition(pos.x, pos.y, pos.z);
@@ -16,12 +16,26 @@ void Transform::Update() {
     //PRINT("Update Texture");
 }
 
+void Transform::IdentityRotation()
+{
+    qRotation.x = 0.0f;
+    qRotation.y = 0.0f;
+    qRotation.z = 0.0f;
+    qRotation.w = 1.0f;
+
+    XMMATRIX rotationMatrix = XMMatrixIdentity();
+    XMStoreFloat4x4(&mRotation, rotationMatrix);
+
+    vForward = XMFLOAT3(0.0f, 0.0f, 1.0f);
+    vRight = XMFLOAT3(1.0f, 0.0f, 0.0f);
+    vUp = XMFLOAT3(0.0f, 1.0f, 0.0f);
+}
+
 void Transform::Init() {
     XMMATRIX positionMatrix = XMMatrixIdentity();
     XMStoreFloat4x4(&mPosition, positionMatrix);
 
-    XMMATRIX rotationMatrix = XMMatrixIdentity();
-    XMStoreFloat4x4(&mRotation, rotationMatrix);
+    IdentityRotation();
 
     XMMATRIX scaleMatrix = XMMatrixIdentity();
     XMStoreFloat4x4(&mScale, scaleMatrix);
@@ -29,9 +43,6 @@ void Transform::Init() {
     XMMATRIX worldMatrix = XMMatrixIdentity();
     XMStoreFloat4x4(&mWorld, worldMatrix);
 
-    vForward = XMFLOAT3(0.0f, 0.0f, 1.0f);
-    vRight = XMFLOAT3(1.0f, 0.0f, 0.0f);
-    vUp = XMFLOAT3(0.0f, 1.0f, 0.0f);
 }
 
 
@@ -52,6 +63,21 @@ XMFLOAT3 Transform::GetScale() const {
 
 XMFLOAT3 Transform::GetRotation() const {
     return vRotation;
+}
+
+XMFLOAT3 Transform::GetDirVectorForward() const
+{
+    return vForward;
+}
+
+XMFLOAT3 Transform::GetDirVectorRight() const
+{
+    return vRight;
+}
+
+XMFLOAT3 Transform::GetDirVectorUp() const
+{
+    return vUp;
 }
 
 
@@ -76,7 +102,6 @@ void Transform::SetRotation(float pitch, float roll, float yaw) {
     vRotation = XMFLOAT3(0.0f, 0.0f, 0.0f);
     qRotation = XMFLOAT4(0.0f, 0.0f, 0.0f, 1.0f);
 
-
     Rotate(pitch, roll, yaw);
     UpdateTransformMatrix();
 }
@@ -84,8 +109,6 @@ void Transform::SetRotation(float pitch, float roll, float yaw) {
 
 void Transform::Rotate(float pitch, float roll, float yaw)
 {
-
-
     XMVECTOR forwardVector = XMLoadFloat3(&vForward);
     XMVECTOR rightVector = XMLoadFloat3(&vRight);
     XMVECTOR upVector = XMLoadFloat3(&vUp);

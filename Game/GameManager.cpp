@@ -30,12 +30,17 @@ void GameManager::Init(HINSTANCE hInstance, int nShowCmd) {
     m_pInput = new Input(m_pWindow->getWndProps());
     m_pInput->ResetMousePosition();
 
+    m_pComponentManager = new ComponentManager(m_pGameObjectManager, m_pRenderer);
+    m_pResourceManager = new ResourceManager();
 
-    m_pCamera = new Camera(); // #TODO Shared ptr camera to each object
+    m_pCamera = new Camera(m_pComponentManager); // #TODO Shared ptr camera to each object
+    //m_pCamera->Initialize(XMFLOAT3(0.0f, -5.0f, -2.0f), XMFLOAT3(0.0f, 0.0f, 0.0f), XMFLOAT3(1.f, 1.f, 1.f));
+    m_pCamera->Initialize(XMFLOAT3(0.0f, 0.0f, -10.0f), XMFLOAT3(0.0f, 0.0f, 0.0f), XMFLOAT3(1.f, 1.f, 1.f));
+    m_pCamera->UpdateTransform();
+    m_pComponentManager->AddCamera(m_pCamera);
+
 
     m_pGameObjectManager = std::make_shared<GameObjectManager>(m_pCamera);
-    m_pComponentManager = new ComponentManager(m_pGameObjectManager, m_pRenderer, m_pCamera);
-    m_pResourceManager = new ResourceManager();
 
     // INITIALIZE UNIQUE COMPONENT
 
@@ -81,9 +86,9 @@ void GameManager::Init(HINSTANCE hInstance, int nShowCmd) {
 
 
 
-    m_pCube->Initialize(m_pRenderer, m_pCamera, XMFLOAT3(-1.5f, 100.0f, 0.0f), XMFLOAT3(0.0f, 0.0f, 0.0f), XMFLOAT3(1.0f, 1.0f, 1.0f), m_pResourceManager->FindMeshComponentByName("mesh1").component, cbData, cubeMesh.cubeVertices, cubeMesh.numElementsV);
+    m_pCube->Initialize(m_pRenderer, m_pCamera, XMFLOAT3(0.5f, 0.0f, 0.0f), XMFLOAT3(0.0f, 0.0f, 0.0f), XMFLOAT3(1.0f, 1.0f, 1.0f), m_pResourceManager->FindMeshComponentByName("mesh1").component, cbData, cubeMesh.cubeVertices, cubeMesh.numElementsV);
     m_pCube2->Initialize(m_pRenderer, m_pCamera, XMFLOAT3(0.0f, 0.0f, 0.0f), XMFLOAT3(0.0f, 0.0f, 0.0f), XMFLOAT3(1.0f, 1.0f, 1.0f), m_pResourceManager->FindMeshComponentByName("mesh2").component, cbData, cubeMesh2.cubeVertices, cubeMesh2.numElementsV);
-    m_pCube3->Initialize(m_pRenderer, m_pCamera, XMFLOAT3(1.5f, -1.0f, 0.0f), XMFLOAT3(0.0f, 0.0f, 0.0f), XMFLOAT3(1.0f, 1.0f, 1.0f), m_pResourceManager->FindMeshComponentByName("mesh1").component, cbData, cubeMesh.cubeVertices, cubeMesh.numElementsV);
+    m_pCube3->Initialize(m_pRenderer, m_pCamera, XMFLOAT3(1.5f, 0.0f, 0.0f), XMFLOAT3(0.0f, 0.0f, 0.0f), XMFLOAT3(1.0f, 1.0f, 1.0f), m_pResourceManager->FindMeshComponentByName("mesh1").component, cbData, cubeMesh.cubeVertices, cubeMesh.numElementsV);
     m_pCube4->Initialize(m_pRenderer, m_pCamera, XMFLOAT3(3.5f, 0.0f, 0.0f), XMFLOAT3(0.0f, 0.0f, 0.0f), XMFLOAT3(1.0f, 1.0f, 1.0f), m_pResourceManager->FindMeshComponentByName("mesh2").component, cbData, cubeMesh2.cubeVertices, cubeMesh2.numElementsV);
 
     m_pComponentManager->AddComponent(*m_pCube, m_pResourceManager->FindTextureComponentByName("texture").component);
@@ -97,16 +102,16 @@ void GameManager::Init(HINSTANCE hInstance, int nShowCmd) {
     m_pComponentManager->AddComponent(*m_pCube4, m_pResourceManager->FindShaderComponentByName("shader1").component);
 
     m_pGameObjectManager->AddObject("Cube", m_pCube);
-    m_pGameObjectManager->AddObject("Cube2", m_pCube2);
-    m_pGameObjectManager->AddObject("Cube3", m_pCube3);
-    m_pGameObjectManager->AddObject("Cube4", m_pCube4);
+//    m_pGameObjectManager->AddObject("Cube2", m_pCube2);
+    //m_pGameObjectManager->AddObject("Cube3", m_pCube3);
+//    m_pGameObjectManager->AddObject("Cube4", m_pCube4);
 
-    ScriptComponent* scriptComponent = m_pCube->GetComponent<ScriptComponent>(ComponentType::ScriptComponent);
-    ScriptComponent* scriptComponent2 = m_pCube2->GetComponent<ScriptComponent>(ComponentType::ScriptComponent);
-    ScriptComponent* scriptComponent3 = m_pCube3->GetComponent<ScriptComponent>(ComponentType::ScriptComponent);
-    ScriptComponent* scriptComponent4 = m_pCube4->GetComponent<ScriptComponent>(ComponentType::ScriptComponent);
+    //ScriptComponent* scriptComponent = m_pCube->GetComponent<ScriptComponent>(ComponentType::ScriptComponent);
+    //ScriptComponent* scriptComponent2 = m_pCube2->GetComponent<ScriptComponent>(ComponentType::ScriptComponent);
+    //ScriptComponent* scriptComponent3 = m_pCube3->GetComponent<ScriptComponent>(ComponentType::ScriptComponent);
+    //ScriptComponent* scriptComponent4 = m_pCube4->GetComponent<ScriptComponent>(ComponentType::ScriptComponent);
 
-    ZigzagMoveScript* movableScript = new ZigzagMoveScript();
+    /*ZigzagMoveScript* movableScript = new ZigzagMoveScript();
     movableScript->Initialize("ZigZagScript", m_pCube);
     scriptComponent->AddScript(movableScript);
 
@@ -120,7 +125,7 @@ void GameManager::Init(HINSTANCE hInstance, int nShowCmd) {
     scriptComponent->AddScript(lifeScript3);
 
     LifeScript* lifeScript4 = new LifeScript("LifeScript4", m_pCube4, m_pGameObjectManager);
-    scriptComponent2->AddScript(lifeScript4);
+    scriptComponent2->AddScript(lifeScript4);*/
 
     // Drawing
     m_isRenderable = true;
@@ -145,22 +150,22 @@ void GameManager::Run() {
 
     ShowCursor(FALSE);
 
-    m_pCamera->UpdateTarget(XMFLOAT3(0.0f, 0.0f, 0.0f));
+    //Cubes.push_back(*m_pCube1);
+    //Cubes.push_back(*m_pCube2);
+    // Ajoutez d'autres Cubes au besoin
+
+
 
     while (true) {
 
         Transform* transformComponent = m_pCube->GetComponent<Transform>(ComponentType::Transform);
-        Transform* transformComponent2 = m_pCube2->GetComponent<Transform>(ComponentType::Transform);
 
 
         time.UpdateTime();
 
-
         m_pCamera->Update(time.GetDeltaTime());
 
         m_pWindow->UpdateTitleWithFPS(time.GetFramePerSecond());
-
-
 
         m_pInput->Update();
 
@@ -169,11 +174,11 @@ void GameManager::Run() {
             switch (pair.first) {
             case 'Z':
                 if (pair.second == KeyState::Pressed || pair.second == KeyState::Held)
-                    m_pCamera->UpdatePosition(0.0f, speed * time.GetDeltaTime(), 0.0f);
+                    m_pCamera->UpdatePosition(0.0f, 0.0f, speed * time.GetDeltaTime());
                 break;
             case 'S':
                 if (pair.second == KeyState::Pressed || pair.second == KeyState::Held)
-                    m_pCamera->UpdatePosition(0.0f, -speed * time.GetDeltaTime(), 0.0f);
+                    m_pCamera->UpdatePosition(0.0f, 0.0f, -speed * time.GetDeltaTime());
                 break;
             case 'Q':
                 if (pair.second == KeyState::Pressed || pair.second == KeyState::Held)
@@ -183,41 +188,26 @@ void GameManager::Run() {
                 if (pair.second == KeyState::Pressed || pair.second == KeyState::Held)
                     m_pCamera->UpdatePosition(speed * time.GetDeltaTime(), 0.0f, 0.0f);
                 break;
-            case 'R':
-                if (pair.second == KeyState::Pressed || pair.second == KeyState::Held) {
-                    std::cout << "dsds" << std::endl;
-                    transformComponent->Rotate(0.03, 0.03, 0.03);
-                }
-                break;
-            case 'T':
-                if (pair.second == KeyState::Pressed || pair.second == KeyState::Held) {
-                    //DirectX::XMFLOAT3 direction = transformComponent->GetPosition() - m_pCamera->m_position;
-                    transformComponent->Translate(0.03, 0.0, 0);
-                    transformComponent2->Translate(0.03, 0.0, 0);
-                }
-                break;
             case VK_SPACE:
                 if (pair.second == KeyState::Pressed || pair.second == KeyState::Held)
-                    m_pCamera->UpdatePosition(0.0f, 0.0f, -speed * time.GetDeltaTime());
+                    m_pCamera->UpdatePosition(0.0f, speed * time.GetDeltaTime(), 0.0f);
                 break;
             case VK_SHIFT:
                 if (pair.second == KeyState::Pressed || pair.second == KeyState::Held)
-                    m_pCamera->UpdatePosition(0.0f, 0.0f, speed * time.GetDeltaTime());
+                    m_pCamera->UpdatePosition(0.0f, -speed * time.GetDeltaTime(), 0.0f);
                 break;
-                /*case VK_LBUTTON:
-                    if (pair.second == KeyState::Pressed || pair.second == KeyState::Held)
-                    {
-
-                    }*/
             }
         }
-        m_pCamera->Rotate(m_pInput->GetMousePosition().y * 0.2f, 0.0f, -m_pInput->GetMousePosition().x * 0.2f);
+        XMFLOAT2 cameraVect;
+
+        if (m_pInput->GetMousePosition().x != 0 || m_pInput->GetMousePosition().y)
+            cameraVect = NormalizeVector(XMFLOAT2(m_pInput->GetMousePosition().x, -m_pInput->GetMousePosition().y));
+        else
+            cameraVect = XMFLOAT2(m_pInput->GetMousePosition().x, m_pInput->GetMousePosition().y);
+
+        m_pCamera->Rotate(cameraVect.x, -cameraVect.y);
 
         m_pInput->ResetMousePosition();
-
-        
-
-
 
 
         if (PeekMessage(&msg, NULL, 0, 0, PM_REMOVE)) {
@@ -226,13 +216,9 @@ void GameManager::Run() {
             TranslateMessage(&msg);
             DispatchMessage(&msg);
         }
-        
-        // Appelez la fonction Render de la classe Renderer et passez-lui la liste de Cubes
         m_pGameObjectManager->Update(m_pRenderer);
     }
 }
-
-
 
 void GameManager::Cleanup() {
     if (m_pConsole) {

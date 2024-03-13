@@ -17,8 +17,13 @@
 
 
 // Pass Instance of GameObjectManager to Work with alive entity
-ComponentManager::ComponentManager(std::shared_ptr<GameObjectManager>& gameObjectManager, Renderer* renderer, Camera* camera) : m_pGameObjectManager(gameObjectManager), m_pRenderer(renderer), m_pCamera(camera)
+ComponentManager::ComponentManager(std::shared_ptr<GameObjectManager>& gameObjectManager, Renderer* renderer) : m_pGameObjectManager(gameObjectManager), m_pRenderer(renderer)
 {
+}
+
+void ComponentManager::AddCamera(Camera* camera)
+{
+    m_pCamera = camera;
 }
 
 

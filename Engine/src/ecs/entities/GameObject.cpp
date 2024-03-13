@@ -51,6 +51,12 @@ void GameObject::Initialize(Renderer* renderer, Camera* camera, const XMFLOAT3& 
 }
 
 
+void GameObject::Initialize(XMFLOAT3 position, XMFLOAT3 rotation, XMFLOAT3 scale)
+{
+    Transform* baseTransform = new Transform(position, rotation, scale);
+    m_pComponentManager->AddComponent(*this, baseTransform);
+}
+
 
 
 
@@ -63,15 +69,17 @@ void GameObject::Update(Renderer* renderer, Camera* camera)
 
 
 
-    ConstantBufferData* sendToMeshCbData = new ConstantBufferData();
-    sendToMeshCbData->view = camera->GetViewMatrix();
-    sendToMeshCbData->projection = camera->GetProjectionMatrix();
+    ConstantBufferData sendToMeshCbData;
+    sendToMeshCbData.view = camera->GetViewMatrix();
+    XMStoreFloat4x4(&sendToMeshCbData.view, XMMatrixTranspose(XMMatrixInverse(nullptr, XMMatrixTranspose(XMLoadFloat4x4(&sendToMeshCbData.view)))));
+
+    sendToMeshCbData.projection = camera->GetProjectionMatrix();
 
 
-    sendToMeshCbData->model = transformComponent->GetTransformMatrix();
+    sendToMeshCbData.model = transformComponent->GetTransformMatrix();
 
 
 
-    meshComponent->UpdateConstantBuffer(sendToMeshCbData);
+    meshComponent->UpdateConstantBuffer(&sendToMeshCbData);
     m_pComponentManager->UpdateComponents(this);
 }
