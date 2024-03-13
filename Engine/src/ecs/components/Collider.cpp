@@ -38,6 +38,8 @@ void ColliderComponent::InitializeBoundingBox(GameObject* gameObject, Vertex* ve
         maxZ = (maxZ > vertexPos.z) ? maxZ : vertexPos.z;
     }
 
+    PRINT(gameObject->m_name);
+
     m_halfSize.x = abs(maxX - minX) / 2;
     m_halfSize.y = abs(maxY - minY) / 2;
     m_halfSize.z = abs(maxZ - minZ) / 2;

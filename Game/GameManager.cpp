@@ -11,6 +11,7 @@ void GameManager::Init(HINSTANCE hInstance, int nShowCmd) {
 
     SphereMesh cubeMesh; // Common Mesh
     Skydome cubeMesh2; // Common Mesh
+    CubeMeshInvisible invisibleMesh;
 
     m_hInstance = hInstance;
 
@@ -54,13 +55,18 @@ void GameManager::Init(HINSTANCE hInstance, int nShowCmd) {
 
     Mesh* baseMesh = new Mesh("mesh1");
     Mesh* baseMesh2 = new Mesh("mesh2");
+    Mesh* baseInvisibleMesh = new Mesh("invisibleMesh");
+
 
     ShaderComponent* baseShader = new ShaderComponent("shader1", m_pRenderer);
 
     m_pResourceManager->AddTextureToResources(texture);
     m_pResourceManager->AddTextureToResources(texture2);
+
     m_pResourceManager->AddMeshToResources(baseMesh);
     m_pResourceManager->AddMeshToResources(baseMesh2);
+    m_pResourceManager->AddMeshToResources(baseInvisibleMesh);
+
 
     m_pResourceManager->AddShaderToResources(baseShader);
 
@@ -94,39 +100,51 @@ void GameManager::Init(HINSTANCE hInstance, int nShowCmd) {
     m_pComponentManager->AddComponent(*skyBox, m_pResourceManager->FindShaderComponentByName("shader1").component);
 
     m_pGameObjectManager->AddObject("SkyBox", skyBox);
-    m_pGameObjectManager->AddObject("EarthPlanet", earthPlanet);
+    //m_pGameObjectManager->AddObject("EarthPlanet", earthPlanet);
 
 
     // Add an object camera to allow collision
-    GameObject* cameraObject = new GameObject(m_pComponentManager, "Camera");
-    cameraObject->Initialize(m_pRenderer, m_pCamera, XMFLOAT3(10.0f, 0.0f, 0.0f), XMFLOAT3(0.0f, 0.0f, 0.0f), XMFLOAT3(0.5f, 0.5f, 0.5f), m_pResourceManager->FindMeshComponentByName("mesh1").component, cbData, cubeMesh.cubeVertices, cubeMesh.numElementsV, true);
-    m_pComponentManager->AddComponent(*cameraObject, m_pResourceManager->FindShaderComponentByName("shader1").component);
-    m_pGameObjectManager->AddObject("Camera", cameraObject);
+    m_playerObject = new GameObject(m_pComponentManager, "Player");
+    m_playerObject->Initialize(m_pRenderer, m_pCamera, XMFLOAT3(0.0f, 0.0f, 0.0f), XMFLOAT3(0.0f, 0.0f, 0.0f), XMFLOAT3(1.0f, 1.0f, 1.0f), m_pResourceManager->FindMeshComponentByName("invisibleMesh").component, cbData, invisibleMesh.cubeVertices, invisibleMesh.numElementsV, true);
+    m_pComponentManager->AddComponent(*m_playerObject, m_pResourceManager->FindTextureComponentByName("texture").component);
+    m_pComponentManager->AddComponent(*m_playerObject, m_pResourceManager->FindShaderComponentByName("shader1").component);
+    m_pGameObjectManager->AddObject("Player", m_playerObject);
 
-    //GameObject* additionalPlanet1 = new GameObject(m_pComponentManager, "AdditionalPlanet1");
-    //additionalPlanet1->Initialize(m_pRenderer, m_pCamera, XMFLOAT3(10.0f, 0.0f, 0.0f), XMFLOAT3(0.0f, 0.0f, 0.0f), XMFLOAT3(0.5f, 0.5f, 0.5f), m_pResourceManager->FindMeshComponentByName("mesh1").component, cbData, cubeMesh.cubeVertices, cubeMesh.numElementsV, true);
-    //m_pComponentManager->AddComponent(*additionalPlanet1, m_pResourceManager->FindTextureComponentByName("texture").component);
-    //m_pComponentManager->AddComponent(*additionalPlanet1, m_pResourceManager->FindShaderComponentByName("shader1").component);
-    //m_pGameObjectManager->AddObject("AdditionalPlanet1", additionalPlanet1);
+    additionalPlanet1 = new GameObject(m_pComponentManager, "AdditionalPlanet1");
+    additionalPlanet1->Initialize(m_pRenderer, m_pCamera, XMFLOAT3(1.0f, 0.0f, -5.0f), XMFLOAT3(0.0f, 0.0f, 0.0f), XMFLOAT3(1.0f, 1.0f, 1.0f), m_pResourceManager->FindMeshComponentByName("mesh1").component, cbData, cubeMesh.cubeVertices, cubeMesh.numElementsV, true);
+    m_pComponentManager->AddComponent(*additionalPlanet1, m_pResourceManager->FindTextureComponentByName("texture").component);
+    m_pComponentManager->AddComponent(*additionalPlanet1, m_pResourceManager->FindShaderComponentByName("shader1").component);
+    m_pGameObjectManager->AddObject("AdditionalPlanet1", additionalPlanet1);
 
-    //GameObject* additionalPlanet2 = new GameObject(m_pComponentManager, "AdditionalPlanet2");
-    //additionalPlanet2->Initialize(m_pRenderer, m_pCamera, XMFLOAT3(20.0f, 0.0f, 0.0f), XMFLOAT3(0.0f, 0.0f, 0.0f), XMFLOAT3(0.7f, 0.7f, 0.7f), m_pResourceManager->FindMeshComponentByName("mesh1").component, cbData, cubeMesh.cubeVertices, cubeMesh.numElementsV, true);
-    //m_pComponentManager->AddComponent(*additionalPlanet2, m_pResourceManager->FindTextureComponentByName("texture").component);
-    //m_pComponentManager->AddComponent(*additionalPlanet2, m_pResourceManager->FindShaderComponentByName("shader1").component);
-    //m_pGameObjectManager->AddObject("AdditionalPlanet2", additionalPlanet2);
+    GameObject* additionalPlanet2 = new GameObject(m_pComponentManager, "AdditionalPlanet2");
+    additionalPlanet2->Initialize(m_pRenderer, m_pCamera, XMFLOAT3(4.0f, 0.0f, -5.0f), XMFLOAT3(0.0f, 0.0f, 0.0f), XMFLOAT3(1.0f, 1.0f, 1.0f), m_pResourceManager->FindMeshComponentByName("mesh1").component, cbData, cubeMesh.cubeVertices, cubeMesh.numElementsV, true);
+    m_pComponentManager->AddComponent(*additionalPlanet2, m_pResourceManager->FindTextureComponentByName("texture").component);
+    m_pComponentManager->AddComponent(*additionalPlanet2, m_pResourceManager->FindShaderComponentByName("shader1").component);
+    m_pGameObjectManager->AddObject("AdditionalPlanet2", additionalPlanet2);
 
 
-    ScriptComponent* scriptComponent = earthPlanet->GetComponent<ScriptComponent>(ComponentType::ScriptComponent);
-    ScriptComponent* scriptComponent2 = skyBox->GetComponent<ScriptComponent>(ComponentType::ScriptComponent);
+    ScriptComponent* scriptComponentEarthPlanet = earthPlanet->GetComponent<ScriptComponent>(ComponentType::ScriptComponent);
+    ScriptComponent* scriptComponentPlayerObject = m_playerObject->GetComponent<ScriptComponent>(ComponentType::ScriptComponent);
 
-    ZigzagMoveScript* movableScript = new ZigzagMoveScript();
-    movableScript->Initialize("ZigZagScript", earthPlanet);
-    scriptComponent->AddScript(movableScript);
+    ScriptComponent* scriptComponentAddPlanet1 = additionalPlanet1->GetComponent<ScriptComponent>(ComponentType::ScriptComponent);
+    ScriptComponent* scriptComponentAddPlanet2 = additionalPlanet2->GetComponent<ScriptComponent>(ComponentType::ScriptComponent);
 
-    LifeScript* lifeScript = new LifeScript("LifeScript1", earthPlanet, m_pGameObjectManager);
-    scriptComponent->AddScript(lifeScript);
+    // Utilisation de scriptComponentEarthPlanet au lieu de scriptComponent
+    //ZigzagMoveScript* movableScriptEarthPlanet = new ZigzagMoveScript();
+    //movableScriptEarthPlanet->Initialize("ZigZagScript", earthPlanet);
+    //scriptComponentEarthPlanet->AddScript(movableScriptEarthPlanet);
 
-    // #TODO le problème d'erase venait peut etre du fait que les objets sont toujorus dispo dans game manager.h
+    LifeScript* lifeScriptEarthPlanet = new LifeScript("EarthPlanetScriptLife", earthPlanet, m_pGameObjectManager);
+    scriptComponentEarthPlanet->AddScript(lifeScriptEarthPlanet);
+
+    LifeScript* lifeScriptPlayerObject = new LifeScript("PlayerObjectScriptLife", m_playerObject, m_pGameObjectManager);
+    scriptComponentPlayerObject->AddScript(lifeScriptPlayerObject);
+
+    LifeScript* lifeScriptAddPlanet1 = new LifeScript("AddPlanet1ScriptLife", additionalPlanet1, m_pGameObjectManager);
+    scriptComponentAddPlanet1->AddScript(lifeScriptAddPlanet1);
+
+    LifeScript* lifeScriptAddPlanet2 = new LifeScript("AddPlanet2ScriptLife", additionalPlanet2, m_pGameObjectManager);
+    scriptComponentAddPlanet2->AddScript(lifeScriptAddPlanet2);
 
     // Drawing
     m_isRenderable = true;
@@ -189,6 +207,14 @@ void GameManager::Run() {
                 if (pair.second == KeyState::Pressed || pair.second == KeyState::Held)
                     m_pCamera->UpdatePosition(speed * time.GetDeltaTime(), 0.0f, 0.0f);
                 break;
+            case 'T':
+                if (pair.second == KeyState::Pressed || pair.second == KeyState::Held)
+                    additionalPlanet1->GetComponent<Transform>(ComponentType::Transform)->Translate(0.01f, 0.0f, 0.0f);
+                break;
+            case 'R':
+                if (pair.second == KeyState::Pressed || pair.second == KeyState::Held)
+                    additionalPlanet1->GetComponent<Transform>(ComponentType::Transform)->Rotate(0.01f, 0.01f, 0.01f);
+                break;
             case VK_SPACE:
                 if (pair.second == KeyState::Pressed || pair.second == KeyState::Held)
                     m_pCamera->UpdatePosition(0.0f, speed * time.GetDeltaTime(), 0.0f);
@@ -211,6 +237,11 @@ void GameManager::Run() {
         m_pInput->ResetMousePosition();
 
 
+        // #TODO replace by player
+        XMFLOAT3 cameraPosition = m_pCamera->GetPosition();
+        m_playerObject->GetComponent<Transform>(ComponentType::Transform)->SetPosition(cameraPosition.x, cameraPosition.y, cameraPosition.z);
+
+
         if (PeekMessage(&msg, NULL, 0, 0, PM_REMOVE)) {
             if (msg.message == WM_QUIT)
                 break;
@@ -218,6 +249,7 @@ void GameManager::Run() {
             DispatchMessage(&msg);
         }
         m_pGameObjectManager->Update(m_pRenderer);
+
     }
 }
 

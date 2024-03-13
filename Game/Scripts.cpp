@@ -70,6 +70,7 @@ void ZigzagMoveScript::Update() {
 }
 
 LifeScript::LifeScript(std::string name, GameObject* gameObject, std::shared_ptr<GameObjectManager> gameObjectManager) {
+    m_name = name;
     m_pGameObject = gameObject;
     m_pGameObjectManager = gameObjectManager;
     m_health = 100;
@@ -84,7 +85,11 @@ void LifeScript::Update() {
 
 
     if (colliderComponent->m_collideState) {
-        m_pGameObjectManager->RemoveObject(m_pGameObject);
+        std::cout << "DAMAGE" << std::endl;
+        std::cout << m_name << std::endl;
+
+
+        /*m_pGameObjectManager->RemoveObject(m_pGameObject);*/
     }
 }
 

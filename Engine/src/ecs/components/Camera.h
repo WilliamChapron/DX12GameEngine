@@ -26,7 +26,7 @@ public:
     void Rotate(float x, float y);
     void RotateAroundTarget(float pitch, float yaw, float roll);
 
-    //Transform* transform;
+    XMFLOAT3 GetPosition();
 
 private:
     float pitch, yaw;

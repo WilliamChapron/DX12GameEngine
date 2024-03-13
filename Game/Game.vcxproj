@@ -163,6 +163,7 @@
     <Image Include="res\texture\other2.dds" />
     <Image Include="res\texture\texture.dds" />
     <Image Include="res\texture\texture2.dds" />
+    <Image Include="res\texture\texture3.dds" />
     <Image Include="res\texture\textureEarth.dds" />
     <Image Include="small.ico" />
   </ItemGroup>

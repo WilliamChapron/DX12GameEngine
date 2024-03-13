@@ -92,6 +92,12 @@ void Camera::Rotate(float x, float y) {
 
     transform->IdentityRotation();
     transform->Rotate(pitch, 0.0f, yaw);
+
+    
+}
+
+XMFLOAT3 Camera::GetPosition() {
+    return XMFLOAT3(transform->GetPosition().x, transform->GetPosition().y, transform->GetPosition().z);
 }
 
 

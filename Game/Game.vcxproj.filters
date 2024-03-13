@@ -66,6 +66,7 @@
     <Image Include="res\texture\otexture2.dds" />
     <Image Include="res\texture\other.dds" />
     <Image Include="res\texture\other2.dds" />
+    <Image Include="res\texture\texture3.dds" />
   </ItemGroup>
   <ItemGroup>
     <Text Include="res\shader\ShaderTriangle.hlsl" />

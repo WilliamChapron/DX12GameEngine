@@ -40,7 +40,10 @@ public:
 
 
     Camera* m_pCamera;
+    GameObject* m_playerObject;
     Input* m_pInput;
+
+    GameObject* additionalPlanet1;
 
     //std::vector<TextureComponent*> compiledTexture;
 
