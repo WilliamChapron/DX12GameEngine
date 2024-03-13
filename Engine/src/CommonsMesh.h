@@ -174,38 +174,38 @@ public:
 
         cubeVertices = new Vertex[numElementsV]{
             // Face avant (+Z)
-            { {-size, size, size}, {1.0f, 0.0f, 0.0f, 1.0f} ,{0.25f, 0.3333f} },
-            { {size, size, size}, {1.0f, 0.0f, 0.0f, 1.0f} ,{0.5f, 0.3333f} },
-            { {size, -size, size}, {1.0f, 0.0f, 0.0f, 1.0f} ,{0.5f, 0.6666f} },
-            { {-size, -size, size}, {1.0f, 0.0f, 0.0f, 1.0f} ,{0.25f, 0.6666f} },
+            { {-size, size, size}, {1.0f, 0.0f, 0.0f, 1.0f} ,{0.25f, 1 / 3.0f} },
+            { {size, size, size}, {1.0f, 0.0f, 0.0f, 1.0f} ,{0.5f, 1 / 3.0f} },
+            { {size, -size, size}, {1.0f, 0.0f, 0.0f, 1.0f} ,{0.5f, 2 / 3.0f}},
+            { {-size, -size, size}, {1.0f, 0.0f, 0.0f, 1.0f} ,{0.25f, 2 / 3.0f} },
 
             // Face arrière (-Z)
-            { {-size, size, -size}, {1.0f, 0.0f, 0.0f, 1.0f} ,{0.75f, 0.3333f} },
-            { {size, size, -size}, {1.0f, 0.0f, 0.0f, 1.0f} ,{1.0f, 0.3333f} },
-            { {size, -size, -size}, {1.0f, 0.0f, 0.0f, 1.0f} ,{1.0f, 0.6666f} },
-            { {-size, -size, -size}, {1.0f, 0.0f, 0.0f, 1.0f} ,{0.75f, 0.6666f} },
+            { {-size, size, -size}, {1.0f, 0.0f, 0.0f, 1.0f} ,{0.75f, 1 / 3.0f} },
+            { {size, size, -size}, {1.0f, 0.0f, 0.0f, 1.0f} ,{1.0f, 1 / 3.0f} },
+            { {size, -size, -size}, {1.0f, 0.0f, 0.0f, 1.0f} ,{1.0f, 2 / 3.0f} },
+            { {-size, -size, -size}, {1.0f, 0.0f, 0.0f, 1.0f} ,{0.75f, 2 / 3.0f} },
 
             // Face gauche (-X)
-            { {-size, size, -size}, {1.0f, 0.0f, 0.0f, 1.0f} ,{0.0f, 0.3333f} },
-            { {-size, size, size}, {1.0f, 0.0f, 0.0f, 1.0f} ,{0.25f, 0.3333f} },
-            { {-size, -size, size}, {1.0f, 0.0f, 0.0f, 1.0f} ,{0.25f, 0.6666f} },
-            { {-size, -size, -size}, {1.0f, 0.0f, 0.0f, 1.0f} ,{0.0f, 0.6666f} },
+            { {-size, size, -size}, {1.0f, 0.0f, 0.0f, 1.0f} ,{0.0f, 1 / 3.0f} },
+            { {-size, size, size}, {1.0f, 0.0f, 0.0f, 1.0f} ,{0.25f, 1 / 3.0f} },
+            { {-size, -size, size}, {1.0f, 0.0f, 0.0f, 1.0f} ,{0.25f, 2 / 3.0f} },
+            { {-size, -size, -size}, {1.0f, 0.0f, 0.0f, 1.0f} ,{0.0f, 2 / 3.0f} },
 
             // Face droite (+X)
-            { {size, size, size}, {1.0f, 0.0f, 0.0f, 1.0f} ,{0.5f, 0.3333f} },
-            { {size, size, -size}, {1.0f, 0.0f, 0.0f, 1.0f} ,{0.75f, 0.3333f} },
-            { {size, -size, -size}, {1.0f, 0.0f, 0.0f, 1.0f} ,{0.75f, 0.6666f} },
-            { {size, -size, size}, {1.0f, 0.0f, 0.0f, 1.0f} ,{0.5f, 0.6666f} },
+            { {size, size, size}, {1.0f, 0.0f, 0.0f, 1.0f} ,{0.5f, 1 / 3.0f} },
+            { {size, size, -size}, {1.0f, 0.0f, 0.0f, 1.0f} ,{0.75f, 1 / 3.0f} },
+            { {size, -size, -size}, {1.0f, 0.0f, 0.0f, 1.0f} ,{0.75f, 2 / 3.0f} },
+            { {size, -size, size}, {1.0f, 0.0f, 0.0f, 1.0f} ,{0.5f, 2 / 3.0f} },
 
             // Face supérieure (+Y)
             { {-size, size, -size}, {1.0f, 0.0f, 0.0f, 1.0f} ,{0.25f, 0.0f} },
             { {size, size, -size}, {1.0f, 0.0f, 0.0f, 1.0f} ,{0.5f, 0.0f} },
-            { {size, size, size}, {1.0f, 0.0f, 0.0f, 1.0f} ,{0.5f, 0.3333f} },
-            { {-size, size, size}, {1.0f, 0.0f, 0.0f, 1.0f} ,{0.25f, 0.3333f} },
+            { {size, size, size}, {1.0f, 0.0f, 0.0f, 1.0f} ,{0.5f, 1 / 3.0f} },
+            { {-size, size, size}, {1.0f, 0.0f, 0.0f, 1.0f} ,{0.25f, 1 / 3.0f} },
 
             // Face inférieure (-Y)
-            { {-size, -size, size}, {1.0f, 0.0f, 0.0f, 1.0f} ,{0.25f, 0.6666f} },
-            { {size, -size, size}, {1.0f, 0.0f, 0.0f, 1.0f} ,{0.5f, 0.6666f} },
+            { {-size, -size, size}, {1.0f, 0.0f, 0.0f, 1.0f} ,{0.25f, 2 / 3.0f} },
+            { {size, -size, size}, {1.0f, 0.0f, 0.0f, 1.0f} ,{0.5f, 2 / 3.0f} },
             { {size, -size, -size}, {1.0f, 0.0f, 0.0f, 1.0f} ,{0.5f, 1.0f} },
             { {-size, -size, -size}, {1.0f, 0.0f, 0.0f, 1.0f} ,{0.25f, 1.0f} }
         };
@@ -216,7 +216,7 @@ public:
             8, 9, 10, 10, 11, 8, // Face gauche
             12, 13, 14, 14, 15, 12, // Face droite
             16, 17, 18, 18, 19, 16, // Face supérieure
-            20, 21, 22, 22, 23, 20  // Face inférieure
+            23, 22, 21, 21, 20, 23  // Face inférieure (inversion des indices)
         };
     }
 
