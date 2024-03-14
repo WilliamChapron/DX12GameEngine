@@ -15,12 +15,13 @@ public:
         std::cout << "NormalMove" << std::endl;
         Transform* transformComponent = m_pGameObject->GetComponent<Transform>(ComponentType::Transform);
         if (transformComponent != nullptr) {
-            transformComponent->Translate(m_direction.x, m_direction.y, m_direction.z);
+            transformComponent->Translate(m_direction.x * time.GetDeltaTime() * 2.5f, m_direction.y * time.GetDeltaTime() * 2.5f, m_direction.z * time.GetDeltaTime() * 2.5f);
         }
 
     }
 private:
     XMFLOAT3 m_direction;
+    Time time;
 };
 
 class ZigzagMoveScript : public Script {
@@ -41,7 +42,7 @@ private:
 
 class LifeScript : public Script {
 public:
-    LifeScript(std::string name, GameObject* gameObject, std::shared_ptr<GameObjectManager> gameObjectManager);
+    LifeScript(std::shared_ptr<GameObjectManager> gameObjectManager);
     void Initialize(std::string name, GameObject* gameObject) override;
     void Update() override;
 
@@ -51,3 +52,15 @@ private:
 };
 
 
+class LifeTimeScript : public Script
+{
+public: 
+    LifeTimeScript(Time _time, std::shared_ptr<GameObjectManager> goManager);
+    void Initialize(std::string name, GameObject* gameObject) override;
+    void Update() override;
+
+private:
+    Time time;
+    double lifeTime; 
+    std::shared_ptr<GameObjectManager> pGameObjectManager;
+};

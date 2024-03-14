@@ -18,6 +18,7 @@ void MovableScript::Initialize(std::string name, GameObject* gameObject) {
 }
 
 void MovableScript::Update() {
+    time.UpdateTime();
     PRINT("Update Movable Script");
     m_pStateMachine->Update();
 }
@@ -73,14 +74,14 @@ void ZigzagMoveScript::Update() {
     }
 }
 
-LifeScript::LifeScript(std::string name, GameObject* gameObject, std::shared_ptr<GameObjectManager> gameObjectManager) {
-    m_name = name;
-    m_pGameObject = gameObject;
+LifeScript::LifeScript(std::shared_ptr<GameObjectManager> gameObjectManager) {
     m_pGameObjectManager = gameObjectManager;
     m_health = 100;
 }
 
 void LifeScript::Initialize(std::string name, GameObject* gameObject) {
+    m_name = name;
+    m_pGameObject = gameObject;
 
 }
 
@@ -89,13 +90,34 @@ void LifeScript::Update() {
 
 
     if (colliderComponent->m_collideState) {
-        //std::cout << "DAMAGE" << std::endl;
-        //std::cout << m_name << std::endl;
+        std::cout << "DAMAGE" << std::endl;
+        std::cout << m_name << std::endl;
 
 
-        /*m_pGameObjectManager->RemoveObject(m_pGameObject);*/
+        m_pGameObjectManager->RemoveObject(m_pGameObject);
     }
 }
+
+LifeTimeScript::LifeTimeScript(Time _time, std::shared_ptr<GameObjectManager> goManager)
+{
+    lifeTime = 0.0f;
+    pGameObjectManager = goManager;
+    time = _time;
+}
+
+void LifeTimeScript::Initialize(std::string name, GameObject* gameObject)
+{
+    m_name = name;
+    m_pGameObject = gameObject;
+}
+
+void LifeTimeScript::Update()
+{
+    lifeTime += time.GetDeltaTime();
+    if (lifeTime >= 15.f)
+        pGameObjectManager->RemoveObject(m_pGameObject);
+}
+
 
 
 

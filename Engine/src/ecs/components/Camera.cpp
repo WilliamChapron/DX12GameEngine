@@ -5,26 +5,26 @@
 using namespace DirectX;
 
 
-Camera::Camera(ComponentManager* componentManager, float fov, float aspectRatio, float nearPlane, float farPlane) : GameObject(componentManager, "Camera") {
-    // Init View Matrix
+Camera::Camera(ComponentManager* componentManager, float _fov, float _aspectRatio, float _nearPlane, float _farPlane) : GameObject(componentManager, "Camera"), m_pComponentManager(componentManager), fov(_fov), aspectRatio(_aspectRatio), nearPlane(_nearPlane), farPlane(_farPlane) {
+    
+}
+
+void Camera::Initialize(XMFLOAT3 position, XMFLOAT3 rotation, XMFLOAT3 scale)
+{
+    Transform* baseTransform = new Transform(position, rotation, scale);
+    m_pComponentManager->AddComponent(*this, baseTransform);
 
     m_projectionMatrix = XMMatrixPerspectiveFovLH(fov, aspectRatio, nearPlane, farPlane);
     m_transposedProjectionMatrix = XMMatrixTranspose(m_projectionMatrix);
     XMStoreFloat4x4(&f_projectionMatrix, m_transposedProjectionMatrix);
 
-    // Déclarer un quaternion pour stocker l'orientation actuelle de la caméra
-    currentRotation = XMQuaternionIdentity();
-    m_up = XMFLOAT3(0.0f, 1.0f, 0.0f);
-    m_defaultForward = XMFLOAT3(0.0f, 0.0f, 1.0f);
 
     pitch = 0.0f;
     yaw = 0.0f;
-}
 
-void Camera::UpdateTransform()
-{
     transform = GetComponent<Transform>(ComponentType::Transform);
 }
+
 
 void Camera::Update(float deltaTime) {
     std::cout << transform->GetPosition().x << std::endl;
