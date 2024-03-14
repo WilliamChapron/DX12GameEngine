@@ -8,13 +8,26 @@ Time::Time()
 	QueryPerformanceCounter(&startTime);
     lastTime = startTime;
     currentTime = startTime;
+    isPaused = false;
 }
 
 void Time::UpdateTime()
 {
-    lastTime = currentTime;
+    if (!isPaused) {
+        lastTime = currentTime;
 
-    QueryPerformanceCounter(&currentTime);
+        QueryPerformanceCounter(&currentTime);
+
+        deltaTime = static_cast<double>(currentTime.QuadPart - lastTime.QuadPart) / frequency.QuadPart;
+    }
+    else
+    {
+        SetDeltaTime(0.0f);
+    }
+}
+
+void Time::SetDeltaTime(float newDeltaTime) {
+    deltaTime = newDeltaTime;
 }
 
 double Time::GetElapsedTime() {
@@ -22,8 +35,6 @@ double Time::GetElapsedTime() {
 }
 
 double Time::GetDeltaTime(){
-    double deltaTime = static_cast<double>(currentTime.QuadPart - lastTime.QuadPart) / frequency.QuadPart;
-
     return deltaTime;
 }
 
@@ -32,4 +43,10 @@ int Time::GetFramePerSecond()
     return static_cast<int>(floor(1.0f / GetDeltaTime()));
 }
 
+void Time::Pause() {
+    isPaused = true;
+}
 
+void Time::Resume() {
+    isPaused = false;
+}
