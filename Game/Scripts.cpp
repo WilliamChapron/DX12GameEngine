@@ -114,7 +114,7 @@ void LifeTimeScript::Initialize(std::string name, GameObject* gameObject)
 void LifeTimeScript::Update()
 {
     lifeTime += time.GetDeltaTime();
-    if (lifeTime >= 1.f)
+    if (lifeTime >= 15.f)
         pGameObjectManager->RemoveObject(m_pGameObject);
 }
 

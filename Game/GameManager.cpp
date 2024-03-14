@@ -255,6 +255,7 @@ void GameManager::Run() {
                     ScriptComponent* scriptComponentBall = ball->GetComponent<ScriptComponent>(ComponentType::ScriptComponent);
                     scriptComponentBall->AddScript(moveScriptBall);
                     scriptComponentBall->AddScript(lifeScriptBall);
+                    scriptComponentBall->AddScript(lifeTimeScript);
                 }       
                 break;
             case VK_SHIFT:
