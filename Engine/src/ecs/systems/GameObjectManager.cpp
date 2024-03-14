@@ -15,7 +15,7 @@ GameObjectManager::GameObjectManager(Camera* camera) : m_pCamera(camera) {}
 // Ajouter un objet au gestionnaire
 void GameObjectManager::AddObject(const std::string& name, GameObject* object) {
     objectMap[name] = object;
-    PRINT("Object added: " << name);
+    //PRINT("Object added: " << name);
 }
 
 // Supprimer un objet du gestionnaire
@@ -23,7 +23,7 @@ void GameObjectManager::RemoveObject(const std::string& name) {
     auto it = objectMap.find(name);
     if (it != objectMap.end()) {
         objectMap.erase(it);
-        PRINT("Object erased: " << name);
+        //PRINT("Object erased: " << name);
     }
 
 

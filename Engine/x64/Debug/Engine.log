@@ -1,8 +1,7 @@
 ﻿  pch.cpp
-  DDSTextureLoader.cpp
-  Utils.cpp
   Engine.cpp
   Window.cpp
+  DDSTextureLoader.cpp
   Camera.cpp
   Collider.cpp
   Component.cpp
@@ -10,6 +9,7 @@
   MeshRenderer.cpp
   ScriptComponent.cpp
   Shader.cpp
+  UI.cpp
   Texture.cpp
   Transform.cpp
   GameObject.cpp
@@ -22,5 +22,6 @@
   main.cpp
   Graphics.cpp
   Resources.cpp
+  Utils.cpp
 x64\Debug\pch.obj : warning LNK4042: objet spécifié plus d'une fois ; définitions supplémentaires ignorées
-  Engine.vcxproj -> C:\Users\jkillingback\Downloads\DX12GameEngine-Naelle_v1\DX12GameEngine-Naelle_v1\x64\Debug\Engine.lib
+  Engine.vcxproj -> F:\DX12GameEngine-j_v2\DX12GameEngine-j_v2\x64\Debug\Engine.lib

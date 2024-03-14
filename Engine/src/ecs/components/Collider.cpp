@@ -48,7 +48,7 @@ void ColliderComponent::InitializeBoundingBox(GameObject* gameObject, Vertex* ve
 
 
 void ColliderComponent::Update(Renderer* renderer) {
-    PRINT("Update Collider");
+    //sPRINT("Update Collider");
 
 }
 

@@ -12,9 +12,11 @@ Time::Time()
 
 void Time::UpdateTime()
 {
-    lastTime = currentTime;
+    //if (!isPaused ) {
+        lastTime = currentTime;
 
-    QueryPerformanceCounter(&currentTime);
+        QueryPerformanceCounter(&currentTime);
+    //}
 }
 
 double Time::GetElapsedTime() {
@@ -22,9 +24,14 @@ double Time::GetElapsedTime() {
 }
 
 double Time::GetDeltaTime(){
-    double deltaTime = static_cast<double>(currentTime.QuadPart - lastTime.QuadPart) / frequency.QuadPart;
+    if (isPaused) {
+        return 0.0;
+    }
+    else {
+        double deltaTime = static_cast<double>(currentTime.QuadPart - lastTime.QuadPart) / frequency.QuadPart;
 
-    return deltaTime;
+        return deltaTime;
+    }
 }
 
 int Time::GetFramePerSecond()
@@ -39,3 +46,5 @@ void Time::Pause() {
 void Time::Resume(){
     isPaused = false;
 }
+
+
