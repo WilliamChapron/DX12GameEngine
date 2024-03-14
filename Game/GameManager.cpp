@@ -132,16 +132,20 @@ void GameManager::Init(HINSTANCE hInstance, int nShowCmd) {
     //movableScriptEarthPlanet->Initialize("ZigZagScript", earthPlanet);
     //scriptComponentEarthPlanet->AddScript(movableScriptEarthPlanet);
 
-    LifeScript* lifeScriptEarthPlanet = new LifeScript("EarthPlanetScriptLife", earthPlanet, m_pGameObjectManager);
+    LifeScript* lifeScriptEarthPlanet = new LifeScript(m_pGameObjectManager);
+    lifeScriptEarthPlanet->Initialize("EarthPlanetScriptLife", earthPlanet);
     scriptComponentEarthPlanet->AddScript(lifeScriptEarthPlanet);
 
-    LifeScript* lifeScriptPlayerObject = new LifeScript("PlayerObjectScriptLife", m_playerObject, m_pGameObjectManager);
+    LifeScript* lifeScriptPlayerObject = new LifeScript(m_pGameObjectManager);
+    lifeScriptPlayerObject->Initialize("PlayerObjectScriptLife", m_playerObject);
     scriptComponentPlayerObject->AddScript(lifeScriptPlayerObject);
 
-    LifeScript* lifeScriptAddPlanet1 = new LifeScript("AddPlanet1ScriptLife", additionalPlanet1, m_pGameObjectManager);
+    LifeScript* lifeScriptAddPlanet1 = new LifeScript(m_pGameObjectManager);
+    lifeScriptAddPlanet1->Initialize("AddPlanet1ScriptLife", additionalPlanet1);
     scriptComponentAddPlanet1->AddScript(lifeScriptAddPlanet1);
 
-    LifeScript* lifeScriptAddPlanet2 = new LifeScript("AddPlanet2ScriptLife", additionalPlanet2, m_pGameObjectManager);
+    LifeScript* lifeScriptAddPlanet2 = new LifeScript(m_pGameObjectManager);
+    lifeScriptAddPlanet2->Initialize("AddPlanet2ScriptLife", additionalPlanet2);
     scriptComponentAddPlanet2->AddScript(lifeScriptAddPlanet2);
 
 
@@ -180,7 +184,6 @@ void GameManager::Run() {
     while (true) {
 
         //Transform* transformComponent = m_pCube->GetComponent<Transform>(ComponentType::Transform);
-
 
         time.UpdateTime();
 
@@ -235,7 +238,7 @@ void GameManager::Run() {
 
                     GameObject* ball = new GameObject(m_pComponentManager, "ball");
                     XMFLOAT3 ballPosition = m_playerObject->GetComponent<Transform>(ComponentType::Transform)->GetPosition();
-                    ball->Initialize(m_pRenderer, m_pCamera, XMFLOAT3(ballPosition.x, ballPosition.y, ballPosition.z + 3.0), XMFLOAT3(0.0f, 0.0f, 0.0f), XMFLOAT3(0.2f, 0.2f, 0.2f), m_pResourceManager->FindMeshComponentByName("mesh1").component, cbDataBall, true);
+                    ball->Initialize(m_pRenderer, m_pCamera, XMFLOAT3(ballPosition.x, ballPosition.y - 0.25f, ballPosition.z + 0.25f), XMFLOAT3(0.0f, 0.0f, 0.0f), XMFLOAT3(0.1f, 0.1f, 0.1f), m_pResourceManager->FindMeshComponentByName("mesh1").component, cbDataBall, true);
 
                     m_pComponentManager->AddComponent(*ball, m_pResourceManager->FindTextureComponentByName("texture2").component);
                     m_pComponentManager->AddComponent(*ball, m_pResourceManager->FindShaderComponentByName("shader1").component);
@@ -244,13 +247,15 @@ void GameManager::Run() {
 
                     MovableScript* moveScriptBall = new MovableScript(direction);
                     moveScriptBall->Initialize("BallMovableScript", ball);
-                    LifeScript* lifeScriptBall = new LifeScript("ProjectileScriptLife", ball, m_pGameObjectManager);
-                    lifeScriptBall->Initialize("LifeScriptBall", ball);
+                    LifeScript* lifeScriptBall = new LifeScript(m_pGameObjectManager);
+                    lifeScriptBall->Initialize("ProjectileScriptLife", ball);
+                    LifeTimeScript* lifeTimeScript = new LifeTimeScript(time, m_pGameObjectManager);
+                    lifeTimeScript->Initialize("LifeTimeScript", ball);
 
                     ScriptComponent* scriptComponentBall = ball->GetComponent<ScriptComponent>(ComponentType::ScriptComponent);
                     scriptComponentBall->AddScript(moveScriptBall);
                     scriptComponentBall->AddScript(lifeScriptBall);
-                }
+                }       
                 break;
             case VK_SHIFT:
                 if (pair.second == KeyState::Pressed || pair.second == KeyState::Held)
@@ -262,9 +267,6 @@ void GameManager::Run() {
 
         XMFLOAT3 direction = m_pCamera->GetDirection();
 
-        /*if (m_pInput->GetMousePosition().x != 0 || m_pInput->GetMousePosition().y)
-            cameraVect = NormalizeVector(XMFLOAT2(m_pInput->GetMousePosition().x, -m_pInput->GetMousePosition().y));
-        else*/
         cameraVect = XMFLOAT2(m_pInput->GetMousePosition().x, -m_pInput->GetMousePosition().y);
 
         m_pCamera->Rotate(cameraVect.x, -cameraVect.y);

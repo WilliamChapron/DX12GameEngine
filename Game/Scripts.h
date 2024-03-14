@@ -42,7 +42,7 @@ private:
 
 class LifeScript : public Script {
 public:
-    LifeScript(std::string name, GameObject* gameObject, std::shared_ptr<GameObjectManager> gameObjectManager);
+    LifeScript(std::shared_ptr<GameObjectManager> gameObjectManager);
     void Initialize(std::string name, GameObject* gameObject) override;
     void Update() override;
 
@@ -52,3 +52,15 @@ private:
 };
 
 
+class LifeTimeScript : public Script
+{
+public: 
+    LifeTimeScript(Time _time, std::shared_ptr<GameObjectManager> goManager);
+    void Initialize(std::string name, GameObject* gameObject) override;
+    void Update() override;
+
+private:
+    Time time;
+    double lifeTime; 
+    std::shared_ptr<GameObjectManager> pGameObjectManager;
+};
