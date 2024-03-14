@@ -18,6 +18,7 @@ void MovableScript::Initialize(std::string name, GameObject* gameObject) {
 }
 
 void MovableScript::Update() {
+    time.UpdateTime();
     PRINT("Update Movable Script");
     m_pStateMachine->Update();
 }
@@ -89,11 +90,11 @@ void LifeScript::Update() {
 
 
     if (colliderComponent->m_collideState) {
-        //std::cout << "DAMAGE" << std::endl;
-        //std::cout << m_name << std::endl;
+        std::cout << "DAMAGE" << std::endl;
+        std::cout << m_name << std::endl;
 
 
-        /*m_pGameObjectManager->RemoveObject(m_pGameObject);*/
+        m_pGameObjectManager->RemoveObject(m_pGameObject);
     }
 }
 

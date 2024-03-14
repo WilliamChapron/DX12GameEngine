@@ -15,12 +15,13 @@ public:
         std::cout << "NormalMove" << std::endl;
         Transform* transformComponent = m_pGameObject->GetComponent<Transform>(ComponentType::Transform);
         if (transformComponent != nullptr) {
-            transformComponent->Translate(m_direction.x, m_direction.y, m_direction.z);
+            transformComponent->Translate(m_direction.x * time.GetDeltaTime() * 2.5f, m_direction.y * time.GetDeltaTime() * 2.5f, m_direction.z * time.GetDeltaTime() * 2.5f);
         }
 
     }
 private:
     XMFLOAT3 m_direction;
+    Time time;
 };
 
 class ZigzagMoveScript : public Script {

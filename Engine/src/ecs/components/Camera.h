@@ -9,8 +9,7 @@ class Camera : public GameObject
 {
 public:
     Camera(ComponentManager* componentManager, float fov = XM_PIDIV4, float aspectRatio = 16.0f / 9.0f, float nearPlane = 0.1f, float farPlane = 100.0f);
-    void UpdateTransform();
-    //Camera(float fov = XM_PIDIV4, float aspectRatio = 16.0f / 9.0f, float nearPlane = 0.1f, float farPlane = 100.0f);
+    void Initialize(XMFLOAT3 position, XMFLOAT3 rotation, XMFLOAT3 scale) override;
     ~Camera() {};
 
     void Update(float deltaTime);
@@ -35,30 +34,19 @@ public:
 
 
 private:
+    ComponentManager* m_pComponentManager;
+    float fov, aspectRatio, nearPlane, farPlane;
     float pitch, yaw;
 
-    XMFLOAT3 m_defaultForward;
-
     Transform* transform;
-
-    XMVECTOR currentRotation;
-
-    XMFLOAT3 m_rotation;
-
-    // Direction vector 
-    XMVECTOR forward;
-    XMVECTOR up;
-    XMVECTOR right;
 
     XMFLOAT3 m_position;
     XMFLOAT3 m_target;
     XMFLOAT3 m_up;
 
-    XMMATRIX m_viewMatrix;
     XMMATRIX m_projectionMatrix;
     XMMATRIX m_transposedViewMatrix;
     XMMATRIX m_transposedProjectionMatrix;
 
-    XMFLOAT4X4 f_viewMatrix;
     XMFLOAT4X4 f_projectionMatrix;
 };

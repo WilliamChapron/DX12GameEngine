@@ -36,12 +36,12 @@ public:
     void RemoveObject(GameObject* object);
     void Update(Renderer* renderer);
 
-    inline const std::unordered_map<std::string, GameObject*>& GetAliveObjects() const {
+    inline const std::unordered_map<std::string, std::vector<GameObject*>>& GetAliveObjects() const {
         return objectMap;
     }
 
 private:
     Camera* m_pCamera;
 
-    std::unordered_map<std::string, GameObject*> objectMap;
+    std::unordered_map<std::string, std::vector<GameObject*>> objectMap;
 };
