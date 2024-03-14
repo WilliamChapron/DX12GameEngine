@@ -89,8 +89,8 @@ void GameManager::Init(HINSTANCE hInstance, int nShowCmd) {
     GameObject* earthPlanet = new GameObject(m_pComponentManager, "EarthPlanet");
 
 
-    skyBox->Initialize(m_pRenderer, m_pCamera, XMFLOAT3(0.0f, 0.0f, 0.0f), XMFLOAT3(0.0f, 0.0f, 0.0f), XMFLOAT3(40.0f, 40.0f, 40.0f), m_pResourceManager->FindMeshComponentByName("mesh2").component, cbData, false);
-    earthPlanet->Initialize(m_pRenderer, m_pCamera, XMFLOAT3(0.0f, 0.0f, 0.0f), XMFLOAT3(0.0f, 0.0f, 0.0f), XMFLOAT3(1.0f, 1.0f, 1.0f), m_pResourceManager->FindMeshComponentByName("mesh1").component, cbData, true);
+    skyBox->Initialize(m_pRenderer, m_pCamera, XMFLOAT3(0.0f, 0.0f, 0.0f), XMFLOAT3(0.0f, 0.0f, 0.0f), XMFLOAT3(2.0f, 2.0f, 2.0f), m_pResourceManager->FindMeshComponentByName("mesh2").component, cbData, false);
+    earthPlanet->Initialize(m_pRenderer, m_pCamera, XMFLOAT3(2.0f, 0.0f, 0.0f), XMFLOAT3(0.0f, 0.0f, 0.0f), XMFLOAT3(1.0f, 1.0f, 1.0f), m_pResourceManager->FindMeshComponentByName("mesh1").component, cbData, true);
     
 
     m_pComponentManager->AddComponent(*earthPlanet, m_pResourceManager->FindTextureComponentByName("texture").component);
@@ -99,8 +99,9 @@ void GameManager::Init(HINSTANCE hInstance, int nShowCmd) {
     m_pComponentManager->AddComponent(*earthPlanet, m_pResourceManager->FindShaderComponentByName("shader1").component);
     m_pComponentManager->AddComponent(*skyBox, m_pResourceManager->FindShaderComponentByName("shader1").component);
 
+    m_pGameObjectManager->AddObject("EarthPlanet", earthPlanet);
     m_pGameObjectManager->AddObject("SkyBox", skyBox);
-    //m_pGameObjectManager->AddObject("EarthPlanet", earthPlanet);
+
 
 
 
@@ -112,17 +113,20 @@ void GameManager::Init(HINSTANCE hInstance, int nShowCmd) {
     m_pComponentManager->AddComponent(*m_playerObject, m_pResourceManager->FindShaderComponentByName("shader1").component);
     m_pGameObjectManager->AddObject("Player", m_playerObject);
 
-    additionalPlanet1 = new GameObject(m_pComponentManager, "AdditionalPlanet1");
-    additionalPlanet1->Initialize(m_pRenderer, m_pCamera, XMFLOAT3(1.0f, 0.0f, -5.0f), XMFLOAT3(0.0f, 0.0f, 0.0f), XMFLOAT3(1.0f, 1.0f, 1.0f), m_pResourceManager->FindMeshComponentByName("mesh1").component, cbData, true);
-    m_pComponentManager->AddComponent(*additionalPlanet1, m_pResourceManager->FindTextureComponentByName("texture").component);
-    m_pComponentManager->AddComponent(*additionalPlanet1, m_pResourceManager->FindShaderComponentByName("shader1").component);
-    m_pGameObjectManager->AddObject("AdditionalPlanet1", additionalPlanet1);
-
     GameObject* additionalPlanet2 = new GameObject(m_pComponentManager, "AdditionalPlanet2");
-    additionalPlanet2->Initialize(m_pRenderer, m_pCamera, XMFLOAT3(4.0f, 0.0f, -5.0f), XMFLOAT3(0.0f, 0.0f, 0.0f), XMFLOAT3(1.0f, 1.0f, 1.0f), m_pResourceManager->FindMeshComponentByName("mesh1").component, cbData, true);
-    m_pComponentManager->AddComponent(*additionalPlanet2, m_pResourceManager->FindTextureComponentByName("texture").component);
+    additionalPlanet2->Initialize(m_pRenderer, m_pCamera, XMFLOAT3(1.0f, 0.0f, 0.0f), XMFLOAT3(0.0f, 0.0f, 0.0f), XMFLOAT3(1.0f, 1.0f, 1.0f), m_pResourceManager->FindMeshComponentByName("mesh1").component, cbData, true);
+    m_pComponentManager->AddComponent(*additionalPlanet2, m_pResourceManager->FindTextureComponentByName("texture2").component);
     m_pComponentManager->AddComponent(*additionalPlanet2, m_pResourceManager->FindShaderComponentByName("shader1").component);
     //m_pGameObjectManager->AddObject("AdditionalPlanet2", additionalPlanet2);
+
+    additionalPlanet1 = new GameObject(m_pComponentManager, "AdditionalPlanet1");
+    additionalPlanet1->Initialize(m_pRenderer, m_pCamera, XMFLOAT3(1.0f, 0.0f, 10.0f), XMFLOAT3(0.0f, 0.0f, 0.0f), XMFLOAT3(1.0f, 1.0f, 1.0f), m_pResourceManager->FindMeshComponentByName("mesh1").component, cbData, true);
+    m_pComponentManager->AddComponent(*additionalPlanet1, m_pResourceManager->FindTextureComponentByName("texture").component);
+    m_pComponentManager->AddComponent(*additionalPlanet1, m_pResourceManager->FindShaderComponentByName("shader1").component);
+    //m_pGameObjectManager->AddObject("AdditionalPlanet1", additionalPlanet1);
+
+
+
 
 
     ScriptComponent* scriptComponentEarthPlanet = earthPlanet->GetComponent<ScriptComponent>(ComponentType::ScriptComponent);

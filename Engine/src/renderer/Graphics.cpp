@@ -36,8 +36,25 @@ Renderer::Renderer(Window* pWindow) {
 
 
 
-    m_pViewport = new D3D12_VIEWPORT{ 0.0f, 0.0f, static_cast<float>(1200), static_cast<float>(900) };
-    m_pScissorRect = new D3D12_RECT{ 0, 0, static_cast<LONG>(1200), static_cast<LONG>(900) };
+
+    WindowProperties windowProperties = m_pWindow->getWndProps();
+
+    m_pViewport = new D3D12_VIEWPORT;
+    m_pViewport->TopLeftX = 0;
+    m_pViewport->TopLeftY = 0;
+    m_pViewport->Width = static_cast<float>(windowProperties.width);
+    m_pViewport->Height = static_cast<float>(windowProperties.height);
+    m_pViewport->MinDepth = 0.0f;
+    m_pViewport->MaxDepth = 1.0f;
+
+    // Initialisation de la zone de découpage (scissor)
+    m_pScissorRect = new D3D12_RECT;
+    m_pScissorRect->left = 0;
+    m_pScissorRect->top = 0;
+    m_pScissorRect->right = static_cast<LONG>(windowProperties.width);
+    m_pScissorRect->bottom = static_cast<LONG>(windowProperties.height);
+
+
     std::cout << "Init renderer" << std::endl;
 }
 
@@ -273,7 +290,7 @@ void Renderer::CreateDSV() {
         &depthHeapProperties,
         D3D12_HEAP_FLAG_NONE,
         &depthResourceDesc,
-        D3D12_RESOURCE_STATE_DEPTH_WRITE,
+        D3D12_RESOURCE_STATE_COMMON,
         &depthOptimizedClearValue,
         IID_PPV_ARGS(&m_pDepthStencilBuffer)
     );
@@ -285,8 +302,28 @@ void Renderer::CreateDSV() {
     dsvDesc.Flags = D3D12_DSV_FLAG_NONE;
 
 
+
     m_dsvHeapHandle = CD3DX12_CPU_DESCRIPTOR_HANDLE(m_pDsvHeap->GetCPUDescriptorHandleForHeapStart());
     m_pDevice->CreateDepthStencilView(m_pDepthStencilBuffer.Get(), &dsvDesc, m_dsvHeapHandle);
+
+    hr = m_pCommandList->Close();
+
+    hr = m_pCommandAllocator->Reset();
+    ASSERT_FAILED(hr);
+    hr = m_pCommandList->Reset(m_pCommandAllocator.Get(), nullptr);
+    ASSERT_FAILED(hr);
+
+    CD3DX12_RESOURCE_BARRIER transitionBarrier = CD3DX12_RESOURCE_BARRIER::Transition(m_pDepthStencilBuffer.Get(), D3D12_RESOURCE_STATE_COMMON, D3D12_RESOURCE_STATE_DEPTH_WRITE);
+    m_pCommandList->ResourceBarrier(1, &transitionBarrier);
+
+
+    hr = m_pCommandList->Close();
+    ASSERT_FAILED(hr);
+    ID3D12CommandList* ppCommandLists[] = { m_pCommandList.Get() };
+    m_pCommandQueue->ExecuteCommandLists(_countof(ppCommandLists), ppCommandLists);
+    WaitForPreviousFrame();
+
+
 }
 
 
@@ -359,14 +396,6 @@ void Renderer::Precommandlist() {
 
     const float clearColor[] = { 0.0f, 0.0f, 0.0f, 0.0f };
     m_pCommandList->ClearRenderTargetView(rtvHandle, clearColor, 0, nullptr);
-
-
-    //CD3DX12_RESOURCE_BARRIER transitionDepthStencilBarrier = CD3DX12_RESOURCE_BARRIER::Transition(
-    //    m_pDepthStencilBuffer.Get(),
-    //    D3D12_RESOURCE_STATE_COMMON,
-    //    D3D12_RESOURCE_STATE_DEPTH_WRITE);
-    //m_pCommandList->ResourceBarrier(1, &transitionDepthStencilBarrier);
-
     m_pCommandList->ClearDepthStencilView(dsvHandle, D3D12_CLEAR_FLAG_DEPTH | D3D12_CLEAR_FLAG_STENCIL, 1.0f, 0, 0, nullptr);
 
 

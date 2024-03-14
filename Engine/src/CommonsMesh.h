@@ -161,7 +161,7 @@ public:
 
         int index = 0;
 
-        // G�n�rer les vertices
+        // VERTICES
         for (int lat = 0; lat <= latitudeCount; ++lat) {
             float theta = lat * XM_PI / latitudeCount;
             float sinTheta = sinf(theta);
@@ -184,7 +184,7 @@ public:
             }
         }
 
-        // G�n�rer les indices
+        // INDICES
         index = 0;
         for (int lat = 0; lat < latitudeCount; ++lat) {
             for (int lon = 0; lon < longitudeCount; ++lon) {
