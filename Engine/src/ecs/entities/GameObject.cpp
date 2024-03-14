@@ -49,14 +49,6 @@ void GameObject::Initialize(Renderer* renderer, Camera* camera, const XMFLOAT3& 
 }
 
 
-void GameObject::Initialize(XMFLOAT3 position, XMFLOAT3 rotation, XMFLOAT3 scale)
-{
-    Transform* baseTransform = new Transform(position, rotation, scale);
-    m_pComponentManager->AddComponent(*this, baseTransform);
-
-
-}
-
 
 
 

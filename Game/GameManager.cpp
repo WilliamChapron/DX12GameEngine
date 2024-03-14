@@ -99,9 +99,9 @@ void GameManager::Init(HINSTANCE hInstance, int nShowCmd) {
 
     m_pGameObjectManager->AddObject("EarthPlanet", earthPlanet);
 
-    ParticleComponent* particleComponent = new ParticleComponent("ParticleComponent", m_pRenderer);
-    particleComponent->Initialize(m_pCamera, m_pComponentManager, m_pResourceManager, m_pGameObjectManager, earthPlanet);
-    m_pComponentManager->AddComponent(*earthPlanet, particleComponent);
+    //ParticleComponent* particleComponent = new ParticleComponent("ParticleComponent", m_pRenderer);
+    //particleComponent->Initialize(m_pCamera, m_pComponentManager, m_pResourceManager, m_pGameObjectManager, earthPlanet);
+    //m_pComponentManager->AddComponent(*earthPlanet, particleComponent);
 
 
 
@@ -141,9 +141,9 @@ void GameManager::Init(HINSTANCE hInstance, int nShowCmd) {
     ScriptComponent* scriptComponentAddPlanet2 = additionalPlanet2->GetComponent<ScriptComponent>(ComponentType::ScriptComponent);
 
      //Utilisation de scriptComponentEarthPlanet au lieu de scriptComponent
-    //ZigzagMoveScript* movableScriptEarthPlanet = new ZigzagMoveScript();
-    //movableScriptEarthPlanet->Initialize("ZigZagScript", earthPlanet);
-    //scriptComponentEarthPlanet->AddScript(movableScriptEarthPlanet);
+    ZigzagMoveScript* movableScriptEarthPlanet = new ZigzagMoveScript();
+    movableScriptEarthPlanet->Initialize("ZigZagScript", earthPlanet);
+    scriptComponentEarthPlanet->AddScript(movableScriptEarthPlanet);
 
     LifeScript* lifeScriptEarthPlanet = new LifeScript(m_pGameObjectManager);
     lifeScriptEarthPlanet->Initialize("EarthPlanetScriptLife", earthPlanet);

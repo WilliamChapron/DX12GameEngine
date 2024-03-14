@@ -150,7 +150,6 @@
     <ClInclude Include="src\Atom.h" />
     <ClInclude Include="extern\d3dx12.h" />
     <ClInclude Include="framework.h" />
-    <ClInclude Include="src\ecs\components\MathHelper.h" />
     <ClInclude Include="src\ecs\components\Particle.h" />
     <ClInclude Include="pch.h" />
     <ClInclude Include="src\CommonsMesh.h" />
@@ -181,7 +180,6 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Atom.cpp" />
-    <ClCompile Include="src\ecs\components\MathHelper.cpp" />
     <ClCompile Include="src\ecs\components\Particle.cpp" />
     <ClCompile Include="pch.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>

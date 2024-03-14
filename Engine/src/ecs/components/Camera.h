@@ -9,7 +9,7 @@ class Camera : public GameObject
 {
 public:
     Camera(ComponentManager* componentManager, float fov = XM_PIDIV4, float aspectRatio = 16.0f / 9.0f, float nearPlane = 0.1f, float farPlane = 100.0f);
-    void Initialize(XMFLOAT3 position, XMFLOAT3 rotation, XMFLOAT3 scale) override;
+    void Initialize(XMFLOAT3 position, XMFLOAT3 rotation, XMFLOAT3 scale);
     ~Camera() {};
 
     void Update(float deltaTime);
