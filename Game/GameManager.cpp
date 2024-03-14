@@ -89,8 +89,8 @@ void GameManager::Init(HINSTANCE hInstance, int nShowCmd) {
     GameObject* earthPlanet = new GameObject(m_pComponentManager, "EarthPlanet");
 
 
-    skyBox->Initialize(m_pRenderer, m_pCamera, XMFLOAT3(0.0f, 0.0f, 0.0f), XMFLOAT3(0.0f, 0.0f, 0.0f), XMFLOAT3(2.0f, 2.0f, 2.0f), m_pResourceManager->FindMeshComponentByName("mesh2").component, cbData, false);
-    earthPlanet->Initialize(m_pRenderer, m_pCamera, XMFLOAT3(2.0f, 0.0f, 0.0f), XMFLOAT3(0.0f, 0.0f, 0.0f), XMFLOAT3(1.0f, 1.0f, 1.0f), m_pResourceManager->FindMeshComponentByName("mesh1").component, cbData, true);
+    skyBox->Initialize(m_pRenderer, m_pCamera, XMFLOAT3(0.0f, 0.0f, 0.0f), XMFLOAT3(0.0f, 0.0f, 0.0f), XMFLOAT3(40.0f, 40.0f, 40.0f), m_pResourceManager->FindMeshComponentByName("mesh2").component, cbData, false);
+    earthPlanet->Initialize(m_pRenderer, m_pCamera, XMFLOAT3(0.0f, 0.0f, 0.0f), XMFLOAT3(0.0f, 0.0f, 0.0f), XMFLOAT3(1.0f, 1.0f, 1.0f), m_pResourceManager->FindMeshComponentByName("mesh1").component, cbData, true);
     
 
     m_pComponentManager->AddComponent(*earthPlanet, m_pResourceManager->FindTextureComponentByName("texture").component);
@@ -136,9 +136,9 @@ void GameManager::Init(HINSTANCE hInstance, int nShowCmd) {
     ScriptComponent* scriptComponentAddPlanet2 = additionalPlanet2->GetComponent<ScriptComponent>(ComponentType::ScriptComponent);
 
      //Utilisation de scriptComponentEarthPlanet au lieu de scriptComponent
-    //ZigzagMoveScript* movableScriptEarthPlanet = new ZigzagMoveScript();
-    //movableScriptEarthPlanet->Initialize("ZigZagScript", earthPlanet);
-    //scriptComponentEarthPlanet->AddScript(movableScriptEarthPlanet);
+    ZigzagMoveScript* movableScriptEarthPlanet = new ZigzagMoveScript();
+    movableScriptEarthPlanet->Initialize("ZigZagScript", earthPlanet);
+    scriptComponentEarthPlanet->AddScript(movableScriptEarthPlanet);
 
     LifeScript* lifeScriptEarthPlanet = new LifeScript("EarthPlanetScriptLife", earthPlanet, m_pGameObjectManager);
     scriptComponentEarthPlanet->AddScript(lifeScriptEarthPlanet);
