@@ -100,7 +100,9 @@ void GameManager::Init(HINSTANCE hInstance, int nShowCmd) {
     m_pComponentManager->AddComponent(*skyBox, m_pResourceManager->FindShaderComponentByName("shader1").component);
 
     m_pGameObjectManager->AddObject("SkyBox", skyBox);
-    m_pGameObjectManager->AddObject("EarthPlanet", earthPlanet);
+    //m_pGameObjectManager->AddObject("EarthPlanet", earthPlanet);
+
+
 
 
     // Add an object camera to allow collision
@@ -114,7 +116,7 @@ void GameManager::Init(HINSTANCE hInstance, int nShowCmd) {
     additionalPlanet1->Initialize(m_pRenderer, m_pCamera, XMFLOAT3(1.0f, 0.0f, -5.0f), XMFLOAT3(0.0f, 0.0f, 0.0f), XMFLOAT3(1.0f, 1.0f, 1.0f), m_pResourceManager->FindMeshComponentByName("mesh1").component, cbData, true);
     m_pComponentManager->AddComponent(*additionalPlanet1, m_pResourceManager->FindTextureComponentByName("texture").component);
     m_pComponentManager->AddComponent(*additionalPlanet1, m_pResourceManager->FindShaderComponentByName("shader1").component);
-    //m_pGameObjectManager->AddObject("AdditionalPlanet1", additionalPlanet1);
+    m_pGameObjectManager->AddObject("AdditionalPlanet1", additionalPlanet1);
 
     GameObject* additionalPlanet2 = new GameObject(m_pComponentManager, "AdditionalPlanet2");
     additionalPlanet2->Initialize(m_pRenderer, m_pCamera, XMFLOAT3(4.0f, 0.0f, -5.0f), XMFLOAT3(0.0f, 0.0f, 0.0f), XMFLOAT3(1.0f, 1.0f, 1.0f), m_pResourceManager->FindMeshComponentByName("mesh1").component, cbData, true);
@@ -130,9 +132,9 @@ void GameManager::Init(HINSTANCE hInstance, int nShowCmd) {
     ScriptComponent* scriptComponentAddPlanet2 = additionalPlanet2->GetComponent<ScriptComponent>(ComponentType::ScriptComponent);
 
      //Utilisation de scriptComponentEarthPlanet au lieu de scriptComponent
-    ZigzagMoveScript* movableScriptEarthPlanet = new ZigzagMoveScript();
-    movableScriptEarthPlanet->Initialize("ZigZagScript", earthPlanet);
-    scriptComponentEarthPlanet->AddScript(movableScriptEarthPlanet);
+    //ZigzagMoveScript* movableScriptEarthPlanet = new ZigzagMoveScript();
+    //movableScriptEarthPlanet->Initialize("ZigZagScript", earthPlanet);
+    //scriptComponentEarthPlanet->AddScript(movableScriptEarthPlanet);
 
     LifeScript* lifeScriptEarthPlanet = new LifeScript("EarthPlanetScriptLife", earthPlanet, m_pGameObjectManager);
     scriptComponentEarthPlanet->AddScript(lifeScriptEarthPlanet);

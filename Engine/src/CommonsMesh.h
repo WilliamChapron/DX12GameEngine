@@ -194,12 +194,12 @@ public:
                 int belowNext = below + 1;
 
                 cubeIndices[index++] = current;
-                cubeIndices[index++] = below;
                 cubeIndices[index++] = next;
+                cubeIndices[index++] = below;
 
                 cubeIndices[index++] = next;
-                cubeIndices[index++] = below;
                 cubeIndices[index++] = belowNext;
+                cubeIndices[index++] = below;
             }
         }
     }

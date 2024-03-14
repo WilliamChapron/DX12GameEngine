@@ -81,6 +81,7 @@ void Renderer::InitializeDirectX12Instances() {
     CreateCommandAllocator();
     CreateCommandList();
     CreateFence();
+    CreateDSV();
 
 
 }
@@ -125,6 +126,8 @@ void Renderer::CreateFactory() {
     HRESULT hr = CreateDXGIFactory(IID_PPV_ARGS(&m_pFactory));
     ASSERT_FAILED(hr);
 }
+
+
 
 void Renderer::CreateDevice() {
     int adapterIndex = 0;
@@ -225,8 +228,66 @@ void Renderer::CreateDescriptorHeap() {
     ASSERT_FAILED(hr);
 
     m_cbvSrvDescriptorSize = m_pDevice->GetDescriptorHandleIncrementSize(D3D12_DESCRIPTOR_HEAP_TYPE_CBV_SRV_UAV);
+
+
+     //Create DSV Heap
+    D3D12_DESCRIPTOR_HEAP_DESC dsvHeapDesc = {};
+    dsvHeapDesc.NumDescriptors = 1; 
+    dsvHeapDesc.Type = D3D12_DESCRIPTOR_HEAP_TYPE_DSV;
+    dsvHeapDesc.Flags = D3D12_DESCRIPTOR_HEAP_FLAG_NONE;
+
+    hr = m_pDevice->CreateDescriptorHeap(&dsvHeapDesc, IID_PPV_ARGS(&m_pDsvHeap));
+    ASSERT_FAILED(hr);
+
+
+    m_dsvDescriptorSize = m_pDevice->GetDescriptorHandleIncrementSize(D3D12_DESCRIPTOR_HEAP_TYPE_DSV);
 }
 
+void Renderer::CreateDSV() {
+    WindowProperties windowProperties = m_pWindow->getWndProps();
+
+    HRESULT hr;
+    CD3DX12_CPU_DESCRIPTOR_HANDLE m_dsvHeapHandle;
+
+    D3D12_CLEAR_VALUE depthOptimizedClearValue = {};
+    depthOptimizedClearValue.Format = DXGI_FORMAT_D24_UNORM_S8_UINT; 
+    depthOptimizedClearValue.DepthStencil.Depth = 1.0f;
+    depthOptimizedClearValue.DepthStencil.Stencil = 0;
+
+    CD3DX12_HEAP_PROPERTIES depthHeapProperties(D3D12_HEAP_TYPE_DEFAULT);
+
+    CD3DX12_RESOURCE_DESC depthResourceDesc;
+    depthResourceDesc.Dimension = D3D12_RESOURCE_DIMENSION_TEXTURE2D;
+    depthResourceDesc.Alignment = 0;
+    depthResourceDesc.Width = windowProperties.width;
+    depthResourceDesc.Height = windowProperties.height;
+    depthResourceDesc.Format = DXGI_FORMAT_R24G8_TYPELESS;
+    depthResourceDesc.DepthOrArraySize = 1;
+    depthResourceDesc.MipLevels = 1; 
+    depthResourceDesc.SampleDesc.Count = 1; 
+    depthResourceDesc.SampleDesc.Quality = 0; 
+    depthResourceDesc.Layout = D3D12_TEXTURE_LAYOUT_UNKNOWN;
+    depthResourceDesc.Flags = D3D12_RESOURCE_FLAG_ALLOW_DEPTH_STENCIL;
+
+    hr = m_pDevice->CreateCommittedResource(
+        &depthHeapProperties,
+        D3D12_HEAP_FLAG_NONE,
+        &depthResourceDesc,
+        D3D12_RESOURCE_STATE_DEPTH_WRITE,
+        &depthOptimizedClearValue,
+        IID_PPV_ARGS(&m_pDepthStencilBuffer)
+    );
+    ASSERT_FAILED(hr);
+
+    D3D12_DEPTH_STENCIL_VIEW_DESC dsvDesc = {};
+    dsvDesc.Format = DXGI_FORMAT_D24_UNORM_S8_UINT;
+    dsvDesc.ViewDimension = D3D12_DSV_DIMENSION_TEXTURE2D;
+    dsvDesc.Flags = D3D12_DSV_FLAG_NONE;
+
+
+    m_dsvHeapHandle = CD3DX12_CPU_DESCRIPTOR_HANDLE(m_pDsvHeap->GetCPUDescriptorHandleForHeapStart());
+    m_pDevice->CreateDepthStencilView(m_pDepthStencilBuffer.Get(), &dsvDesc, m_dsvHeapHandle);
+}
 
 
 
@@ -266,7 +327,7 @@ void Renderer::WaitForPreviousFrame()
 
 
 
-// # TODO | SEPARER LES TACHES DE LA COMMAND LIST POUR POUVOIR UPDATE LE COMPONENT SHADER DE CHAQUE GAME OBJECT AU BON MOMENT DANS LE GAME OBJECT MANAGER
+
 void Renderer::Precommandlist() {
 
     HRESULT hr;
@@ -277,34 +338,51 @@ void Renderer::Precommandlist() {
     hr = m_pCommandList->Reset(m_pCommandAllocator.Get(), nullptr);
     ASSERT_FAILED(hr);
 
+    CD3DX12_CPU_DESCRIPTOR_HANDLE rtvHandle(
+        m_pRtvHeap->GetCPUDescriptorHandleForHeapStart(),
+        m_frameIndex,
+        m_rtvDescriptorSize);
+
+    CD3DX12_CPU_DESCRIPTOR_HANDLE dsvHandle(m_pDsvHeap->GetCPUDescriptorHandleForHeapStart());
+
     CD3DX12_RESOURCE_BARRIER transitionBarrier = CD3DX12_RESOURCE_BARRIER::Transition(
         m_pRenderTargets[m_frameIndex].Get(),
         D3D12_RESOURCE_STATE_PRESENT,
         D3D12_RESOURCE_STATE_RENDER_TARGET);
     m_pCommandList->ResourceBarrier(1, &transitionBarrier);
 
-    ID3D12DescriptorHeap* heaps[] = { m_pCbvSrvHeap.Get() };
-    m_pCommandList->SetDescriptorHeaps(_countof(heaps), heaps);
-
     m_pCommandList->RSSetViewports(1, m_pViewport);
     m_pCommandList->RSSetScissorRects(1, m_pScissorRect);
 
-    //m_pCommandList->SetGraphicsRootSignature(m_pRootSignature.Get());
-    //m_pCommandList->SetPipelineState(m_pPipelineState.Get());
 
-
-
-    CD3DX12_CPU_DESCRIPTOR_HANDLE rtvHandle(
-        m_pRtvHeap->GetCPUDescriptorHandleForHeapStart(),
-        m_frameIndex,
-        m_rtvDescriptorSize);
-    m_pCommandList->OMSetRenderTargets(1, &rtvHandle, FALSE, nullptr);
 
 
     const float clearColor[] = { 0.0f, 0.0f, 0.0f, 0.0f };
     m_pCommandList->ClearRenderTargetView(rtvHandle, clearColor, 0, nullptr);
 
+
+    //CD3DX12_RESOURCE_BARRIER transitionDepthStencilBarrier = CD3DX12_RESOURCE_BARRIER::Transition(
+    //    m_pDepthStencilBuffer.Get(),
+    //    D3D12_RESOURCE_STATE_COMMON,
+    //    D3D12_RESOURCE_STATE_DEPTH_WRITE);
+    //m_pCommandList->ResourceBarrier(1, &transitionDepthStencilBarrier);
+
+    m_pCommandList->ClearDepthStencilView(dsvHandle, D3D12_CLEAR_FLAG_DEPTH | D3D12_CLEAR_FLAG_STENCIL, 1.0f, 0, 0, nullptr);
+
+
+    m_pCommandList->OMSetRenderTargets(1, &rtvHandle, FALSE, &dsvHandle);
+    //m_pCommandList->OMSetRenderTargets(1, &rtvHandle, FALSE, nullptr);
+
+
+
+
+    ID3D12DescriptorHeap* heaps[] = { m_pCbvSrvHeap.Get() };
+    m_pCommandList->SetDescriptorHeaps(_countof(heaps), heaps);
+
 }
+
+
+// Specific object command between both
 
 void Renderer::Postcommandlist()
 {
@@ -316,6 +394,7 @@ void Renderer::Postcommandlist()
         D3D12_RESOURCE_STATE_RENDER_TARGET,
         D3D12_RESOURCE_STATE_PRESENT);
     m_pCommandList->ResourceBarrier(1, &presentBarrier);
+
 
     hr = m_pCommandList->Close();
     ASSERT_FAILED(hr);

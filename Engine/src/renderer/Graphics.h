@@ -20,8 +20,7 @@ public:
     void CreateCommandList();
     void CreateFence();
     void CreateDescriptorHeap();
-    void CreatePipelineState();
-    void CreateRootSignature();
+    void CreateDSV();
 
     void WaitForPreviousFrame();
 
@@ -57,6 +56,11 @@ public:
     UINT m_rtvDescriptorSize;
     ComPtr<ID3D12DescriptorHeap> m_pCbvSrvHeap;
     UINT m_cbvSrvDescriptorSize;
+
+    // DSV data
+    ComPtr<ID3D12Resource> m_pDepthStencilBuffer;
+    ComPtr<ID3D12DescriptorHeap> m_pDsvHeap;
+    UINT m_dsvDescriptorSize;
 
     int m_renderCallNum = 0;
 
