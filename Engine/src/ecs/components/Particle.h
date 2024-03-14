@@ -12,7 +12,7 @@ class ParticleComponent : public Component {
 public:
     ParticleComponent(std::string name, Renderer* renderer);
 
-    void Initialize(Camera* camera);
+    void Initialize(Camera* camera, ComponentManager* componentManager, ResourceManager* ressourceManager, std::shared_ptr<GameObjectManager> gameObjectManager, GameObject* gameObject);
 
     void InitializeAtomsVertex();
     void InitializeShader();
@@ -30,5 +30,12 @@ private:
     MeshRenderer* m_pBaseMeshRenderer;
 
     std::vector<Atom> atoms;
+
+    // instances
+
+    ResourceManager* m_pResourceManager;
+    std::shared_ptr<GameObjectManager> m_pGameObjectManager;
+    ComponentManager* m_pComponentManager;
+    GameObject* m_pGameObject;
 
 };

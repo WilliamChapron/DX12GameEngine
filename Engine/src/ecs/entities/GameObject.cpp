@@ -46,11 +46,6 @@ void GameObject::Initialize(Renderer* renderer, Camera* camera, const XMFLOAT3& 
 
     ScriptComponent* scriptComponent = new ScriptComponent("ScriptComponent", this);
     m_pComponentManager->AddComponent(*this, scriptComponent);
-
-    //ParticleComponent* particleComponent = new ParticleComponent("ParticleComponent", renderer);
-    //particleComponent->Initialize(camera);
-    //m_pComponentManager->AddComponent(*this, particleComponent);
-    //PRINT("ParticleComponent");
 }
 
 

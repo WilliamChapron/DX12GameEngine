@@ -22,6 +22,7 @@
 #include <math.h>
 #include <algorithm>
 #include <functional>
+#include <random>
 
 // Windows
 #include <Windows.h>

@@ -100,6 +100,13 @@ void GameManager::Init(HINSTANCE hInstance, int nShowCmd) {
     m_pComponentManager->AddComponent(*skyBox, m_pResourceManager->FindShaderComponentByName("shader1").component);
 
     m_pGameObjectManager->AddObject("EarthPlanet", earthPlanet);
+
+    ParticleComponent* particleComponent = new ParticleComponent("ParticleComponent", m_pRenderer);
+    particleComponent->Initialize(m_pCamera, m_pComponentManager, m_pResourceManager, m_pGameObjectManager, earthPlanet);
+    m_pComponentManager->AddComponent(*earthPlanet, particleComponent);
+
+
+
     m_pGameObjectManager->AddObject("SkyBox", skyBox);
 
 
