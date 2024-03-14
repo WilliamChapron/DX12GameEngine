@@ -194,6 +194,16 @@ void GameManager::Run() {
         //------ Camera Movement
         for (const auto& pair : m_pInput->GetKeyStates()) {
             switch (pair.first) {
+            case 'P': 
+                if (pair.second == KeyState::Pressed)//|| pair.second == KeyState::Held*/
+                    time.Pause();
+                break;
+
+            case 'R':
+                if (pair.second == KeyState::Pressed)
+                    time.Resume();
+                break;
+
             case 'Z':
                 if (pair.second == KeyState::Pressed || pair.second == KeyState::Held)
                     m_pCamera->UpdatePosition(0.0f, 0.0f, speed * time.GetDeltaTime());
@@ -213,10 +223,6 @@ void GameManager::Run() {
             case 'T':
                 if (pair.second == KeyState::Pressed || pair.second == KeyState::Held)
                     additionalPlanet1->GetComponent<Transform>(ComponentType::Transform)->Translate(0.01f, 0.0f, 0.0f);
-                break;
-            case 'R':
-                if (pair.second == KeyState::Pressed || pair.second == KeyState::Held)
-                    additionalPlanet1->GetComponent<Transform>(ComponentType::Transform)->Rotate(0.01f, 0.01f, 0.01f);
                 break;
             case VK_SPACE:
                 if (pair.second == KeyState::Pressed || pair.second == KeyState::Held)
@@ -262,9 +268,9 @@ void GameManager::Run() {
         /*if (m_pInput->GetMousePosition().x != 0 || m_pInput->GetMousePosition().y)
             cameraVect = NormalizeVector(XMFLOAT2(m_pInput->GetMousePosition().x, -m_pInput->GetMousePosition().y));
         else*/
-        cameraVect = XMFLOAT2(m_pInput->GetMousePosition().x, -m_pInput->GetMousePosition().y);
+        cameraVect = XMFLOAT2(m_pInput->GetMousePosition().x , -m_pInput->GetMousePosition().y);
 
-        m_pCamera->Rotate(cameraVect.x, -cameraVect.y);
+        m_pCamera->Rotate(cameraVect.x * time.GetDeltaTime(), -cameraVect.y * time.GetDeltaTime());
 
         m_pInput->ResetMousePosition();
 
