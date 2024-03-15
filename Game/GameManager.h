@@ -58,6 +58,7 @@ public:
     bool m_isRenderable;
 
 private:
+    ConstantBufferData* cbData;
     StateMachine* stateMachine;
 
     Window* m_pWindow = nullptr;

@@ -138,19 +138,10 @@ void GameObjectManager::Update(Renderer* renderer) {
     }
 
 
-    //for (auto it = objectMap.begin(); it != objectMap.end();) {
-    //    GameObject* gameObject = it->second;
-    //    if (!gameObject->m_needRender) {
-    //        objectMap.erase(0);
-    //        /*PRINT("Removing dead object: " << it->first);
-    //        delete gameObject;
-    //        it = objectMap.erase(it); */
-
-    //    }
-    //    else {
-    //        ++it;
-    //    }
-    //}
-
-
 };
+
+
+void GameObjectManager::UpdateCustomGameObject(GameObject* go, Renderer* renderer)
+{
+    go->Update(renderer, m_pCamera);
+}

@@ -32,7 +32,7 @@ public:
 
     virtual void Initialize(Renderer* renderer, Camera* camera, const XMFLOAT3& position, const XMFLOAT3& rotation, const XMFLOAT3& scale, Mesh* mesh, ConstantBufferData* cbData, bool needCollide);
 
-    void Update(Renderer* renderer, Camera* camera);
+    virtual void Update(Renderer* renderer, Camera* camera);
 
     std::list<Component*> componentsList;
 

@@ -15,7 +15,7 @@ public:
         std::cout << "NormalMove" << std::endl;
         Transform* transformComponent = m_pGameObject->GetComponent<Transform>(ComponentType::Transform);
         if (transformComponent != nullptr) {
-            transformComponent->Translate(m_direction.x * time.GetDeltaTime() * 2.5f, m_direction.y * time.GetDeltaTime() * 2.5f, m_direction.z * time.GetDeltaTime() * 2.5f);
+            transformComponent->Translate(m_direction.x * time.GetDeltaTime() * 4.f, m_direction.y * time.GetDeltaTime() * 4.f, m_direction.z * time.GetDeltaTime() * 4.f);
         }
 
     }
@@ -55,12 +55,34 @@ private:
 class LifeTimeScript : public Script
 {
 public: 
-    LifeTimeScript(Time _time, std::shared_ptr<GameObjectManager> goManager);
+    LifeTimeScript(Time _time, std::shared_ptr<GameObjectManager> goManager, double _lifeTimeMax);
     void Initialize(std::string name, GameObject* gameObject) override;
     void Update() override;
 
 private:
     Time time;
     double lifeTime; 
+    double lifeTimeMax; 
     std::shared_ptr<GameObjectManager> pGameObjectManager;
+};
+
+class ObstacleGenerationScript : public Script
+{
+public:
+    ObstacleGenerationScript(Time _time, std::shared_ptr<GameObjectManager> goManager, ComponentManager* componentManager, Renderer* renderer, Camera* camera, Mesh* mesh, ConstantBufferData* cbData, ResourceManager* rManager);
+    void Initialize(std::string name, GameObject* gameObject) override;
+    void Update() override;
+
+private:
+    float delayOfSpawn;
+    float amountOfSpawn;
+    
+    Time time;
+    std::shared_ptr<GameObjectManager> pGameObjectManager;
+    ComponentManager* pComponentManager;
+    Renderer* pRenderer;
+    Camera* pCamera;
+    Mesh* pMesh;
+    ConstantBufferData* pCbData;
+    ResourceManager* m_pResourceManager;
 };

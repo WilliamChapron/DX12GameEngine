@@ -213,6 +213,7 @@
     <ClCompile Include="src\Utils.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <Image Include="..\..\..\..\Downloads\1280px-HD_transparent_picture_1.dds" />
     <Image Include="res\texture\otexture2.dds" />
     <Image Include="res\texture\other.dds" />
     <Image Include="res\texture\other2.dds" />

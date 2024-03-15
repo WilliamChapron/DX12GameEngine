@@ -1,5 +1,5 @@
 #include "pch.h"
-
+#include <ctime>
 using namespace DirectX;
 
 void PrintMatrix(const XMFLOAT4X4& matrix)
@@ -74,4 +74,11 @@ float Clamp(float v, float a, float b)
     if (v > b)
         return b;
     return v;
+}
+
+int GetRandomNum(int min, int max)
+{
+    std::srand(std::time(nullptr)); // use current time as seed for random generator
+    int randomValue = std::rand();
+    return randomValue % (max - min) + min;
 }

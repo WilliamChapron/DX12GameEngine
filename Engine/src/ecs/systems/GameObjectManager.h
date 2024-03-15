@@ -35,7 +35,8 @@ public:
     void AddObject(const std::string& name, GameObject* object);
     void RemoveObject(GameObject* object);
     void Update(Renderer* renderer);
-
+    void UpdateCustomGameObject(GameObject* go, Renderer* renderer);
+    
     inline const std::unordered_map<std::string, std::vector<GameObject*>>& GetAliveObjects() const {
         return objectMap;
     }
