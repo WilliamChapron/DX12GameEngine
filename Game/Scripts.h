@@ -3,7 +3,7 @@
 
 class MovableScript : public Script {
 public:
-    MovableScript(XMFLOAT3 direction);
+    MovableScript(XMFLOAT3 direction, float speed);
     void Initialize(std::string name, GameObject* gameObject) override;
     void Update() override;
 
@@ -13,10 +13,11 @@ public:
     inline void NormalMove() {
         Transform* transformComponent = m_pGameObject->GetComponent<Transform>(ComponentType::Transform);
         if (transformComponent != nullptr) {
-            transformComponent->Translate(m_direction.x * time.GetDeltaTime() * 2.f, m_direction.y * time.GetDeltaTime() * 2.f, m_direction.z * time.GetDeltaTime() * 2.f);
+            transformComponent->Translate(m_direction.x * time.GetDeltaTime() * m_speed, m_direction.y * time.GetDeltaTime() * m_speed, m_direction.z * time.GetDeltaTime() * m_speed);
         }
     }
 private:
+    float m_speed;
     XMFLOAT3 m_direction;
     Time time;
 };

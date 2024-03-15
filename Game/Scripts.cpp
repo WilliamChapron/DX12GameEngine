@@ -2,8 +2,9 @@
 #include "Scripts.h"
 
 
-MovableScript::MovableScript(XMFLOAT3 direction) {
+MovableScript::MovableScript(XMFLOAT3 direction, float speed) {
     m_direction = direction;
+    m_speed = speed;
 }
 
 void MovableScript::Initialize(std::string name, GameObject* gameObject) {
@@ -31,11 +32,11 @@ void ZigzagMoveScript::Initialize(std::string name, GameObject* gameObject) {
     m_name = name;
     m_pGameObject = gameObject;
     m_zigzagSpeed = 0.01f;
-    m_zigzagAmplitude = 1.f;
+    m_zigzagAmplitude = 3.0f;
     m_goingRight = true;
     m_currentAmplitude = 0.0f;
     m_currentTime = 0.0f;
-    m_curvature = 0.1f; // Ajout du paramètre de courbure
+    m_curvature = 0.1f; 
 }
 
 void ZigzagMoveScript::Update() {
@@ -175,12 +176,13 @@ void ObstacleGenerationScript::Update()
             dir.z /= length * 0.5f;
         } else dir = XMFLOAT3(0.0f, 0.0f, 0.0f); 
 
-        MovableScript* movement = new MovableScript(dir);
+        MovableScript* movement = new MovableScript(dir, 2.f);
         movement->Initialize("movement", obstacle);
         scriptComponent->AddScript(movement);
 
 
-        delayOfSpawn = GetRandomNum(1, 3);
+        delayOfSpawn = GetRandomNum(1, 2);
+
     }
     delayOfSpawn -= time.GetDeltaTime();
 }

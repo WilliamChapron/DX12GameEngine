@@ -141,7 +141,7 @@ void GameManager::Run() {
 
     std::vector<GameObject> Cubes;
 
-    float speed = 15.f;
+    float speed = 100.f;
 
     ShowCursor(FALSE);
 
@@ -150,7 +150,7 @@ void GameManager::Run() {
     EmptyGameObject* gameManagerObject = new EmptyGameObject(m_pComponentManager, "GameManagerObject");
     gameManagerObject->Initialize(m_pRenderer, m_pCamera, XMFLOAT3(5000.0f, 0.0f, 0.0f), XMFLOAT3(0.0f, 0.0f, 0.0f), XMFLOAT3(0.0f, 0.0f, 0.0f), m_pResourceManager->FindMeshComponentByName("invisibleMesh").component, cbData, false);
     ObstacleGenerationScript* obsGenScript = new ObstacleGenerationScript(time, m_pGameObjectManager, m_pComponentManager, m_pRenderer, m_pCamera, m_pResourceManager->FindMeshComponentByName("mesh1").component, cbData, m_pResourceManager);
-    obsGenScript->Initialize("obstacleGenerationScRIPT", gameManagerObject);
+    obsGenScript->Initialize("obstacleGenerationScript", gameManagerObject);
     ScriptComponent* scriptComponentGameManagerObject = gameManagerObject->GetComponent<ScriptComponent>(ComponentType::ScriptComponent);
     scriptComponentGameManagerObject->AddScript(obsGenScript);
 
@@ -211,7 +211,7 @@ void GameManager::Run() {
                       
                     m_pGameObjectManager->AddObject("Ball", ball);
 
-                    MovableScript* moveScriptBall = new MovableScript(direction);
+                    MovableScript* moveScriptBall = new MovableScript(direction, 17.0f);
                     moveScriptBall->Initialize("BallMovableScript", ball);
                     LifeScript* lifeScriptBall = new LifeScript(m_pGameObjectManager);
                     lifeScriptBall->Initialize("ProjectileScriptLife", ball);
