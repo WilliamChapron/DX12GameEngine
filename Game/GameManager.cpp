@@ -92,29 +92,17 @@ void GameManager::Init(HINSTANCE hInstance, int nShowCmd) {
 
 
     GameObject* skyBox = new GameObject(m_pComponentManager, "SkyBox");
-    GameObject* earthPlanet = new GameObject(m_pComponentManager, "EarthPlanet");
 
 
     skyBox->Initialize(m_pRenderer, m_pCamera, XMFLOAT3(0.0f, 0.0f, 0.0f), XMFLOAT3(0.0f, 0.0f, 0.0f), XMFLOAT3(40.0f, 40.0f, 40.0f), m_pResourceManager->FindMeshComponentByName("mesh2").component, cbData, false);
-    earthPlanet->Initialize(m_pRenderer, m_pCamera, XMFLOAT3(0.0f, 0.0f, 0.0f), XMFLOAT3(0.0f, 0.0f, 0.0f), XMFLOAT3(1.0f, 1.0f, 1.0f), m_pResourceManager->FindMeshComponentByName("mesh1").component, cbData, true);
     
 
-    m_pComponentManager->AddComponent(*earthPlanet, m_pResourceManager->FindTextureComponentByName("texture").component);
     m_pComponentManager->AddComponent(*skyBox, m_pResourceManager->FindTextureComponentByName("texture2").component);
 
-    m_pComponentManager->AddComponent(*earthPlanet, m_pResourceManager->FindShaderComponentByName("shader1").component);
     m_pComponentManager->AddComponent(*skyBox, m_pResourceManager->FindShaderComponentByName("shader1").component);
 
-    //ParticleComponent* particleComponent = new ParticleComponent("ParticleComponent", m_pRenderer);
-    //particleComponent->Initialize(m_pCamera, m_pComponentManager, m_pResourceManager, m_pGameObjectManager, earthPlanet);
-    //m_pComponentManager->AddComponent(*earthPlanet, particleComponent);
 
-    m_pGameObjectManager->AddObject("EarthPlanet", earthPlanet);
-    //earthPlanet->m_needRender = false;
     m_pGameObjectManager->AddObject("SkyBox", skyBox);
-
-
-
 
 
     // Add an object camera to allow collision
@@ -124,22 +112,8 @@ void GameManager::Init(HINSTANCE hInstance, int nShowCmd) {
     m_pComponentManager->AddComponent(*m_playerObject, m_pResourceManager->FindShaderComponentByName("shader1").component);
     //m_pGameObjectManager->AddObject("Player", m_playerObject);
 
-
-
-
-
-
-    ScriptComponent* scriptComponentEarthPlanet = earthPlanet->GetComponent<ScriptComponent>(ComponentType::ScriptComponent);
     ScriptComponent* scriptComponentPlayerObject = m_playerObject->GetComponent<ScriptComponent>(ComponentType::ScriptComponent);
 
-     //Utilisation de scriptComponentEarthPlanet au lieu de scriptComponent
-    ZigzagMoveScript* movableScriptEarthPlanet = new ZigzagMoveScript();
-    movableScriptEarthPlanet->Initialize("ZigZagScript", earthPlanet);
-    scriptComponentEarthPlanet->AddScript(movableScriptEarthPlanet);
-
-    LifeScript* lifeScriptEarthPlanet = new LifeScript(m_pGameObjectManager);
-    lifeScriptEarthPlanet->Initialize("EarthPlanetScriptLife", earthPlanet);
-    scriptComponentEarthPlanet->AddScript(lifeScriptEarthPlanet);
 
     LifeScript* lifeScriptPlayerObject = new LifeScript(m_pGameObjectManager);
     lifeScriptPlayerObject->Initialize("PlayerObjectScriptLife", m_playerObject);
