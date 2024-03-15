@@ -1,13 +1,5 @@
 ﻿#include "pch.h"
 
-//#include "GameObjectManager.h"
-//
-//#include "../../renderer/Graphics.h" 
-//
-//#include "../components/Component.h" 
-//#include "../components/Collider.h" 
-//
-//#include "../entities/GameObject.hpp"
 
 
 GameObjectManager::GameObjectManager(Camera* camera) : m_pCamera(camera) {}
@@ -40,16 +32,6 @@ void GameObjectManager::Update(Renderer* renderer) {
 
     renderer->Precommandlist();
 
-
-    //// Sort object according to their z position, z depth sorting
-    //std::vector<ObjectPosZPair> objectPosZPairs;
-    //for (auto& pair : objectMap) {
-    //    GameObject* gameObject = pair.second;
-    //    Transform* transform = gameObject->GetComponent<Transform>(ComponentType::Transform);
-    //    float globalZPosition = transform->GetPosition().z;
-    //    objectPosZPairs.push_back({ gameObject, globalZPosition });
-    //}
-    //std::sort(objectPosZPairs.begin(), objectPosZPairs.end());
 
     std::vector<TestedPair> testedPairs;
 
@@ -130,10 +112,13 @@ void GameObjectManager::Update(Renderer* renderer) {
     for (auto& pair : objectMap) {
         for (int i = 0; i < pair.second.size(); i++)
         {
-        GameObject* gameObject = pair.second[i];
-        ColliderComponent* colliderComponent = gameObject->GetComponent<ColliderComponent>(ComponentType::ColliderComponent);
-        colliderComponent->m_collideState = 0;
-        colliderComponent->m_colliderObject = nullptr;
+            GameObject* gameObject = pair.second[i];
+            if (!gameObject->m_needCollide) {
+                continue;
+            }
+            ColliderComponent* colliderComponent = gameObject->GetComponent<ColliderComponent>(ComponentType::ColliderComponent);
+            colliderComponent->m_collideState = 0;
+            colliderComponent->m_colliderObject = nullptr;
         }
     }
 

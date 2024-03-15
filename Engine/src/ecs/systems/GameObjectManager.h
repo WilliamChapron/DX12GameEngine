@@ -16,14 +16,6 @@ struct TestedPair {
     }
 };
 
-struct ObjectPosZPair {
-    GameObject* object;
-    float positionZ;
-
-    bool operator<(const ObjectPosZPair& other) const {
-        return positionZ < other.positionZ;
-    }
-};
 
 class Renderer;
 class Camera;

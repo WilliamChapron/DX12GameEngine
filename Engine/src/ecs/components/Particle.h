@@ -1,12 +1,23 @@
 #pragma once
 
-class Atom;
+#include "../../Utils.h"
+
 class Renderer;
 class ShaderComponent;
 class Camera;
 class Mesh;
 class MeshRenderer;
 
+struct Atom {
+    Transform transform;
+
+    Atom(const XMFLOAT3& position) : transform(position, XMFLOAT3(0.0f, 0.0f, 0.0f), XMFLOAT3(1.0f, 1.0f, 1.0f)) {
+        // Imprime les coordonnées de la position lorsque le constructeur est appelé
+        //PrintMatrix(transform.GetTransformMatrix());
+
+
+    }
+};
 
 class ParticleComponent : public Component {
 public:
@@ -14,13 +25,9 @@ public:
 
     void Initialize(Camera* camera, ComponentManager* componentManager, ResourceManager* ressourceManager, std::shared_ptr<GameObjectManager> gameObjectManager, GameObject* gameObject);
 
-    void InitializeAtomsVertex();
-    void InitializeShader();
-    void InitializeTexture();
-
     void Update(Renderer* renderer) override;
 
-    void PrintAtomPositions();
+
 private:
     Renderer* m_pRenderer;
 
@@ -29,7 +36,8 @@ private:
     Mesh* m_pBaseMesh;
     MeshRenderer* m_pBaseMeshRenderer;
 
-    std::vector<Atom> atoms;
+    const int numParticles = 15;
+    std::vector<Atom*> atoms;
 
     // instances
 
@@ -37,5 +45,6 @@ private:
     std::shared_ptr<GameObjectManager> m_pGameObjectManager;
     ComponentManager* m_pComponentManager;
     GameObject* m_pGameObject;
+    Camera* m_pCamera;
 
 };

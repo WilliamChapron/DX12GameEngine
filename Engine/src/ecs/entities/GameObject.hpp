@@ -32,6 +32,7 @@ public:
 
     virtual void Initialize(Renderer* renderer, Camera* camera, const XMFLOAT3& position, const XMFLOAT3& rotation, const XMFLOAT3& scale, Mesh* mesh, ConstantBufferData* cbData, bool needCollide);
 
+
     void Update(Renderer* renderer, Camera* camera);
 
     std::list<Component*> componentsList;
@@ -39,7 +40,10 @@ public:
     bool m_needRender;
     bool m_needCollide;
 
+    bool m_customRenderer = false;
+
     std::string m_name;
+
 
 protected:
     

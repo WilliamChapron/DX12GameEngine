@@ -53,6 +53,8 @@ void GameObject::Initialize(Renderer* renderer, Camera* camera, const XMFLOAT3& 
 
 
 
+
+
 void GameObject::Update(Renderer* renderer, Camera* camera)
 {
     Transform* transformComponent = GetComponent<Transform>(ComponentType::Transform);
