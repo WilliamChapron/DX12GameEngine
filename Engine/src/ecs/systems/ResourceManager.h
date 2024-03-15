@@ -39,9 +39,8 @@ public:
 
 private:
 
-    // RESSOURCE MANAGER
     std::map<int, TextureComponent*> m_textureComponents;
-    std::map<int, Mesh*> m_meshRendererComponents; // Not a component
+    std::map<int, Mesh*> m_meshRendererComponents; 
     std::map<int, ShaderComponent*> m_shaderComponents;
     //
 

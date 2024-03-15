@@ -1,11 +1,6 @@
 #pragma once
 
-#include "../../include.h"
-#include "../../core/Defines.h"
-#include "../entities/GameObject.hpp"
-#include <vector>
-#include <unordered_map>
-#include <string>
+
 
 struct TestedPair {
     std::string first;

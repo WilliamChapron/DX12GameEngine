@@ -12,7 +12,6 @@ ScriptComponent::ScriptComponent(std::string name, GameObject* gameObject) : Com
 
 
 void ScriptComponent::Update(Renderer* renderer) {
-    //PRINT("Update Script Component");
     for (Script* script : m_pScripts) {
         script->Update();
     }

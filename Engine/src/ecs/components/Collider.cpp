@@ -1,14 +1,9 @@
 ﻿
 #include "pch.h"
 
-//#include "../entities/GameObject.hpp"
-//
-#include "Component.h"
-//#include "Transform.h"
-//#include "Mesh.h"
-//#include "Collider.h"
 
-//using namespace DirectX;
+#include "Component.h"
+
 
 
 ColliderComponent::ColliderComponent(std::string name) : Component(name, ComponentType::ColliderComponent), m_collideState(0), m_colliderObject(nullptr) {
@@ -38,8 +33,6 @@ void ColliderComponent::InitializeBoundingBox(GameObject* gameObject, Vertex* ve
         maxZ = (maxZ > vertexPos.z) ? maxZ : vertexPos.z;
     }
 
-    PRINT(gameObject->m_name);
-
     m_halfSize.x = abs(maxX - minX) / 2;
     m_halfSize.y = abs(maxY - minY) / 2;
     m_halfSize.z = abs(maxZ - minZ) / 2;
@@ -47,8 +40,6 @@ void ColliderComponent::InitializeBoundingBox(GameObject* gameObject, Vertex* ve
 
 
 void ColliderComponent::Update(Renderer* renderer) {
-    //PRINT("Update Collider");
-
 }
 
 
@@ -147,30 +138,9 @@ bool ColliderComponent::CheckCollision(GameObject* collideObject) {
         // Set collide info other object
         colliderComponentObject->m_collideState = 1;
         colliderComponentObject->m_colliderObject = m_pGameObject;
-
-        //std::cout << "Collision detected! Collided with object: " << collideObject->m_name << std::endl;
-        //std::cout << "Self - m_collideState: " << m_collideState << ", m_colliderObject: " << m_colliderObject->m_name << std::endl;
-
-        //// Print collide info of the other object
-        //std::cout << "Other - m_collideState: " << colliderComponentObject->m_collideState << ", m_colliderObject: " << colliderComponentObject->m_colliderObject->m_name << std::endl;
-
-        //std::cout << "----" << std::endl;
         return true;
     }
     else {
-        // Set collide info self
-        //m_collideState = 0;
-
-        //// Set collide info other object
-        //colliderComponentObject->m_collideState = 0;
-
-        //std::cout << "No collision detected." << std::endl;
-        //std::cout << "Self - m_collideState: " << m_collideState << ", m_colliderObject: " << (m_colliderObject ? m_colliderObject->m_name : "nullptr") << std::endl;
-
-        //// Print collide info of the other object
-        //std::cout << "Other - m_collideState: " << colliderComponentObject->m_collideState << ", m_colliderObject: " << (colliderComponentObject->m_colliderObject ? colliderComponentObject->m_colliderObject->m_name : "nullptr") << std::endl;
-
-        //std::cout << "----" << std::endl;
         return false;
     }
 

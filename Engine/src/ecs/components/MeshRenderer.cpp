@@ -15,8 +15,7 @@ MeshRenderer::MeshRenderer(std::string name, ConstantBufferData* cbData, Mesh* m
 
 void MeshRenderer::Initialize(Renderer* renderer, ConstantBufferData* cbData) {
     m_pRenderer = renderer;
-    //PRINT("INITIALIZE CONSTANT BUFFER");
-    // Création du tampon de constantes
+
     HRESULT hr;
     CD3DX12_HEAP_PROPERTIES cbHeapProps(D3D12_HEAP_TYPE_UPLOAD);
     CD3DX12_RESOURCE_DESC cbDesc = CD3DX12_RESOURCE_DESC::Buffer((sizeof(ConstantBufferData) + 255) & ~255);
@@ -31,13 +30,6 @@ void MeshRenderer::Initialize(Renderer* renderer, ConstantBufferData* cbData) {
     );
     ASSERT_FAILED(hr);
 
-    //std::cout << "Model Matrix during initialization:" << std::endl;
-    //PrintMatrix(cbData->model);
-
-
-    // #TODO FAIRE UNE FOIS PAR OBJET
-
-    // Mappage du tampon de constantes pour la copie des données
     hr = m_constantBuffer->Map(0, nullptr, reinterpret_cast<void**>(&m_mappedConstantBuffer));
     ASSERT_FAILED(hr);
     // Copie des données des constantes
@@ -53,10 +45,6 @@ void MeshRenderer::UpdateConstantBuffer(ConstantBufferData* cbData)
     // Copie des données des constantes
     memcpy(m_mappedConstantBuffer, cbData, sizeof(ConstantBufferData));
     m_constantBuffer->Unmap(0, nullptr);
-
-    PRINT("Update Constant buffer");
-    std::cout << "Model Matrix of" << GetName() << std::endl;
-    PrintMatrix(cbData->model);
 }
 
 
@@ -76,8 +64,6 @@ void MeshRenderer::Update(Renderer* renderer) {
     renderer->m_pCommandList->IASetIndexBuffer(&m_pMesh->GetIndexBufferView());
 
     renderer->m_pCommandList->DrawIndexedInstanced(m_pMesh->GetNumIndices(), 1, 0, 0, 0);
-
-    //PRINT("Update Mesh OK");
 }
 
 void MeshRenderer::MultipleSpriteDraw(Renderer* renderer, UINT indexNumber, UINT vertexNumber, UINT numParticles, std::vector<Atom*> atoms, Camera* camera) {

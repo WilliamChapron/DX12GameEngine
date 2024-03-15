@@ -1,13 +1,5 @@
 #include "pch.h"
 
-//#include "Texture.h"
-//#include "./Component.h"
-//
-//
-//#include "../../renderer/Graphics.h"
-//
-
-
 TextureComponent::TextureComponent(std::string name) : Component(name, ComponentType::Texture)
 {
 
@@ -55,9 +47,6 @@ void TextureComponent::Initialize(Renderer* renderer, int offset)
     CD3DX12_CPU_DESCRIPTOR_HANDLE srvHandle(renderer->m_pCbvSrvHeap->GetCPUDescriptorHandleForHeapStart());
     srvHandle.Offset(m_offset, renderer->m_cbvSrvDescriptorSize);
 
-
-    // PEUT ON RECUPERER LA
-
     hr = renderer->m_pCommandList->Close();
     ASSERT_FAILED(hr);
 
@@ -68,7 +57,6 @@ void TextureComponent::Initialize(Renderer* renderer, int offset)
 
     renderer->m_pDevice->CreateShaderResourceView(m_textureBuffer.Get(), &srvDesc, srvHandle);
 
-    // Get List from DDS Creation
 
 
     m_textureAdress = CD3DX12_GPU_DESCRIPTOR_HANDLE(renderer->m_pCbvSrvHeap->GetGPUDescriptorHandleForHeapStart());
@@ -77,11 +65,6 @@ void TextureComponent::Initialize(Renderer* renderer, int offset)
 }
 
 void TextureComponent::Update(Renderer* renderer) {
-    //PRINT("Update Texture");
-    //PRINT("OFFSET");
-    //PRINT(m_offset);
-    //CD3DX12_GPU_DESCRIPTOR_HANDLE cbvSrvHandle(renderer->m_pCbvSrvHeap.Get()->GetGPUDescriptorHandleForHeapStart());
-    //cbvSrvHandle.Offset(m_offset, renderer->m_cbvSrvDescriptorSize); // Utilisation du bon increment size
     renderer->m_pCommandList->SetGraphicsRootDescriptorTable(0, m_textureAdress);
 
 

@@ -16,6 +16,4 @@ public:
     double GetElapsedTime();
     double GetDeltaTime();
     int GetFramePerSecond();
-
-
 };

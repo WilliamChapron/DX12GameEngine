@@ -43,13 +43,7 @@ public:
 
     std::string m_name;
 
-
-protected:
-    
 private:
-
-
-
     ComponentManager* m_pComponentManager;
 public:
     template <typename T>

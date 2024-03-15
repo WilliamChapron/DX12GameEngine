@@ -13,7 +13,6 @@ Transform::Transform(const XMFLOAT3& pos, const XMFLOAT3& rot, const XMFLOAT3& s
 }
 
 void Transform::Update() {
-    //PRINT("Update Texture");
 }
 
 void Transform::IdentityRotation()
@@ -140,16 +139,9 @@ void Transform::Rotate(float pitch, float roll, float yaw)
     vForward.z = mRotation._33;
 
 
-    //XMFLOAT3 euler = QuaternionToEulerAngles(qRotation);
-    //vRotation.x = euler.x;
-    //vRotation.y = euler.y;
-    //vRotation.z = euler.z;
-
-
     UpdateTransformMatrix();
 }
 
-// #TODO add function SET ROTATIO / GET CURRENT ROTATION 
 
 void Transform::SetPosition(float offsetX, float offsetY, float offsetZ)
 {

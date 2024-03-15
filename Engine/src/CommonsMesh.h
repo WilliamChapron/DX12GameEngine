@@ -14,7 +14,6 @@ public:
     float aabbSizeZ;
 
     CubeMesh() {
-        // Initialisation des pointeurs
         cubeVertices = new Vertex[8]{
             { {-0.5f, -0.5f, -0.5f}, {1.0f, 0.0f, 0.0f, 1.0f}, {0.0f, 1.0f} },
             { {-0.5f, -0.5f,  0.5f}, {1.0f, 0.0f, 0.0f, 1.0f}, {0.0f, 0.0f} },
@@ -63,7 +62,6 @@ public:
     float aabbSizeZ;
 
     CubeMeshInvisible() {
-        // Initialisation des pointeurs
         cubeVertices = new Vertex[8]{
             { {-0.5f, -0.5f, -0.5f}, {1.0f, 0.0f, 0.0f, 0.0f}, {0.0f, 1.0f} },
             { {-0.5f, -0.5f,  0.5f}, {1.0f, 0.0f, 0.0f, 0.0f}, {0.0f, 0.0f} },
@@ -108,7 +106,6 @@ public:
     int numElementsI;
 
     TriangleMesh() {
-        // Initialisation des pointeurs
         cubeVertices = new Vertex[8]{
             { {0.5f, 0.9f, 0.9f}, {1.0f, 0.0f, 0.0f, 1.0f}, {0.0f, 1.0f} },
             { {0.9f, 0.9f,  -0.9f}, {1.0f, 0.0f, 0.0f, 1.0f}, {0.0f, 0.0f} },

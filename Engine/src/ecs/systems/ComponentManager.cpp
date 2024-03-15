@@ -1,20 +1,5 @@
 #include "pch.h"
 
-//#include "ComponentManager.h"
-//
-//#include "GameObjectManager.h"
-//
-//#include "../../renderer/Graphics.h"
-//
-//#include "../components/Camera.h"
-//#include "../components/Component.h"
-//
-//#include "../components/Texture.h"
-//#include "../components/Mesh.h"
-//#include "../components/MeshRenderer.h"
-
-
-
 
 // Pass Instance of GameObjectManager to Work with alive entity
 ComponentManager::ComponentManager(std::shared_ptr<GameObjectManager>& gameObjectManager, Renderer* renderer) : m_pGameObjectManager(gameObjectManager), m_pRenderer(renderer)
@@ -35,13 +20,11 @@ bool CompareByPriority(const Component* leftValue, const Component* rightValue) 
 }
 
 void ComponentManager::SortComponentsMap(GameObject& gameObject) {
-    // Transférer les composants dans un vecteur
     std::vector<Component*> componentsVector(gameObject.componentsList.begin(), gameObject.componentsList.end());
 
-    // Trier le vecteur par priorité
+    // Sort by priority
     std::stable_sort(componentsVector.begin(), componentsVector.end(), CompareByPriority);
 
-    // Remettre les composants triés dans la liste
     gameObject.componentsList.assign(componentsVector.begin(), componentsVector.end());
 }
 
@@ -51,7 +34,6 @@ void ComponentManager::AddComponent(GameObject& gameObject, Component* addCompon
     // Check if the component is already in the object
     for (const Component* component : gameObject.componentsList) {
         if (component->GetName() == addComponent->GetName()) {
-            PRINT("Object already in ");
             return;
         }
     }

@@ -27,7 +27,6 @@ void Camera::Initialize(XMFLOAT3 position, XMFLOAT3 rotation, XMFLOAT3 scale)
 
 
 void Camera::Update(float deltaTime) {
-    std::cout << transform->GetPosition().x << std::endl;
 }
 
 void Camera::UpdatePosition(XMFLOAT3 displacement) {
@@ -77,7 +76,6 @@ void Camera::UpdatePosition(float x, float y, float z) {
 
 
 void Camera::Rotate(float x, float y) {
-    // Mettre à jour la rotation de la caméra
 
     float dyaw = x * 0.01f;
     float dpitch = y * 0.01f;
@@ -87,8 +85,6 @@ void Camera::Rotate(float x, float y) {
 
     // gère la limite des rotations
     pitch = Clamp(pitch, -XM_PI * 0.5f, XM_PI * 0.5f);
-
-    //std::cout << "ROTATION CAMERA bis x : " << pitch << " y : " << yaw << std::endl;
 
     transform->IdentityRotation();
     transform->Rotate(pitch, 0.0f, yaw);
@@ -108,16 +104,6 @@ XMFLOAT3 Camera::GetDirection() {
 
     XMFLOAT3 direction;
     XMStoreFloat3(&direction, directionVector);
-
-    std::cout << "Combined Direction: (" << direction.x << ", " << direction.y << ", " << direction.z << ")" << std::endl;
-    std::cout << "Combined Direction: (" << direction.x << ", " << direction.y << ", " << direction.z << ")" << std::endl;
-    std::cout << "Combined Direction: (" << direction.x << ", " << direction.y << ", " << direction.z << ")" << std::endl;
-    std::cout << "Combined Direction: (" << direction.x << ", " << direction.y << ", " << direction.z << ")" << std::endl;
-    std::cout << "Combined Direction: (" << direction.x << ", " << direction.y << ", " << direction.z << ")" << std::endl;
-    std::cout << "Combined Direction: (" << direction.x << ", " << direction.y << ", " << direction.z << ")" << std::endl;
-    std::cout << "Combined Direction: (" << direction.x << ", " << direction.y << ", " << direction.z << ")" << std::endl;
-    std::cout << "Combined Direction: (" << direction.x << ", " << direction.y << ", " << direction.z << ")" << std::endl;
-    std::cout << "Combined Direction: (" << direction.x << ", " << direction.y << ", " << direction.z << ")" << std::endl;
 
     return direction;
 }

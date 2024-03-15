@@ -7,7 +7,6 @@ GameObjectManager::GameObjectManager(Camera* camera) : m_pCamera(camera) {}
 
 void GameObjectManager::AddObject(const std::string& name, GameObject* object) {
     objectMap[name].push_back(object);
-    PRINT("Object added: " << name);
 }
 
 
@@ -16,27 +15,20 @@ void GameObjectManager::RemoveObject(GameObject* object) {
         auto& objectVector = pair.second;
         auto it = std::find(objectVector.begin(), objectVector.end(), object);
         if (it != objectVector.end()) {
-            /*PRINT("Removing object: " << pair.first);*/
             (*it)->m_needRender = false;
             objectVector.erase(it);
             return;
         }
     }
-    PRINT("Object not found for removal.");
 }
 
 void GameObjectManager::Update(Renderer* renderer) {
     HRESULT hr;
-    PRINT("Frame");
 
 
     renderer->Precommandlist();
 
-
     std::vector<TestedPair> testedPairs;
-
-    
-
 
     for (auto& pair : objectMap) {
         for (int i = 0; i < pair.second.size(); i++)
@@ -60,9 +52,8 @@ void GameObjectManager::Update(Renderer* renderer) {
                     {
                         GameObject* tryCollideObject = tryCollide.second[i];
 
-
+                        // if the object which we are testing the collide does not accept it 
                         if (!tryCollideObject->m_needCollide) {
-                            /*PRINT(tryCollideObject->m_name);*/
                             continue;
                         }
 
@@ -70,7 +61,6 @@ void GameObjectManager::Update(Renderer* renderer) {
                         if (tryCollide.first == pair.first) {
                             continue;
                         }
-                        // if the object with which we are testing the collide does not accept it 
 
                         TestedPair objectPair{ pair.first, tryCollide.first };
                         // if already tested, don't try collide
@@ -108,7 +98,7 @@ void GameObjectManager::Update(Renderer* renderer) {
 
     renderer->WaitForPreviousFrame();
 
-
+    // Reset collide data
     for (auto& pair : objectMap) {
         for (int i = 0; i < pair.second.size(); i++)
         {

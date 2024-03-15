@@ -60,7 +60,7 @@ Renderer::Renderer(Window* pWindow) {
 
 Renderer::~Renderer() {
     for (int i = 0; i < m_FRAME_COUNT; ++i) {
-        m_pRenderTargets[i].Reset(); // Utilisation de Reset() pour lib�rer l'interface COM
+        m_pRenderTargets[i].Reset(); 
     }
 
 
@@ -68,14 +68,14 @@ Renderer::~Renderer() {
 
     m_pRtvHeap.Reset();
     m_pCbvSrvHeap.Reset();
-    m_pFence.Reset(); // Utilisation de Reset() pour lib�rer l'interface COM
-    m_pCommandList.Reset(); // Utilisation de Reset() pour lib�rer l'interface COM
-    m_pCommandAllocator.Reset(); // Utilisation de Reset() pour lib�rer l'interface COM
-    m_pCommandQueue.Reset(); // Utilisation de Reset() pour lib�rer l'interface COM
-    m_pSwapChain.Reset(); // Utilisation de Reset() pour lib�rer l'interface COM
-    m_pDevice.Reset(); // Utilisation de Reset() pour lib�rer l'interface COM
-    m_pAdapter.Reset(); // Utilisation de Reset() pour lib�rer l'interface COM
-    m_pFactory.Reset(); // Utilisation de Reset() pour lib�rer l'interface COM
+    m_pFence.Reset(); 
+    m_pCommandList.Reset(); 
+    m_pCommandAllocator.Reset(); 
+    m_pCommandQueue.Reset(); 
+    m_pSwapChain.Reset(); 
+    m_pDevice.Reset(); 
+    m_pAdapter.Reset(); 
+    m_pFactory.Reset(); 
 }
 
 void Renderer::InitializeDirectX12Instances() {
@@ -163,7 +163,7 @@ void Renderer::CreateDevice() {
         ASSERT_FAILED(hr);
         if (SUCCEEDED(hr)) {
             adapterFound = true;
-            break;  // Sortir de la boucle une fois que l'adaptateur est trouv�
+            break;  
         }
 
         adapterIndex++;
@@ -331,7 +331,6 @@ void Renderer::CreateDSV() {
 
 void Renderer::WaitForPreviousFrame()
 {
-    //PRINT("Waiting for previous frame...");
 
     // Signal and increment the fence value.
     m_fenceValue++;
@@ -342,8 +341,6 @@ void Renderer::WaitForPreviousFrame()
     // Wait until the previous frame is finished.
     if (m_pFence->GetCompletedValue() < m_fenceValue)
     {
-        //PRINT("RENTRE DANS PREVIOUS FRAME");
-        //Check if the GPU has completed all commands associated with the previous fence value
         HANDLE eventHandle = CreateEventEx(nullptr, NULL, false, EVENT_ALL_ACCESS);
 
         //Set the event to the current fence value
@@ -353,7 +350,6 @@ void Renderer::WaitForPreviousFrame()
         //Wait for the GPU to complete associated commands
         WaitForSingleObject(eventHandle, INFINITE);
 
-        //Close the handle to the event
         CloseHandle(eventHandle);
     }
 
@@ -400,7 +396,6 @@ void Renderer::Precommandlist() {
 
 
     m_pCommandList->OMSetRenderTargets(1, &rtvHandle, FALSE, &dsvHandle);
-    //m_pCommandList->OMSetRenderTargets(1, &rtvHandle, FALSE, nullptr);
 
 
 
@@ -431,16 +426,3 @@ void Renderer::Postcommandlist()
 }
 
 
-//D3D12_RASTERIZER_DESC rasterizerStateDesc {};
-//rasterizerStateDesc.FillMode = D3D12_FILL_MODE_SOLID;   // Remplissage solide
-//rasterizerStateDesc.CullMode = D3D12_CULL_MODE_FRONT;    // D�sactivation du culling
-//rasterizerStateDesc.FrontCounterClockwise = TRUE;       // Les triangles sont d�finis dans le sens inverse des aiguilles d'une montre (orientation des sommets)
-//rasterizerStateDesc.DepthBias = 0;
-//rasterizerStateDesc.DepthBiasClamp = 0.0f;
-//rasterizerStateDesc.SlopeScaledDepthBias = 0;
-//rasterizerStateDesc.DepthClipEnable = FALSE;             // Activation du test de profondeur
-
-//rasterizerStateDesc.MultisampleEnable = FALSE;          // D�sactivation de l'�chantillonnage multiple
-//rasterizerStateDesc.AntialiasedLineEnable = FALSE;
-
-//D3D12_BLEND_DESC blendDesc {};

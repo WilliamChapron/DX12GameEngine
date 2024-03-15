@@ -15,5 +15,4 @@ Component::~Component() {
 
 void Component::Update(Renderer* renderer)
 {
-	//PRINT("Update Component");
 }

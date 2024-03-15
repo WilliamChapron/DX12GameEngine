@@ -105,17 +105,12 @@ void GameManager::Init(HINSTANCE hInstance, int nShowCmd) {
     m_pComponentManager->AddComponent(*earthPlanet, m_pResourceManager->FindShaderComponentByName("shader1").component);
     m_pComponentManager->AddComponent(*skyBox, m_pResourceManager->FindShaderComponentByName("shader1").component);
 
-    ParticleComponent* particleComponent = new ParticleComponent("ParticleComponent", m_pRenderer);
-    particleComponent->Initialize(m_pCamera, m_pComponentManager, m_pResourceManager, m_pGameObjectManager, earthPlanet);
-    m_pComponentManager->AddComponent(*earthPlanet, particleComponent);
+    //ParticleComponent* particleComponent = new ParticleComponent("ParticleComponent", m_pRenderer);
+    //particleComponent->Initialize(m_pCamera, m_pComponentManager, m_pResourceManager, m_pGameObjectManager, earthPlanet);
+    //m_pComponentManager->AddComponent(*earthPlanet, particleComponent);
 
     m_pGameObjectManager->AddObject("EarthPlanet", earthPlanet);
     //earthPlanet->m_needRender = false;
-
-
-
-
-
     m_pGameObjectManager->AddObject("SkyBox", skyBox);
 
 
@@ -129,17 +124,6 @@ void GameManager::Init(HINSTANCE hInstance, int nShowCmd) {
     m_pComponentManager->AddComponent(*m_playerObject, m_pResourceManager->FindShaderComponentByName("shader1").component);
     //m_pGameObjectManager->AddObject("Player", m_playerObject);
 
-    GameObject* additionalPlanet2 = new GameObject(m_pComponentManager, "AdditionalPlanet2");
-    additionalPlanet2->Initialize(m_pRenderer, m_pCamera, XMFLOAT3(1.0f, 0.0f, 0.0f), XMFLOAT3(0.0f, 0.0f, 0.0f), XMFLOAT3(1.0f, 1.0f, 1.0f), m_pResourceManager->FindMeshComponentByName("mesh1").component, cbData, true);
-    m_pComponentManager->AddComponent(*additionalPlanet2, m_pResourceManager->FindTextureComponentByName("texture2").component);
-    m_pComponentManager->AddComponent(*additionalPlanet2, m_pResourceManager->FindShaderComponentByName("shader1").component);
-    //m_pGameObjectManager->AddObject("AdditionalPlanet2", additionalPlanet2);
-
-    additionalPlanet1 = new GameObject(m_pComponentManager, "AdditionalPlanet1");
-    additionalPlanet1->Initialize(m_pRenderer, m_pCamera, XMFLOAT3(1.0f, 0.0f, 10.0f), XMFLOAT3(0.0f, 0.0f, 0.0f), XMFLOAT3(1.0f, 1.0f, 1.0f), m_pResourceManager->FindMeshComponentByName("mesh1").component, cbData, true);
-    m_pComponentManager->AddComponent(*additionalPlanet1, m_pResourceManager->FindTextureComponentByName("texture").component);
-    m_pComponentManager->AddComponent(*additionalPlanet1, m_pResourceManager->FindShaderComponentByName("shader1").component);
-    //m_pGameObjectManager->AddObject("AdditionalPlanet1", additionalPlanet1);
 
 
 
@@ -147,9 +131,6 @@ void GameManager::Init(HINSTANCE hInstance, int nShowCmd) {
 
     ScriptComponent* scriptComponentEarthPlanet = earthPlanet->GetComponent<ScriptComponent>(ComponentType::ScriptComponent);
     ScriptComponent* scriptComponentPlayerObject = m_playerObject->GetComponent<ScriptComponent>(ComponentType::ScriptComponent);
-
-    ScriptComponent* scriptComponentAddPlanet1 = additionalPlanet1->GetComponent<ScriptComponent>(ComponentType::ScriptComponent);
-    ScriptComponent* scriptComponentAddPlanet2 = additionalPlanet2->GetComponent<ScriptComponent>(ComponentType::ScriptComponent);
 
      //Utilisation de scriptComponentEarthPlanet au lieu de scriptComponent
     ZigzagMoveScript* movableScriptEarthPlanet = new ZigzagMoveScript();
@@ -164,13 +145,6 @@ void GameManager::Init(HINSTANCE hInstance, int nShowCmd) {
     lifeScriptPlayerObject->Initialize("PlayerObjectScriptLife", m_playerObject);
     scriptComponentPlayerObject->AddScript(lifeScriptPlayerObject);
 
-    LifeScript* lifeScriptAddPlanet1 = new LifeScript(m_pGameObjectManager);
-    lifeScriptAddPlanet1->Initialize("AddPlanet1ScriptLife", additionalPlanet1);
-    scriptComponentAddPlanet1->AddScript(lifeScriptAddPlanet1);
-
-    LifeScript* lifeScriptAddPlanet2 = new LifeScript(m_pGameObjectManager);
-    lifeScriptAddPlanet2->Initialize("AddPlanet2ScriptLife", additionalPlanet2);
-    scriptComponentAddPlanet2->AddScript(lifeScriptAddPlanet2);
 
 
 
@@ -184,7 +158,6 @@ void GameManager::Init(HINSTANCE hInstance, int nShowCmd) {
 
 
 void GameManager::Run() {
-    std::cout << "Main Loop Started" << std::endl;
 
     Time time;
 
@@ -198,15 +171,10 @@ void GameManager::Run() {
 
     ShowCursor(FALSE);
 
-    //Cubes.push_back(*m_pCube1);
-    //Cubes.push_back(*m_pCube2);
-    // Ajoutez d'autres Cubes au besoin
-
     std::vector<GameObject> projectiles;
 
     EmptyGameObject* gameManagerObject = new EmptyGameObject(m_pComponentManager, "GameManagerObject");
     gameManagerObject->Initialize(m_pRenderer, m_pCamera, XMFLOAT3(5000.0f, 0.0f, 0.0f), XMFLOAT3(0.0f, 0.0f, 0.0f), XMFLOAT3(0.0f, 0.0f, 0.0f), m_pResourceManager->FindMeshComponentByName("invisibleMesh").component, cbData, false);
-    //m_pGameObjectManager->AddObject("GameManagerObj", gameManagerObject);
     ObstacleGenerationScript* obsGenScript = new ObstacleGenerationScript(time, m_pGameObjectManager, m_pComponentManager, m_pRenderer, m_pCamera, m_pResourceManager->FindMeshComponentByName("mesh1").component, cbData, m_pResourceManager);
     obsGenScript->Initialize("obstacleGenerationScRIPT", gameManagerObject);
     ScriptComponent* scriptComponentGameManagerObject = gameManagerObject->GetComponent<ScriptComponent>(ComponentType::ScriptComponent);

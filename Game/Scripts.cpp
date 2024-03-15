@@ -20,7 +20,6 @@ void MovableScript::Initialize(std::string name, GameObject* gameObject) {
 
 void MovableScript::Update() {
     time.UpdateTime();
-    PRINT("Update Movable Script");
     m_pStateMachine->Update();
 }
 
@@ -57,18 +56,8 @@ void ZigzagMoveScript::Update() {
 
 
     transformComponent->Translate(xOffset, 0.0f, -0.001f);
-
-
     transformComponent->Rotate(0.0f, 0.01, 0.0f);
 
-    //PRINT("Current Amplitude");
-    //PRINT(m_currentAmplitude);
-    //PRINT("Curvature");
-    //PRINT(curvature);
-    //PRINT("X Offset");
-    //PRINT(xOffset);
-
-    // Inverser la direction du zigzag si nécessaire
     if (abs(m_currentAmplitude) >= m_zigzagAmplitude) {
         m_currentAmplitude = 0.0f;
         m_goingRight = !m_goingRight;
@@ -91,7 +80,6 @@ void LifeScript::Update() {
 
 
     if (colliderComponent->m_collideState) {
-        std::cout << "DAMAGE" << std::endl;
         std::cout << m_name << std::endl;
 
 
@@ -142,7 +130,6 @@ void ObstacleGenerationScript::Initialize(std::string name, GameObject* gameObje
 void ObstacleGenerationScript::Update()
 {
     time.UpdateTime();
-    std::cout << "delay : " << delayOfSpawn << std::endl;
     if (delayOfSpawn <= 0)
     {
         GameObject* obstacle = new GameObject(pComponentManager, "obstacle1");

@@ -167,7 +167,6 @@ void ParticleComponent::Initialize(Camera* camera, ComponentManager* componentMa
 }
 
 void ParticleComponent::Update(Renderer* renderer) {
-    PRINT("Update Particle Component");
     m_pBaseMeshRenderer->MultipleSpriteDraw(m_pRenderer, 6, 4, 15, atoms, m_pCamera);
 
     

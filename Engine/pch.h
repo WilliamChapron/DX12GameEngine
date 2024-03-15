@@ -87,12 +87,7 @@
 #include "src/Utils.h"
 #include "src/DDSTextureLoader.h"
 
-// Other
 
-#include "src/Atom.h"
 
 using namespace DirectX;
-
-//// autres en-têtes à précompiler
-//#include "framework.h"
 

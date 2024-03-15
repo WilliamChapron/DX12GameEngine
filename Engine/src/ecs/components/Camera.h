@@ -20,12 +20,9 @@ public:
     void UpdateTarget(XMFLOAT3 m_newTarget);
 
 
-    // William 
-
     XMFLOAT3 GetPosition();
     XMFLOAT3 GetDirection();
 
-    //
     XMFLOAT4X4 GetViewMatrix() const;
     XMFLOAT4X4 GetProjectionMatrix() const { return f_projectionMatrix; };
 

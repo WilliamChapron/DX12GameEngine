@@ -8,16 +8,13 @@ public:
     void Update() override;
 
     inline void IdleMove() {
-        std::cout << "IdleMove" << std::endl;
     }
 
     inline void NormalMove() {
-        std::cout << "NormalMove" << std::endl;
         Transform* transformComponent = m_pGameObject->GetComponent<Transform>(ComponentType::Transform);
         if (transformComponent != nullptr) {
             transformComponent->Translate(m_direction.x * time.GetDeltaTime() * 4.f, m_direction.y * time.GetDeltaTime() * 4.f, m_direction.z * time.GetDeltaTime() * 4.f);
         }
-
     }
 private:
     XMFLOAT3 m_direction;

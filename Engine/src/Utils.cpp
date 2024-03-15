@@ -1,5 +1,6 @@
 #include "pch.h"
 #include <ctime>
+
 using namespace DirectX;
 
 void PrintMatrix(const XMFLOAT4X4& matrix)
@@ -24,7 +25,6 @@ void printFloatWithPrecision(float value, int precision) {
 }
 
 std::wstring stringToWString(const std::string& narrowString) {
-    // Conversion en chaîne de caractères large
     return std::wstring(narrowString.begin(), narrowString.end());
 }
 

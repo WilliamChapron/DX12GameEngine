@@ -12,19 +12,16 @@ ResourceManager::ResourceManager() : m_currentMeshComponentID(0), m_currentTextu
 
 void ResourceManager::AddTextureToResources(TextureComponent* addComponent) {
     int componentID = ++m_currentTextureComponentID;
-    // #TODO check si existe déja 
     m_textureComponents[componentID] = addComponent;
 }
 
 void ResourceManager::AddShaderToResources(ShaderComponent* addComponent) {
     int componentID = ++m_currentShaderComponentID;
-    // #TODO check si existe déja 
     m_shaderComponents[componentID] = addComponent;
 }
 
 void ResourceManager::AddMeshToResources(Mesh* addComponent) {
     int componentID = ++m_currentMeshComponentID;
-    // #TODO check si existe déja 
     m_meshRendererComponents[componentID] = addComponent;
 }
 

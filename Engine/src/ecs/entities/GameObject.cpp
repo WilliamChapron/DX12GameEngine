@@ -1,23 +1,5 @@
 #include "pch.h"
 
-//#include "GameObject.hpp"
-//
-//#include "../../renderer/Graphics.h"
-//
-//#include "../components/Component.h"  
-//#include "../systems/ComponentManager.h"  
-//
-//#include "../../core/Engine.h"  
-//#include "../components/Camera.h"
-//
-//#include "../components/Texture.h"
-//#include "../components/Transform.h"
-//#include "../components/Mesh.h"
-//#include "../components/MeshRenderer.h"
-//#include "../components/Collider.h"
-//
-//#include "../../renderer/Resources.h"
-
 
 
 
@@ -33,8 +15,6 @@ void GameObject::Initialize(Renderer* renderer, Camera* camera, const XMFLOAT3& 
     // Specific to each object
     Transform* baseTransform = new Transform(position, rotation, scale);
     m_pComponentManager->AddComponent(*this, baseTransform);  
-
-
 
     MeshRenderer* baseMeshRenderer = new MeshRenderer("MeshRenderer", cbData, mesh); // Component
     baseMeshRenderer->Initialize(renderer, cbData);
