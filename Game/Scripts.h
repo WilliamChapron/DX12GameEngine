@@ -15,7 +15,7 @@ public:
         std::cout << "NormalMove" << std::endl;
         Transform* transformComponent = m_pGameObject->GetComponent<Transform>(ComponentType::Transform);
         if (transformComponent != nullptr) {
-            transformComponent->Translate(m_direction.x * time.GetDeltaTime() * 4.f, m_direction.y * time.GetDeltaTime() * 4.f, m_direction.z * time.GetDeltaTime() * 4.f);
+            transformComponent->Translate(m_direction.x * time.GetDeltaTime() * 2.f, m_direction.y * time.GetDeltaTime() * 2.f, m_direction.z * time.GetDeltaTime() * 2.f);
         }
 
     }
