@@ -1,6 +1,7 @@
 ﻿#include "stdafx.h"
 #include "GameManager.h"
 #include "Scripts.h"
+#include "EmptyGameObject.h"
 
 GameManager::GameManager() /*: m_hInstance(nullptr), m_nShowCmd(0), m_pConsole(nullptr), m_pInput(nullptr), m_pCamera(nullptr), m_pGameObjectManager(nullptr) */
 {
@@ -43,13 +44,15 @@ void GameManager::Init(HINSTANCE hInstance, int nShowCmd) {
 
     // INITIALIZE UNIQUE COMPONENT
 
-    ConstantBufferData* cbData = new ConstantBufferData(); 
+    cbData = new ConstantBufferData(); 
     XMStoreFloat4x4(&cbData->model, XMMatrixIdentity()); ;
     cbData->view = m_pCamera->GetViewMatrix();
     cbData->projection = m_pCamera->GetProjectionMatrix();
 
     TextureComponent* texture = new TextureComponent("texture");
     TextureComponent* texture2 = new TextureComponent("texture2");
+    TextureComponent* texture3 = new TextureComponent("texture3");
+    TextureComponent* texture4 = new TextureComponent("texture4");
 
     Mesh* baseMesh = new Mesh("mesh1");
     Mesh* baseMesh2 = new Mesh("mesh2");
@@ -60,6 +63,8 @@ void GameManager::Init(HINSTANCE hInstance, int nShowCmd) {
 
     m_pResourceManager->AddTextureToResources(texture);
     m_pResourceManager->AddTextureToResources(texture2);
+    m_pResourceManager->AddTextureToResources(texture3);
+    m_pResourceManager->AddTextureToResources(texture4);
 
     m_pResourceManager->AddMeshToResources(baseMesh);
     m_pResourceManager->AddMeshToResources(baseMesh2);
@@ -77,6 +82,9 @@ void GameManager::Init(HINSTANCE hInstance, int nShowCmd) {
 
     texture->Initialize(m_pRenderer, m_pResourceManager->FindTextureComponentByName("texture").key);
     texture2->Initialize(m_pRenderer, m_pResourceManager->FindTextureComponentByName("texture2").key);
+    texture3->Initialize(m_pRenderer, m_pResourceManager->FindTextureComponentByName("texture3").key);
+    texture4->Initialize(m_pRenderer, m_pResourceManager->FindTextureComponentByName("texture4").key);
+
 
     baseShader->InitializeRootSignature();
     baseShader->InitializePSO();
@@ -196,6 +204,13 @@ void GameManager::Run() {
 
     std::vector<GameObject> projectiles;
 
+    EmptyGameObject* gameManagerObject = new EmptyGameObject(m_pComponentManager, "GameManagerObject");
+    gameManagerObject->Initialize(m_pRenderer, m_pCamera, XMFLOAT3(5000.0f, 0.0f, 0.0f), XMFLOAT3(0.0f, 0.0f, 0.0f), XMFLOAT3(0.0f, 0.0f, 0.0f), m_pResourceManager->FindMeshComponentByName("invisibleMesh").component, cbData, false);
+    //m_pGameObjectManager->AddObject("GameManagerObj", gameManagerObject);
+    ObstacleGenerationScript* obsGenScript = new ObstacleGenerationScript(time, m_pGameObjectManager, m_pComponentManager, m_pRenderer, m_pCamera, m_pResourceManager->FindMeshComponentByName("mesh1").component, cbData, m_pResourceManager);
+    obsGenScript->Initialize("obstacleGenerationScRIPT", gameManagerObject);
+    ScriptComponent* scriptComponentGameManagerObject = gameManagerObject->GetComponent<ScriptComponent>(ComponentType::ScriptComponent);
+    scriptComponentGameManagerObject->AddScript(obsGenScript);
 
     while (true) {
 
@@ -243,20 +258,13 @@ void GameManager::Run() {
             case VK_LBUTTON:
                 if (pair.second == KeyState::Pressed) {
                     
-
                     XMFLOAT3 direction = m_pCamera->GetDirection();
                     
-                    ConstantBufferData* cbDataBall = new ConstantBufferData();
-                    XMStoreFloat4x4(&cbDataBall->model, XMMatrixIdentity()); ;
-                    cbDataBall->view = m_pCamera->GetViewMatrix();
-                    cbDataBall->projection = m_pCamera->GetProjectionMatrix();
-
-
                     GameObject* ball = new GameObject(m_pComponentManager, "ball");
                     XMFLOAT3 ballPosition = m_playerObject->GetComponent<Transform>(ComponentType::Transform)->GetPosition();
-                    ball->Initialize(m_pRenderer, m_pCamera, XMFLOAT3(ballPosition.x, ballPosition.y - 0.25f, ballPosition.z + 0.25f), XMFLOAT3(0.0f, 0.0f, 0.0f), XMFLOAT3(0.1f, 0.1f, 0.1f), m_pResourceManager->FindMeshComponentByName("mesh1").component, cbDataBall, true);
+                    ball->Initialize(m_pRenderer, m_pCamera, XMFLOAT3(ballPosition.x, ballPosition.y - 0.25f, ballPosition.z + 0.25f), XMFLOAT3(0.0f, 0.0f, 0.0f), XMFLOAT3(0.1f, 0.1f, 0.1f), m_pResourceManager->FindMeshComponentByName("mesh1").component, cbData, true);
 
-                    m_pComponentManager->AddComponent(*ball, m_pResourceManager->FindTextureComponentByName("texture2").component);
+                    m_pComponentManager->AddComponent(*ball, m_pResourceManager->FindTextureComponentByName("texture4").component);
                     m_pComponentManager->AddComponent(*ball, m_pResourceManager->FindShaderComponentByName("shader1").component);
                       
                     m_pGameObjectManager->AddObject("Ball", ball);
@@ -265,7 +273,7 @@ void GameManager::Run() {
                     moveScriptBall->Initialize("BallMovableScript", ball);
                     LifeScript* lifeScriptBall = new LifeScript(m_pGameObjectManager);
                     lifeScriptBall->Initialize("ProjectileScriptLife", ball);
-                    LifeTimeScript* lifeTimeScript = new LifeTimeScript(time, m_pGameObjectManager);
+                    LifeTimeScript* lifeTimeScript = new LifeTimeScript(time, m_pGameObjectManager, 10.f);
                     lifeTimeScript->Initialize("LifeTimeScript", ball);
 
                     ScriptComponent* scriptComponentBall = ball->GetComponent<ScriptComponent>(ComponentType::ScriptComponent);
@@ -303,7 +311,7 @@ void GameManager::Run() {
             DispatchMessage(&msg);
         }
         m_pGameObjectManager->Update(m_pRenderer);
-
+        m_pGameObjectManager->UpdateCustomGameObject(gameManagerObject, m_pRenderer);
     }
 }
 

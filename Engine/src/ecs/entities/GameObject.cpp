@@ -69,7 +69,6 @@ void GameObject::Update(Renderer* renderer, Camera* camera)
 
     sendToMeshCbData.projection = camera->GetProjectionMatrix();
 
-
     sendToMeshCbData.model = transformComponent->GetTransformMatrix();
 
 

@@ -17,3 +17,5 @@ HRESULT CompileShaderFromFile(const wchar_t* filePath, const char* entryPoint, c
 XMFLOAT2 NormalizeVector(XMFLOAT2 vect);
 
 float Clamp(float v, float a = 0.0f, float b = 1.0f);
+
+int GetRandomNum(int min, int max);

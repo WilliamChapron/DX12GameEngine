@@ -34,6 +34,8 @@ public:
 
 
 private:
+
+
     ComponentManager* m_pComponentManager;
     float fov, aspectRatio, nearPlane, farPlane;
     float pitch, yaw;
