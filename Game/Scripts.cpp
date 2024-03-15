@@ -170,9 +170,9 @@ void ObstacleGenerationScript::Update()
         float length = sqrt(dir.x * dir.x + dir.y * dir.y + dir.z * dir.z);
         
         if (length != 0.0f) {
-            dir.x /= length;
-            dir.y /= length;
-            dir.z /= length;
+            dir.x /= length * 0.5f;
+            dir.y /= length * 0.5f;
+            dir.z /= length * 0.5f;
         } else dir = XMFLOAT3(0.0f, 0.0f, 0.0f); 
 
         MovableScript* movement = new MovableScript(dir);
