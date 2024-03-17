@@ -65,7 +65,7 @@ void Camera::UpdatePosition(float x, float y, float z) {
     XMVECTOR dir = XMVector3Normalize(XMLoadFloat3(&_dir));
 
 
-    XMVECTOR translation = XMVectorScale(dir, 0.01f);
+    XMVECTOR translation = XMVectorScale(dir, 0.1f);
 
     XMVECTOR newPosition = XMLoadFloat3(&_pos) + translation;
 
